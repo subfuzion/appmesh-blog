@@ -23,12 +23,20 @@ other applications in other networks running on AWS.
 [AWS CloudFormation] provides a common language for you to describe and provision all the
 infrastructure resources in your cloud environment.
 
-[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. App Mesh consists of the following foundational primitives:
+[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. App Mesh consists of the following resource primitives:
 
 * Virtual services
 * Virtual nodes
 * Virtual routers
 * Routes
+
+The term *virtual* is used because the resources it applies to are abstractions for the App Mesh model.
+
+A virtual service is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service called *reports.local*; other virtual services in the mesh that declare *reports.local* as a backend can communicate with it using this name regardless of whether the underlying physical service is running in the same compute cluster (e.g., ECS) or not. This is what we think of as the nodes in a logical service mesh diagram of an application. For example:
+
+![concepts-virtual-service](concepts-virtual-service.png)
+
+
 
 App Mesh uses [Envoy] proxies that you deploy with your microservices after creating
 your mesh resources (virtual services, virtual nodes, virtual routers, and routes).
