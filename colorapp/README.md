@@ -140,6 +140,7 @@ Successfully created/updated stack - DEMO-appmesh-mesh
 
 
 
+[AWS CloudFormation]: https://aws.amazon.com/cloudformation/
 [Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
 [Amazon Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
@@ -147,7 +148,6 @@ Successfully created/updated stack - DEMO-appmesh-mesh
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 [AWS regions]: ./regions.md
 [AWS X-Ray]: https://aws.amazon.com/xray/
-[CloudFormation]: https://aws.amazon.com/cloudformation/
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
 [github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
