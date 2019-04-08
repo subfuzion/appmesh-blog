@@ -19,4 +19,3 @@ publish: getassets
 	@git add . && git commit -am "Update colorapp" && git push -u origin master
 	@echo $$(date) > published
 	@echo "published:" $$(cat published)
-
