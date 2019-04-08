@@ -20,8 +20,8 @@ on AWS.
 
 ## Create the VPC
 
-We will use a script to deploy a [CloudFormation] stack that will create a VPC for
-our application.
+We will use a script to deploy a [CloudFormation] stack that will create a VPC
+for our application.
 
 The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment
 variable. It will be configured for two availability zones (AZs); each AZ will be
@@ -56,7 +56,9 @@ Successfully created/updated stack - DEMO-vpc
 
 ## Create an App Mesh
 
-We will use the following CloudFormation template to create our mesh:
+The following CloudFormation template will be used to create our mesh:
+
+`examples/infrastructure/appmesh-mesh.yaml`
 
 ```
 Parameters:
@@ -85,8 +87,8 @@ Outputs:
       Name: !Sub "${EnvironmentName}:Mesh"
 ```
 
-We will use a script to create the stack. We will use the same environment variables
-we used to create the VPC plus one additional one:
+We will use the same environment variables from the previous step, plus one
+additional one (`MESH_NAME`), to deploy the stack using a script (`appmesh-mesh.sh`).
 
 * `MESH_NAME` should be set to the name you want to use to identify the mesh. For this demo, we will call it `appmesh-mesh`.
 
