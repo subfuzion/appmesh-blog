@@ -4,7 +4,9 @@ This is how to run the demo from the re:Invent launch of App Mesh.
 
 Here's what we are going to do:
 
-1. Create a [Virtual Private Cloud] (VPC) for the application. A VPC is a virtual network that provides isolation from other applications in other networks running on AWS.
+1. Create a [Virtual Private Cloud] (VPC) for the application. A VPC is a virtual
+network that provides isolation from other applications in other networks running
+on AWS.
 
 2. 
 
@@ -16,11 +18,15 @@ Here's what we are going to do:
 
 ## Create the VPC
 
-We will use a script to deploy a [CloudFormation] stack that will create a VPC for our application.
+We will use a script to deploy a [CloudFormation] stack that will create a VPC for
+our application.
 
-The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment variable. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. 
+The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment
+variable. It will be configured for two availability zones (AZs); each AZ will be
+configured with a public and a private subnet. 
 
-The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one in each AZ) with default routes for them in the private subnets.
+The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one
+in each AZ) with default routes for them in the private subnets.
 
 App Mesh is available in all of the following [AWS regions]:
 
@@ -50,7 +56,8 @@ Note that Fargate is currenly supported only in `us-east-2` (more regions coming
 
 
 
-`AWS_PROFILE` should be set to a profile that you've configured for the AWS CLI (either `default` or a named profile).
+`AWS_PROFILE` should be set to a profile that you've configured for the AWS CLI (either
+`default` or a named profile).
 `AWS_DEFAULT_REGION` should be set to a region from the supported regions shown previously.
 `ENVIRONMENT_NAME` will be used as a prefix for the CloudFormation stacks that you will deploy.
 
@@ -74,18 +81,10 @@ Successfully created/updated stack - DEMO-vpc
 
 
 [AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
-
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
-
 [AWS regions]: https://github.com/aws/aws-app-mesh-roadmap/issues/1
-
 [CloudFormation]: https://aws.amazon.com/cloudformation/
-
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
-
 [NAT Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
-
 [Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
-
-
 
