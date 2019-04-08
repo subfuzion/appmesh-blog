@@ -23,36 +23,12 @@ our application.
 
 The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment
 variable. It will be configured for two availability zones (AZs); each AZ will be
-configured with a public and a private subnet. 
+configured with a public and a private subnet. App Mesh is currently available in
+nineteen [AWS regions]:
 
 The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one
 in each AZ) with default routes for them in the private subnets.
 
-App Mesh is available in all of the following [AWS regions]:
-
-| AWS Region Name            | Code           |
-|----------------------------|----------------|
-| US West (N. California)    | us-west-1      |
-| US West (Oregon)           | us-west-2      |
-| US East (N. Virginia)      | us-east-1      |
-| US East (Ohio)             | us-east-2      |
-| Canada (Central)           | ca-central-1   |
-| Europe (Ireland)           | eu-west-1      |
-| Europe (London)            | eu-west-2      |
-| Europe (Stockholm)         | eu-north-1     |
-| Europe (Frankfurt)         | eu-central-1   |
-| Asia Pacific (Mumbai)      | ap-south-1     |
-| Asia Pacific (Singapore)   | ap-southeast-1 |
-| Asia Pacific (Sydney)      | ap-southeast-2 |
-| Asia Pacific (Tokyo)       | ap-northeast-1 |
-| Asia Pacific (Seoul)       | ap-northeast-2 |
-| Asia Pacific (Osaka-Local) | ap-northeast-3 |
-| China (Beijing)            | cn-north-1     |
-| China (Ningxia)            | cn-northwest-1 |
-| AWS GovCloud (US-East)     | us-gov-east-1  |
-| AWS GovCloud (US-West)     | us-gov-west-1  |
-
-Note that Fargate is currenly supported only in `us-east-2` (more regions coming very soon).
 
 
 
@@ -82,7 +58,7 @@ Successfully created/updated stack - DEMO-vpc
 
 [AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
-[AWS regions]: https://github.com/aws/aws-app-mesh-roadmap/issues/1
+[AWS regions]: ./regions.md
 [CloudFormation]: https://aws.amazon.com/cloudformation/
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
 [NAT Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
