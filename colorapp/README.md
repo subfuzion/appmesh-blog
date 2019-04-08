@@ -36,7 +36,7 @@ A virtual service is an abstraction for a real microservice. When configuring Ap
 
 <div class="caption" align="center" style="display: block; font-size: 100%; padding-top: 3em; font-style: italic; font-weight: bold;"><p>Virtual Services A and B</p></div>
 
-<div style="padding-top: 50em;"><p>Virtual Services A and B</p></div>
+<div style="padding-top: 50px !important;"><p>Virtual Services A and B</p></div>
 
 ![concepts-virtual-service](concepts-virtual-service.png)
 
