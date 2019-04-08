@@ -34,7 +34,7 @@ The term *virtual* is used because the resources it applies to are abstractions 
 
 A virtual service is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service called *reports.local*; other virtual services in the mesh that declare *reports.local* as a backend can communicate with it using this name regardless of whether the underlying physical service is running in the same compute cluster (e.g., ECS) or not. This is what we think of as the nodes in a logical service mesh diagram of an application. For example:
 
-***</p><p align="center" style="display: block;font-size: 100%; margin-top: 2em;">Virtual Services A and B</p>***
+***<p align="center" style="display: block;font-size: 100%; margin-top: 2em;">Virtual Services A and B</p>***
 ![concepts-virtual-service](concepts-virtual-service.png)
 
 
