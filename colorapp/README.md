@@ -1,14 +1,39 @@
-# Running the Color App Demo
+# Running the Color App Demo from the AWS App Mesh Launch
 
-This is how to run the demo from the re:Invent launch of App Mesh.
+If you had the opportunity to watch the AWS App Mesh launch on March 27, then you
+saw Nick Coult, the launch Product Manager, give a nice demo using a simple
+application called the Color App. In this blog post, I'm going to walk you through
+setting up the example and running it on your own so you can experiment and
+familiarize yourself with App Mesh.
 
-Here's what we are going to do:
+Here's what we're going to do:
 
-1. Create a [Virtual Private Cloud] (VPC) for the application. A VPC is a virtual
-network that provides isolation from other applications in other networks running
-on AWS.
+1. Deploy a VPC for the application.
+2. Deploy a service mesh for the application with App Mesh.
+3. Deploy compute infrastructure for the application.
+4. Deploy services to compute infrastructure that will be managed and monitored using App Mesh.
+5. Use App Mesh to shape traffic for our application and observe the results with
+[Amazon CloudWatch] and [AWS X-Ray].
 
-2. 
+## Terminology and Concepts
+
+[Amazon Virtual Private Cloud] (VPC) is a virtual network that provides isolation from
+other applications in other networks running on AWS.
+
+[AWS CloudFormation] provides a common language for you to describe and provision all the
+infrastructure resources in your cloud environment.
+
+[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. App Mesh consists of the following foundational primitives:
+
+* Virtual services
+* Virtual nodes
+* Virtual routers
+* Routes
+
+App Mesh uses [Envoy] proxies that you deploy with your microservices after creating
+your mesh resources (virtual services, virtual nodes, virtual routers, and routes).
+You will normally use the [Envoy Image], which you will configure as part of your
+task or pod definition for your microservice.
 
 ## Prerequisites
 
@@ -20,7 +45,7 @@ on AWS.
 
 ## Create the VPC
 
-We will use a script to deploy a [CloudFormation] stack that will create a VPC
+We'll use a script to deploy a [CloudFormation] stack that will create a VPC
 for our application.
 
 The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment
@@ -107,12 +132,16 @@ Successfully created/updated stack - DEMO-appmesh-mesh
 
 
 
+[Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
+[Amazon Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
+[AWS App Mesh]: https://aws.amazon.com/app-mesh/
 [AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 [AWS regions]: ./regions.md
+[AWS X-Ray]: https://aws.amazon.com/xray/
 [CloudFormation]: https://aws.amazon.com/cloudformation/
+[Envoy]: https://www.envoyproxy.io/ 
+[Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
 [github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
 [NAT Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
-[Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
-
