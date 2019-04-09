@@ -6,15 +6,15 @@ Here's what we're going to do:
 
 1. Define terms and concepts for this post.
 2. Provision infrastructure for the application.
-   2.1. Create a VPC.
-   2.2. Create a service mesh.
-   2.3. Create compute resources.
+   * Create a VPC.
+   * Create a service mesh.
+   * Create compute resources.
 3. Deploy the application.
-   3.1. Configure App Mesh resources.
-   2.2. Deploy services to ECS.
+   * Configure App Mesh resources.
+   * Deploy services to ECS.
 4. Shape traffic.
-   4.1. Apply traffic rules
-   4.2. Monitor with [Amazon CloudWatch] and [AWS X-Ray].
+   * Apply traffic rules
+   * Monitor with [Amazon CloudWatch] and [AWS X-Ray].
 
 ## Terminology and Concepts
 
