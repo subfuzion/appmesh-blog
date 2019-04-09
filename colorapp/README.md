@@ -184,7 +184,7 @@ $
 
 At this point, you can also confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed. You should see something like this:
 
-![console-cloudformation-demo-stacks](console-cloudformation-demo-stacks2.svg)
+![console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
 
 
 ## Configure your App Mesh
