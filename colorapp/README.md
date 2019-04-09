@@ -26,7 +26,7 @@ infrastructure resources in your cloud environment.
 * **Virtual routers**
 * **Routes**
 
-The term *virtual* is used because the resources it applies to are abstractions for the App Mesh model.
+The term *virtual* is used for resources that don't physically exist except as abstractions in the App Mesh model.
 
 [Envoy] is a proxy that you deploy with each microservice after creating your mesh resources (virtual services, virtual nodes, virtual routers, and routes). You will normally run it in a container using the [Envoy Image], which you configure to as part of your task or pod definition for your microservice. Envoy proxies provide the foundation for the App Mesh implementation of its core resource abstractions. Service-to-service communication in the data plane flows through Envoy proxies that intercept all ingress and egress traffic for each microservice they are associated with through the mesh configuration.
 
