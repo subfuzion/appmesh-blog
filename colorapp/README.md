@@ -5,12 +5,12 @@ If you had the opportunity to watch the AWS App Mesh launch on March 27, then yo
 Here's what we're going to do:
 
 1. Define terms and concepts for this post.
-2. [Infrastructure] Create a VPC for the application.
-3. [Infrastructure] Create a service mesh for the application.
-4. [Infrastructure] Deploy compute resources for the application.
-5. Configure our mesh resources for the application.
+2. Infrastructure: Create a VPC for the application.
+3. Infrastructure: Create a service mesh for the application.
+4. Infrastructure: Deploy compute resources for the application.
+5. Create mesh resources for the application.
 6. Deploy services that will be managed and monitored using App Mesh.
-7. Use App Mesh to shape traffic for our application and observe the results with [Amazon CloudWatch] and [AWS X-Ray].
+7. Use App Mesh to shape traffic for the application and monitor with [Amazon CloudWatch] and [AWS X-Ray].
 
 ## Terminology and Concepts
 
@@ -21,10 +21,10 @@ infrastructure resources in your cloud environment.
 
 [AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. App Mesh consists of the following core resources: 
 
-* Virtual services
-* Virtual nodes
-* Virtual routers
-* Routes
+* **Virtual services**
+* **Virtual nodes**
+* **Virtual routers**
+* **Routes**
 
 The term *virtual* is used because the resources it applies to are abstractions for the App Mesh model.
 
