@@ -32,13 +32,20 @@ The term *virtual* is used because the resources it applies to are abstractions 
 
 ### Virtual Services
 
-A **virtual service** is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service called `B`; another virtual service in the mesh (such as `A`) that declares `B` as a backend can then communicate with it using this name regardless of whether the underlying physical service is running in the same compute cluster (e.g., ECS) or not.
+A **virtual service** is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service named `B`; another virtual service in the mesh (such as `A`) communicates with `B` using this name regardless of how and where `B` ultimately maps to underlying compute resources running on AWS.
 
 ![concepts-virtual-service](concepts-virtual-service.png)
 
 By using the virtual service name, service A need not be aware of the specific version of service B to communicate with. This feature makes it easy for the App Mesh operator to shape traffic transparently to service consumers in ways that support various scenarios, such as [Blue-Green deployments], [A/B testing], and [Canary releases].
 
+Ultimately, a virtual service needs to resolve a specific compute resource. When creating a virtual service you will specify a provider; this can be either a **virtual node** that acts as a logical pointer to a particular compute resource or a **virtual router** that spreads traffic across a set of virtual nodes.
+
+![concepts-virtual-service](concepts-virtual-service-providers.png)
+
 ### Virtual Nodes
+
+While virtual services interact with each other using their virtual service names, ultimately **virtual nodes** provide the mapping to a particular compute resource, such as a task group for an ECS service or Kubernetes deployment. 
+
 
 ### Virtual Routers
 
