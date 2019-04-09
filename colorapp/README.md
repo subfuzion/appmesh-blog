@@ -9,8 +9,8 @@ Here's what we're going to do:
 3. Infrastructure: Create a service mesh for the application.
 4. Infrastructure: Deploy compute resources for the application.
 5. Create mesh resources for the application.
-6. Deploy services that will be managed and monitored using App Mesh.
-7. Use App Mesh to shape traffic for the application and monitor with [Amazon CloudWatch] and [AWS X-Ray].
+6. Deploy services into the mesh.
+7. Apply traffic rules and monitor with [Amazon CloudWatch] and [AWS X-Ray].
 
 ## Terminology and Concepts
 
