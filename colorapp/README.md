@@ -5,9 +5,9 @@ If you had the opportunity to watch the AWS App Mesh launch on March 27, then yo
 Here's what we're going to do:
 
 1. Define terms and concepts for this post.
-2. Infrastructure: Create a VPC for the application.
-3. Infrastructure: Create a service mesh for the application.
-4. Infrastructure: Deploy compute resources for the application.
+2. Infrastructure: create a VPC for the application.
+3. Infrastructure: create a service mesh for the application.
+4. Infrastructure: deploy compute resources for the application.
 5. Create mesh resources for the application.
 6. Deploy services into the mesh.
 7. Apply traffic rules and monitor with [Amazon CloudWatch] and [AWS X-Ray].
