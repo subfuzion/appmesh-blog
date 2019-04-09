@@ -48,7 +48,7 @@ Although virtual services interact with each other using their virtual service n
 
 As mentioned in the previous section, virtual routers provide a layer of indirection between virtual services and virtual nodes to distribute traffic among them. How traffic gets spread across these virtual nodes is determined by **routes**. Routes are rules associated with a virtual router used to match incoming requests and apply an action that governs which virtual node the request will actually be sent to.
 
-
+![concepts-virtual-service](concepts-routes.png)
 
 ## Prerequisites
 
