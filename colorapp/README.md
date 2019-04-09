@@ -50,6 +50,8 @@ As mentioned in the previous section, virtual routers provide a layer of indirec
 
 ![concepts-virtual-service](concepts-routes.png)
 
+### Service Discovery
+
 ## Prerequisites
 
 1. You have the latest version of the [AWS CLI] installed.
@@ -143,11 +145,39 @@ Successfully created/updated stack - DEMO-appmesh-mesh
 $
 ```
 
+At this point we have now created our networking resources (VPC and App Mesh), but we have not yet deployed:
 
+* compute resources to run our services on
+* mesh configuration for our services
+* actual services
 
+## Deploy Compute Resources
 
+Our infrastructre requires compute resources to run our services on. We'll use another script to deploy a [AWS CloudFormation] stack that will create an initial ECS cluster for our demo. Both the script and the template are located under `examples/infrastructure`.
 
+In addition to the previous defined environment variables, you will also need to export the following:
 
+* `SERVICES_DOMAIN` - this is the domain under which services in the mesh will be discovered. For this demo, we will use `demo.local`. In this demo, the colorgateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
+* `KEY_PAIR_NAME` - this is your EC2 keypair that you can use to ssh into your EC2 instances.
+ 
+You can also override the demo script's default cluster size (5) by setting `CLUSTER_SIZE`:
+
+* `CLUSTER_SIZE` - the number of EC2 instances to provision for the ECS cluster (the demo script will default to 5).
+
+***To deploy the stack and create the ECS cluster, run the following script:***
+
+`examples/infrastructure/ecs-cluster.sh`
+
+```
+$ ./examples/infrastructure/ecs-cluster.sh
+...
++ aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-ecs-cluster --capabilities CAPABILITY_IAM --template-file /home/ec2-user/projects/aws/aws-app-mesh-examples/examples/infrastructure/ecs-cluster.yaml --parameter-overrides EnvironmentName=DEMO KeyName=tony_devbox2 ECSServicesDomain=demo.local ClusterSize=5
+
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+...
+
+```
 
 
 
