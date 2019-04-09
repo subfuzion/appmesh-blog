@@ -60,7 +60,7 @@ As mentioned in the previous section, virtual routers provide a layer of indirec
 
 ## Create the VPC
 
-We'll use a script to deploy a [CloudFormation] stack that will create a VPC
+We'll use a script to deploy a [AWS CloudFormation] stack that will create a VPC
 for our application.
 
 The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment variable. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. App Mesh is currently available in nineteen [AWS regions]:
@@ -155,4 +155,4 @@ Successfully created/updated stack - DEMO-appmesh-mesh
 [Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
 [github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
-[NAT Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
+[NAT Gateways]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
