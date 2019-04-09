@@ -73,9 +73,9 @@ The following environment variables need to be set before running the script:
 * `AWS_DEFAULT_REGION` should be set to a region from the supported regions shown previously.
 * `ENVIRONMENT_NAME` will be used as a prefix for the CloudFormation stacks that you will deploy.
 
-***To deploy the stack and create the VPC, run***
+***To deploy the stack and create the VPC, run the following script:***
 
-`examples/infrastructure/vpc.sh`:
+`examples/infrastructure/vpc.sh`
 
 ```
 $ export AWS_PROFILE=default
@@ -128,9 +128,9 @@ We will use the same environment variables from the previous step, plus one addi
 
 * `MESH_NAME` should be set to the name you want to use to identify the mesh. For this demo, we will call it `appmesh-mesh`.
 
-***To deploy the stack and create the mesh, run***
+***To deploy the stack and create the mesh, run the following script:***
 
-`examples/infrastructure/appmesh-mesh.sh`:
+`examples/infrastructure/appmesh-mesh.sh`
 ```
 $ ./examples/infrastructure/appmesh-mesh.sh
 ...
