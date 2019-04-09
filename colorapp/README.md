@@ -34,7 +34,7 @@ The term *virtual* is used because the resources it applies to are abstractions 
 
 A **virtual service** is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service named `B`; another virtual service in the mesh (such as `A`) communicates with `B` using this name regardless of how and where `B` ultimately maps to underlying compute resources running on AWS.
 
-![appmesh-concepts-virtual-service](appmesh-concepts-virtual-service)
+![appmesh-concepts-virtual-service](appmesh-concepts-virtual-service.svg)
 
 By using the virtual service name, service A need not be aware of the specific version of service B to communicate with. This feature makes it easy for the App Mesh operator to shape traffic transparently to service consumers in ways that support various scenarios, such as [Blue-Green deployments], [A/B testing], and [Canary releases].
 
