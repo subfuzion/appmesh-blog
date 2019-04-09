@@ -42,7 +42,7 @@ Although virtual services interact with each other using their virtual service n
 
 ![concepts-virtual-service](concepts-virtual-service-providers.png)
 
-> Important! These virtual services are abstractions to help us configure our mesh. Ultimately, App Mesh converts this abstract configuration to concrete configuration specifications that are pushed by the App Mesh control plane to each Envoy proxy coupled to a microservice running in the mesh. Communication between concrete services flows through these proxies point-to-point within the data plane. There is no performance cost for using these abstractions to drive configuration!
+> Important! These virtual services are abstractions to help us configure our mesh. Ultimately, App Mesh converts this abstract configuration into concrete Envoy-specific configuration specifications that are pushed by the App Mesh control plane to each Envoy proxy coupled to a microservice running in the mesh. Communication between concrete services flows through these proxies point-to-point within the data plane. There is no performance cost for using these abstractions to drive configuration!
 
 
 
