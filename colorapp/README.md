@@ -182,7 +182,11 @@ Successfully created/updated stack - DEMO-ecs-cluster
 $
 ```
 
+At this point, you can also confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed. You should see something like this:
 
+![console-cloudformation-demo-stacks](console-cloudformation-demo-stacks.png)
+
+## Configure your App Mesh
 
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
