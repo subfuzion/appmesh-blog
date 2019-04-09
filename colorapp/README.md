@@ -153,7 +153,7 @@ At this point we have now created our networking resources (VPC and App Mesh), b
 
 ## Deploy Compute Resources
 
-Our infrastructre requires compute resources to run our services on. We'll use another script to deploy a [AWS CloudFormation] stack that will create an initial ECS cluster for our demo. Both the script and the template are located under `examples/infrastructure`.
+Our infrastructure requires compute resources to run our services on. We'll use another script to deploy a [AWS CloudFormation] stack that will create an initial ECS cluster for our demo. Both the script and the template are located under `examples/infrastructure` (you can also choose to create an EKS cluster, if you prefer).
 
 In addition to the previous defined environment variables, you will also need to export the following:
 
@@ -163,6 +163,8 @@ In addition to the previous defined environment variables, you will also need to
 You can also override the demo script's default cluster size (5) by setting `CLUSTER_SIZE`:
 
 * `CLUSTER_SIZE` - the number of EC2 instances to provision for the ECS cluster (the demo script will default to 5).
+
+This example uses a script (`ecs-cluster.sh`) to deploy an ECS cluster, but you can use `eks-cluster.sh` to deploy an EKS cluster if you prefer.
 
 ***To deploy the stack and create the ECS cluster, run the following script:***
 
@@ -176,7 +178,8 @@ $ ./examples/infrastructure/ecs-cluster.sh
 Waiting for changeset to be created..
 Waiting for stack create/update to complete
 ...
-
+Successfully created/updated stack - DEMO-ecs-cluster
+$
 ```
 
 
