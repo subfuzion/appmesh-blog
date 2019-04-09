@@ -34,7 +34,9 @@ The term *virtual* is used because the resources it applies to are abstractions 
 
 A **virtual service** is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service called `B`; another virtual service in the mesh (such as `A`) that declares `B` as a backend can then communicate with it using this name regardless of whether the underlying physical service is running in the same compute cluster (e.g., ECS) or not.
 
-![concepts-virtual-service](concepts-virtual-service.png)  
+![concepts-virtual-service](concepts-virtual-service.png)
+
+By using the virtual service name, service A need not be aware of the specific version of a service its communication is being directed to. This feature makes it easy for the App Mesh operator to shape traffic in ways that support various scenarios, such as [Blue-Green deployments], [A/B testing], and [Canary releases].
 
 ### Virtual Nodes
 
@@ -133,6 +135,7 @@ Successfully created/updated stack - DEMO-appmesh-mesh
 
 
 
+[A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [AWS CloudFormation]: https://aws.amazon.com/cloudformation/
 [Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
 [Amazon Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
@@ -141,6 +144,8 @@ Successfully created/updated stack - DEMO-appmesh-mesh
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 [AWS regions]: ./regions.md
 [AWS X-Ray]: https://aws.amazon.com/xray/
+[Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
+[Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
 [github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
