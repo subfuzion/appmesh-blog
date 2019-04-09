@@ -186,6 +186,7 @@ At this point, you can also confirm in the AWS Console that all of your CloudFor
 
 
 ![console-cloudformation-demo-stacks](console-cloudformation-demo-stacks.svg)
+<img src="./console-cloudformation-demo-stacks.svg">
 
 ## Configure your App Mesh
 
