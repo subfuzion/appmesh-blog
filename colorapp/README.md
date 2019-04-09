@@ -36,6 +36,8 @@ A virtual service is an abstraction for a real microservice. When configuring Ap
 
 ![concepts-virtual-service](concepts-virtual-service.png)
 ###### ***Figure 1.*** Virtual Services A and B.
+### 
+### 
 
 App Mesh uses [Envoy] proxies that you deploy with your microservices after creating
 your mesh resources (virtual services, virtual nodes, virtual routers, and routes).
