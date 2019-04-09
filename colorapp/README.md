@@ -1,4 +1,4 @@
-# Deep dive with the AWS App Mesh launch Color App demo
+# AWS App Mesh Deep Dive with the Color App
 
 If you had the opportunity to watch the AWS App Mesh launch on March 27, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App. In this blog post, I'm going dig a bit deeper into App Mesh than the time for the launch demo permitted. After that, I'll walk you through setting up the Color App demo and running it on your own so you can experiment and familiarize yourself with App Mesh on your own.
 
