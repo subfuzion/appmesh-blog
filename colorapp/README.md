@@ -182,9 +182,7 @@ Successfully created/updated stack - DEMO-ecs-cluster
 $
 ```
 
-#### At this stage...
-
-You have provisioned the infrastructure you need. You can confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed. You should see something like this:
+> At this stage you have provisioned the infrastructure you need. You can confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed, like the following screenshot.
 
 ![console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
 
