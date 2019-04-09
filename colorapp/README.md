@@ -38,7 +38,7 @@ A **virtual service** is an abstraction for a real microservice. When configurin
 
 By using the virtual service name, service A need not be aware of the specific version of service B to communicate with. This feature makes it easy for the App Mesh operator to shape traffic transparently to service consumers in ways that support various scenarios, such as [Blue-Green deployments], [A/B testing], and [Canary releases].
 
-Although virtual services interact with each other using their virtual service names, a virtual service ultimately needs to resolve a specific compute resource. When creating a virtual service you will specify a provider; this can be either a **virtual node** that acts as a logical pointer to a particular compute resource or a **virtual router** that spreads traffic across a set of virtual nodes.
+Although virtual services interact with each other using their virtual service names, a virtual service ultimately needs to resolve a specific compute resource. When creating a virtual service you will specify a provider; this can be either a **virtual node** that acts as a logical pointer to a particular compute resource (which itself might be a logical compute abstraction, such as a task group for an ECS service or a Kubernetes deployment) or to a **virtual router** that will spread traffic across a *set* of virtual nodes.
 
 ![concepts-virtual-service](concepts-virtual-service-providers.png)
 
