@@ -44,9 +44,10 @@ Although virtual services interact with each other using their virtual service n
 
 > Important! These virtual services are abstractions to help us configure our mesh. Ultimately, App Mesh converts this abstract configuration into concrete Envoy-specific configuration specifications that are pushed by the App Mesh control plane to each Envoy proxy coupled to a microservice running in the mesh. Communication between concrete services flows through these proxies point-to-point within the data plane. There is no performance cost for using these abstractions to drive configuration!
 
-
-
 ### Routes
+
+As mentioned in the previous section, virtual routers provide a layer of indirection between virtual services and virtual nodes to distribute traffic among them. How traffic gets spread across these virtual nodes is determined by **routes**. Routes are rules associated with a virtual router used to match incoming requests and apply an action that governs which virtual node the request will actually be sent to.
+
 
 
 ## Prerequisites
