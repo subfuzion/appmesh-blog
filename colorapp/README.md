@@ -184,9 +184,6 @@ $
 
 At this point, you can also confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed. You should see something like this:
 
-![console-cloudformation-demo-stacks](console-cloudformation-demo-stacks.png)
-
-![console-cloudformation-demo-stacks](console-cloudformation-demo-stacks3.png)
 
 ![console-cloudformation-demo-stacks](console-cloudformation-demo-stacks.svg)
 
