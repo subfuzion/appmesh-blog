@@ -1,13 +1,10 @@
-# Running the Color App Demo from the AWS App Mesh Launch
+# Deep dive with the AWS App Mesh launch Color App demo
 
-If you had the opportunity to watch the AWS App Mesh launch on March 27, then you
-saw Nick Coult, the launch Product Manager, give a nice demo using a simple
-application called the Color App. In this blog post, I'm going to walk you through
-setting up the example and running it on your own so you can experiment and
-familiarize yourself with App Mesh.
+If you had the opportunity to watch the AWS App Mesh launch on March 27, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App. In this blog post, I'm going dig a bit deeper into App Mesh than the time for the launch demo permitted. After that, I'll walk you through setting up the Color App demo and running it on your own so you can experiment and familiarize yourself with App Mesh on your own.
 
 Here's what we're going to do:
 
+1. Define terms and concepts for this post.
 1. Deploy a VPC for the application.
 2. Deploy a service mesh for the application with App Mesh.
 3. Deploy compute infrastructure for the application.
@@ -17,13 +14,12 @@ Here's what we're going to do:
 
 ## Terminology and Concepts
 
-[Amazon Virtual Private Cloud] (VPC) is a virtual network that provides isolation from
-other applications in other networks running on AWS.
+[Amazon Virtual Private Cloud] (VPC) is a virtual network that provides isolation from other applications in other networks running on AWS.
 
 [AWS CloudFormation] provides a common language for you to describe and provision all the
 infrastructure resources in your cloud environment.
 
-[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. App Mesh consists of the following resource primitives:
+[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. App Mesh consists of the following core resources: 
 
 * Virtual services
 * Virtual nodes
@@ -32,15 +28,20 @@ infrastructure resources in your cloud environment.
 
 The term *virtual* is used because the resources it applies to are abstractions for the App Mesh model.
 
-A virtual service is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service called *reports.local*; other virtual services in the mesh that declare *reports.local* as a backend can communicate with it using this name regardless of whether the underlying physical service is running in the same compute cluster (e.g., ECS) or not. This is what we think of as the nodes in a logical service mesh diagram of an application. For example:
+[Envoy] is a proxy that you deploy with each microservice after creating your mesh resources (virtual services, virtual nodes, virtual routers, and routes). You will normally run it in a container using the [Envoy Image], which you configure to as part of your task or pod definition for your microservice. Envoy proxies provide the foundation for the App Mesh implementation of its core resource abstractions. Service-to-service communication in the data plane flows through Envoy proxies that intercept all ingress and egress traffic for each microservice they are associated with through the mesh configuration.
 
+### Virtual Services
+
+A **virtual service** is an abstraction for a real microservice. When configuring App Mesh, you might define a virtual service called `B`; another virtual service in the mesh (such as `A`) that declares `B` as a backend can then communicate with it using this name regardless of whether the underlying physical service is running in the same compute cluster (e.g., ECS) or not.
 
 ![concepts-virtual-service](concepts-virtual-service.png)  
 
-App Mesh uses [Envoy] proxies that you deploy with your microservices after creating
-your mesh resources (virtual services, virtual nodes, virtual routers, and routes).
-You will normally use the [Envoy Image], which you will configure as part of your
-task or pod definition for your microservice.
+### Virtual Nodes
+
+### Virtual Routers
+
+### Routes
+
 
 ## Prerequisites
 
@@ -55,18 +56,13 @@ task or pod definition for your microservice.
 We'll use a script to deploy a [CloudFormation] stack that will create a VPC
 for our application.
 
-The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment
-variable. It will be configured for two availability zones (AZs); each AZ will be
-configured with a public and a private subnet. App Mesh is currently available in
-nineteen [AWS regions]:
+The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment variable. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. App Mesh is currently available in nineteen [AWS regions]:
 
-The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one
-in each AZ) with default routes for them in the private subnets.
+The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one in each AZ) with default routes for them in the private subnets.
 
 The following environment variables need to be set before running the script:
 
-* `AWS_PROFILE` should be set to a profile that you've configured for the AWS CLI (either
-`default` or a named profile).
+* `AWS_PROFILE` should be set to a profile that you've configured for the AWS CLI (either `default` or a named profile).
 * `AWS_DEFAULT_REGION` should be set to a region from the supported regions shown previously.
 * `ENVIRONMENT_NAME` will be used as a prefix for the CloudFormation stacks that you will deploy.
 
@@ -78,8 +74,7 @@ $ export AWS_DEFAULT_REGION=us-west-2
 $ export ENVIRONMENT_NAME=DEMO
 $ .examples/infrastructure/vpc.sh
 ...
-+ aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-vpc --capabilities CAPABILITY_IAM --template-file examples/infrastructure/vpc.yaml --parameter-overrides EnvironmentName=DEMO
-
++ aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-vpc --capabilities CAPABILITY_IAM --template-file examples/infrastructure/vpc.yaml --parameter-overrides EnvironmentName=DEMO 
 Waiting for changeset to be created..
 Waiting for stack create/update to complete
 ...
@@ -119,8 +114,7 @@ Outputs:
       Name: !Sub "${EnvironmentName}:Mesh"
 ```
 
-We will use the same environment variables from the previous step, plus one
-additional one (`MESH_NAME`), to deploy the stack using a script (`appmesh-mesh.sh`).
+We will use the same environment variables from the previous step, plus one additional one (`MESH_NAME`), to deploy the stack using a script (`appmesh-mesh.sh`).
 
 * `MESH_NAME` should be set to the name you want to use to identify the mesh. For this demo, we will call it `appmesh-mesh`.
 
