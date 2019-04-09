@@ -36,7 +36,7 @@ A **virtual service** is an abstraction for a real microservice. When configurin
 
 ![concepts-virtual-service](concepts-virtual-service.png)
 
-By using the virtual service name, service A need not be aware of the specific version of a service its communication is being directed to. This feature makes it easy for the App Mesh operator to shape traffic in ways that support various scenarios, such as [Blue-Green deployments], [A/B testing], and [Canary releases].
+By using the virtual service name, service A need not be aware of the specific version of service B to communicate with. This feature makes it easy for the App Mesh operator to shape traffic transparently to service consumers in ways that support various scenarios, such as [Blue-Green deployments], [A/B testing], and [Canary releases].
 
 ### Virtual Nodes
 
