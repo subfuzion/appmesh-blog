@@ -40,8 +40,6 @@ By using the virtual service name, service A need not be aware of the specific v
 
 Although virtual services interact with each other using their virtual service names, a virtual service ultimately needs to resolve a specific compute resource. When creating a virtual service you will specify a provider; this can be either a **virtual node** that acts as a logical pointer to a particular compute resource (which itself might be a logical compute abstraction, such as a task group for an ECS service or a Kubernetes deployment) or to a **virtual router** that will spread traffic across a *set* of virtual nodes.
 
-![concepts-virtual-service](concepts-virtual-service-providers.png)
-
 ![appmesh-concepts-virtual-service-providers](appmesh-concepts-virtual-service-providers.svg)
 
 > Important! These virtual services are abstractions to help us configure our mesh. Ultimately, App Mesh converts this abstract configuration into concrete Envoy-specific configuration specifications that are pushed by the App Mesh control plane to each Envoy proxy coupled to a microservice running in the mesh. Communication between concrete services flows through these proxies point-to-point within the data plane. There is no performance cost for using these abstractions to drive configuration!
@@ -50,7 +48,7 @@ Although virtual services interact with each other using their virtual service n
 
 As mentioned in the previous section, virtual routers provide a layer of indirection between virtual services and virtual nodes to distribute traffic among them. How traffic gets spread across these virtual nodes is determined by **routes**. Routes are rules associated with a virtual router used to match incoming requests and apply an action that governs which virtual node the request will actually be sent to.
 
-![concepts-virtual-service](concepts-routes.png)
+![appmesh-concepts-virtual-service](appmesh-concepts-routes.svg)
 
 ### Service Discovery
 
