@@ -5,12 +5,12 @@ If you had the opportunity to watch the AWS App Mesh launch on March 27, then yo
 Here's what we're going to do:
 
 1. Define terms and concepts for this post.
-1. Deploy a VPC for the application.
-2. Deploy a service mesh for the application with App Mesh.
-3. Deploy compute infrastructure for the application.
-4. Deploy services to compute infrastructure that will be managed and monitored using App Mesh.
-5. Use App Mesh to shape traffic for our application and observe the results with
-[Amazon CloudWatch] and [AWS X-Ray].
+2. [Infrastructure] Create a VPC for the application.
+3. [Infrastructure] Create a service mesh for the application.
+4. [Infrastructure] Deploy compute resources for the application.
+5. Configure our mesh resources for the application.
+6. Deploy services that will be managed and monitored using App Mesh.
+7. Use App Mesh to shape traffic for our application and observe the results with [Amazon CloudWatch] and [AWS X-Ray].
 
 ## Terminology and Concepts
 
@@ -153,7 +153,7 @@ At this point we have now created our networking resources (VPC and App Mesh), b
 
 ## Deploy Compute Resources
 
-Our infrastructure requires compute resources to run our services on. We'll use another script to deploy a [AWS CloudFormation] stack that will create an initial ECS cluster for our demo. Both the script and the template are located under `examples/infrastructure` (you can also choose to create an EKS cluster, if you prefer).
+Our infrastructure requires compute resources to run our services on. We'll use another script to deploy an [AWS CloudFormation] stack that will create an initial ECS cluster for our demo. Both the script and the template are located under `examples/infrastructure` (you can also choose to create an EKS cluster, if you prefer).
 
 In addition to the previous defined environment variables, you will also need to export the following:
 
@@ -181,6 +181,7 @@ Waiting for stack create/update to complete
 Successfully created/updated stack - DEMO-ecs-cluster
 $
 ```
+
 
 
 
