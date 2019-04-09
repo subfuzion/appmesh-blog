@@ -5,12 +5,16 @@ If you had the opportunity to watch the AWS App Mesh launch on March 27, then yo
 Here's what we're going to do:
 
 1. Define terms and concepts for this post.
-2. Infrastructure: create a VPC for the application.
-3. Infrastructure: create a service mesh for the application.
-4. Infrastructure: deploy compute resources for the application.
-5. Create mesh resources for the application.
-6. Deploy services into the mesh.
-7. Apply traffic rules and monitor with [Amazon CloudWatch] and [AWS X-Ray].
+2. Provision infrastructure for the application.
+   1. Create a VPC.
+   2. Create a service mesh.
+   3. Create compute resources.
+3. Deploy the application.
+   1. Configure App Mesh resources.
+   2. Deploy services to ECS.
+4. Shape traffic.
+   1. Apply traffic rules
+   2. Monitor with [Amazon CloudWatch] and [AWS X-Ray].
 
 ## Terminology and Concepts
 
@@ -158,7 +162,7 @@ Our infrastructure requires compute resources to run our services on. We'll use 
 In addition to the previous defined environment variables, you will also need to export the following:
 
 * `SERVICES_DOMAIN` - this is the domain under which services in the mesh will be discovered. For this demo, we will use `demo.local`. In this demo, the colorgateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
-* `KEY_PAIR_NAME` - this is your EC2 keypair that you can use to ssh into your EC2 instances.
+* `KEY_PAIR_NAME` - this is your EC2 keypair that you can use to ssh into your EC2 instances, allowing you to test your routing without configuring a public ALB to the application frontend.
  
 You can also override the demo script's default cluster size (5) by setting `CLUSTER_SIZE`:
 
@@ -188,8 +192,11 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ![console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
 
+## Deploying the Application
 
-## Configure your App Mesh
+### Configure App Mesh Resources
+
+### Deploy Services to ECS
 
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
