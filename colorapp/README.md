@@ -216,8 +216,9 @@ The Color App consists of two microservices: **colorgateway** and **colorteller*
 The **colorteller** microservices responds to GET requests at the `/` (root) route by returning a color string (e.g., "blue").
 
 The **colorgateway** microservice responds to GET requests at the `/color` route by returning a JSON object that contains:
-* the color fetched from the **colorteller** service
-* a histogram of all colors fetched so far
+
+* The color fetched from the **colorteller** service.
+* A histogram of all colors fetched so far.
 
 The response object might look like this the first time **colorgateway** responds:
 
