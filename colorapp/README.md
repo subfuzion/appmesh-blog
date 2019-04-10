@@ -1,6 +1,6 @@
 # AWS App Mesh Deep Dive with the Color App
 
-If you had the opportunity to watch the AWS App Mesh launch on March 27, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App.
+If you had the opportunity to watch the AWS App Mesh General Availability (GA) launch on March 27, 2019, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App.
 
 ![appmesh-color-app](appmesh-color-app.svg)
 
@@ -257,11 +257,11 @@ Be that as it may, however, once a virtual service name for a backend is configu
 
 We keep talking about traffic getting routed to the ultimate service instances. What does that mean? It means that somewhere there are compute resources that run the actual code to perform work. How this works depends on the compute environment the services are physically deployed to. For ECS, your microservice runs in a container as part of a task (group of containers) deployed to EC2 instances; similarly, for EKS, this means Kubernetes pods; and so on.
 
-Using ECS as a specific example, you might configure an ECS service to maintain a specific number of running instances of a task definition s part of a task (group of containers) deployed to EC2 instances; similarly, for EKS, this means Kubernetes pods; and so on.
+Using ECS as a specific example, you might configure an ECS service to maintain a specific number of running tasks (instances of a task definition) spread across a cluster of EC2 instances to sustain your workload. Normally, to ensure that traffic to your tasks gets distributed evenly, you would configure Elastic Load Balancing using an Application Load Balancer for HTTP/S traffic or a Network Load Balancer for TCP traffic.
 
-Using ECS as a specific example, you might configure an ECS service to maintain a specific number of running tasks (instances of a task definition) spread across a cluster of EC2 instances to sustain your workload. Normally, to ensure that traffic to your tasks gets distributed evenly, you would configure Elastic Load Balancing with an Application Load Balancer for your HTTP/S traffic or a Network Load Balancer for TCP traffic.
+However, with App Mesh, you can skip the step of configuring Elastic Load Balancing for your tasks. Because each replicated task will launch with an Envoy sidecar, App Mesh flips the load balancing model on its head and pushes routing configuration to consuming tasks that will distribute traffic to backend tasks. This is why Envoy is used as the backbone for App Mesh; it was specifically designed to ingest configuration to handle precisely this type of job efficiently. Traffic no longer flows through an intermediary load balancer -- instead it is load-balanced (and shaped in other ways according to route rules) at the source task and flows directly to the appropriate destination task.
 
-However, with App Mesh, you can skip the step of configuring Elastic Load Balancing for your tasks. Because each replicated task will launch with an Envoy sidecar, App Mesh flips the load balancing model on its head and pushes routing configuration to consuming tasks that will distribute traffic to backend tasks. This is why Envoy is used as the backbone for App Mesh; it was specifically designed to ingest configuration to handle precisely this type of job efficiently.
+It is worth noting at this point that while we have been keeping things simple by discussing communication as if everything was running as tasks under ECS, App Mesh can in fact route traffic to different compute environments. Your service communication under App Mesh can currently span ECS, EKS, EC2, and Fargate as supported compute environments since the GA launch on March 27, 2019.
 
 
 ### Configure App Mesh resources
