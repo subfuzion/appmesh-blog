@@ -208,7 +208,7 @@ $
 
 You have provisioned the infrastructure you need. You can confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed. You should see something like this:
 
-![console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
+![appmesh-console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
 
 ## Deploy the application
 
@@ -276,7 +276,7 @@ The App Mesh control plane is an engine that is fed information from two primary
 
 These configurations aren't necessarily identical; the control plane only delivers the necessary configuration dedicated to each particular proxy for a service task governing its ingress and egress rules and routing information for communicating with upstream service tasks. So service task proxies for `A` that declared `B` as a backend will be delivered different configuration than service task proxies for `C` that declared `D` as a backend.
 
-
+![appmesh-control-plane-feedback-loop](appmesh-control-plane-feedback-loop.svg)
 
 ### Configure App Mesh resources
 
