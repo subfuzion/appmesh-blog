@@ -87,7 +87,7 @@ As mentioned in the previous section, virtual routers provide a layer of indirec
 We'll use a script to deploy a [AWS CloudFormation] stack that will create a VPC
 for our application.
 
-The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment variable. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. App Mesh is currently available in nineteen [AWS regions]:
+The VPC will be created for the region specified by the `AWS_DEFAULT_REGION` environment variable. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. You can choose to from one of the nineteen [Currently available AWS regions for App Mesh]:
 
 The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one in each AZ) with default routes for them in the private subnets.
 
@@ -298,7 +298,7 @@ These configurations aren't necessarily identical; the control plane only delive
 
 [Color App]
 
-Current App Mesh regions: [AWS regions]
+[Currently available AWS regions for App Mesh]
 
 [Envoy Image]
 
@@ -313,11 +313,11 @@ Current App Mesh regions: [AWS regions]
 [AWS App Mesh Documentation]: https://aws.amazon.com/app-mesh/getting-started/
 [AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
-[AWS regions]: ./regions.md
 [AWS X-Ray]: https://aws.amazon.com/xray/
 [Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
 [Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
 [Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
+[Currently available AWS regions for App Mesh]: ./regions.md
 [Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy documentation]: https://www.envoyproxy.io/docs/envoy/latest/
