@@ -219,7 +219,7 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ## Resources
 
-<!-- links -- />
+<!-- markdown links -- />
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [AWS CloudFormation]: https://aws.amazon.com/cloudformation/
 [Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
