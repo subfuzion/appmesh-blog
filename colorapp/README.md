@@ -21,6 +21,8 @@ Here's what this post will cover:
   - [Shape traffic](#shape-traffic)
     - [Apply traffic rules](#apply-traffic-rules)
     - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
+  - [Summary](#summary)
+  - [Resources](#resources)
 
 
 ## Terminology and Concepts
@@ -213,6 +215,11 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ### Monitor with Amazon CloudWatch and AWS X-Ray
 
+## Summary
+
+## Resources
+
+<!-- links -- />
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [AWS CloudFormation]: https://aws.amazon.com/cloudformation/
 [Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
