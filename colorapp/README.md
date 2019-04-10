@@ -229,7 +229,11 @@ The response object might look like this the first time **colorgateway** respond
 }
 ```
 
-After a number of requests, the response might look like this:
+While the Color App might seem a bit boring, it in fact is quite useful for demonstrating key concepts of App Mesh without a complex application obfuscating things.
+
+We are going to launch different **colorteller** service versions that will return different colors. The **colorgateway** service will continue to make requests to **colorteller**, but depending on how we configure our route rules for **colorteller**, we will see varied responses over time.
+
+Therefore, after a number of requests, the response from **colorgateway** might look like this:
 
 ```json
 {
@@ -237,10 +241,21 @@ After a number of requests, the response might look like this:
     "stats": {
         "black": 0.16,
         "blue": 0.82,
-        "red": 0.01
-    } 
+        "red": 0
 }
 ```
+
+If you read through the Concepts section previously, then you already have a basic understanding of how we're going to accomplish this. Let's examine in increasing detail.
+
+The **colorgateway** and **colorteller** services will be virtual services. If you recall, we configured the service domain using the `SERVICES_DOMAIN` environment variable, which we set to `demo.local`. Therefore, the virtual service names for our services will be `colorgateway.demo.local` and `colorteller.demo.local`, respectively.
+
+The **colorteller** service will be a backend for the **colorgateway** service, which means that **colorgateway** requests to `colorteller.demo.local` will have a route. This route will be pushed by the App Mesh control plane to the Envoy proxy sidecar for each actual running **colorgateway** service instance (e.g., ECS task or EKS pod).
+
+Although it could, the source code for the **colorgateway** service doesn't hardcode the value for the **colorteller** endpoint; instead, the service is coded to read this value at runtime from an environment variable (`COLOR_TELLER_ENDPOINT`) when the service is deployed. This is because in a different deployment the service name used for discovery might change (e.g., coloradvisor.colorapp.svc.cluster.local) and because parts of the deployed endpoint, such as protocol and port, might change as well.
+
+Be that as it may, however, once a virtual service name for a backend is configured with the mesh discovery service, App Mesh will ensure that routing information is propagated throughout the mesh to every Envoy proxy sidecar coupled to a service instance that sends traffic to that backend via its virtual service name.
+
+
 
 
 ### Configure App Mesh resources
