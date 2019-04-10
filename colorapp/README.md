@@ -6,7 +6,7 @@ In this article, I'm going dig a bit deeper into App Mesh than the time for the 
 
 Here's what this post will cover:
 
-![appmesh-color-app](appmesh-color-app.svg)
+![appmesh-color-app](appmesh-color-app1.svg)
 
 - [AWS App Mesh Deep Dive with the Color App](#aws-app-mesh-deep-dive-with-the-color-app)
   - [Terminology and Concepts](#terminology-and-concepts)
