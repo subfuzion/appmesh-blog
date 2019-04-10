@@ -4,7 +4,24 @@ If you had the opportunity to watch the AWS App Mesh launch on March 27, then yo
 
 Here's what this post will cover:
 
-<!-- TOC depthFrom:2 -->autoauto- [Terminology and Concepts](#terminology-and-concepts)auto    - [Virtual Services, Virtual Nodes, and Virtual Routers](#virtual-services-virtual-nodes-and-virtual-routers)auto    - [Routes](#routes)auto    - [Service Discovery](#service-discovery)auto- [Provision infrastructure for the application](#provision-infrastructure-for-the-application)auto    - [Prerequisites](#prerequisites)auto    - [Create the VPC](#create-the-vpc)auto    - [Create an App Mesh](#create-an-app-mesh)auto    - [Create compute resources](#create-compute-resources)auto    - [Review](#review)auto- [Deploy the application](#deploy-the-application)auto    - [Configure App Mesh resources](#configure-app-mesh-resources)auto    - [Deploy services to ECS](#deploy-services-to-ecs)auto- [Shape traffic](#shape-traffic)auto    - [Apply traffic rules](#apply-traffic-rules)auto    - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)autoauto<!-- /TOC -->
+- [AWS App Mesh Deep Dive with the Color App](#aws-app-mesh-deep-dive-with-the-color-app)
+  - [Terminology and Concepts](#terminology-and-concepts)
+    - [Virtual Services, Virtual Nodes, and Virtual Routers](#virtual-services-virtual-nodes-and-virtual-routers)
+    - [Routes](#routes)
+    - [Service Discovery](#service-discovery)
+  - [Provision infrastructure for the application](#provision-infrastructure-for-the-application)
+    - [Prerequisites](#prerequisites)
+    - [Create the VPC](#create-the-vpc)
+    - [Create an App Mesh](#create-an-app-mesh)
+    - [Create compute resources](#create-compute-resources)
+    - [Review](#review)
+  - [Deploy the application](#deploy-the-application)
+    - [Configure App Mesh resources](#configure-app-mesh-resources)
+    - [Deploy services to ECS](#deploy-services-to-ecs)
+  - [Shape traffic](#shape-traffic)
+    - [Apply traffic rules](#apply-traffic-rules)
+    - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
+
 
 ## Terminology and Concepts
 
