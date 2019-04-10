@@ -261,7 +261,8 @@ Using ECS as a specific example, you might configure an ECS service to maintain 
 
 However, with App Mesh, you can skip the step of configuring Elastic Load Balancing for your tasks. Because each replicated task will launch with an Envoy sidecar, App Mesh flips the load balancing model on its head and pushes routing configuration to consuming tasks that will distribute traffic to backend tasks. This is why Envoy is used as the backbone for App Mesh; it was specifically designed to ingest configuration to handle precisely this type of job efficiently. Traffic no longer flows through an intermediary load balancer -- instead it is load-balanced (and shaped in other ways according to route rules) at the source task and flows directly to the appropriate destination task.
 
-It is worth noting at this point that while we have been keeping things simple by discussing communication as if everything was running as tasks under ECS, App Mesh can in fact route traffic to different compute environments. Your service communication under App Mesh can currently span ECS, EKS, EC2, and Fargate as supported compute environments since the GA launch on March 27, 2019.
+It is worth noting at this point that while we have been keeping things simple by discussing communication as if everything was running as tasks under ECS, App Mesh can in fact route traffic to different compute environments. Since the GA launch on March 27, 2019, your service communication under App Mesh can currently span ECS, EKS, EC2, and Fargate as supported compute environments, originating from one and terminating in another. App Mesh can even ensure that traffic is routed correctly for different versions of the target service running in different environments (e.g., v1 running on EC2 and v2 running on EKS)!
+
 
 
 ### Configure App Mesh resources
