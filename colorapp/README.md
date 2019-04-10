@@ -4,24 +4,7 @@ If you had the opportunity to watch the AWS App Mesh launch on March 27, then yo
 
 Here's what this post will cover:
 
-- [AWS App Mesh Deep Dive with the Color App](#aws-app-mesh-deep-dive-with-the-color-app)
-  - [Terminology and Concepts](#terminology-and-concepts)
-    - [Virtual Services, Virtual Nodes, and Virtual Routers](#virtual-services-virtual-nodes-and-virtual-routers)
-    - [Routes](#routes)
-    - [Service Discovery](#service-discovery)
-  - [Provision infrastructure for the application](#provision-infrastructure-for-the-application)
-    - [Prerequisites](#prerequisites)
-    - [Create the VPC](#create-the-vpc)
-  - [Create an App Mesh](#create-an-app-mesh)
-  - [Create compute resources](#create-compute-resources)
-    - [At this stage...](#at-this-stage)
-  - [Deploy the application](#deploy-the-application)
-    - [Configure App Mesh resources](#configure-app-mesh-resources)
-    - [Deploy services to ECS](#deploy-services-to-ecs)
-  - [Shape traffic](#shape-traffic)
-    - [Apply traffic rules](#apply-traffic-rules)
-    - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
-
+<!-- TOC depthFrom:2 -->autoauto- [Terminology and Concepts](#terminology-and-concepts)auto    - [Virtual Services, Virtual Nodes, and Virtual Routers](#virtual-services-virtual-nodes-and-virtual-routers)auto    - [Routes](#routes)auto    - [Service Discovery](#service-discovery)auto- [Provision infrastructure for the application](#provision-infrastructure-for-the-application)auto    - [Prerequisites](#prerequisites)auto    - [Create the VPC](#create-the-vpc)auto    - [Create an App Mesh](#create-an-app-mesh)auto    - [Create compute resources](#create-compute-resources)auto    - [Review](#review)auto- [Deploy the application](#deploy-the-application)auto    - [Configure App Mesh resources](#configure-app-mesh-resources)auto    - [Deploy services to ECS](#deploy-services-to-ecs)auto- [Shape traffic](#shape-traffic)auto    - [Apply traffic rules](#apply-traffic-rules)auto    - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)autoauto<!-- /TOC -->
 
 ## Terminology and Concepts
 
@@ -106,7 +89,7 @@ Successfully created/updated stack - DEMO-vpc
 $
 ```
 
-## Create an App Mesh
+### Create an App Mesh
 
 The following CloudFormation template will be used to create our mesh:
 
@@ -164,7 +147,7 @@ At this point we have now created our networking resources (VPC and App Mesh), b
 * mesh configuration for our services
 * actual services
 
-## Create compute resources
+### Create compute resources
 
 Our infrastructure requires compute resources to run our services on. We'll use another script to deploy an [AWS CloudFormation] stack that will create an initial ECS cluster for our demo. Both the script and the template are located under `examples/infrastructure` (you can also choose to create an EKS cluster, if you prefer).
 
@@ -195,7 +178,7 @@ Successfully created/updated stack - DEMO-ecs-cluster
 $
 ```
 
-### At this stage...
+### Review
 
 You have provisioned the infrastructure you need. You can confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed. You should see something like this:
 
