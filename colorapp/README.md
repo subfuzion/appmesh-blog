@@ -1,6 +1,6 @@
 # AWS App Mesh Deep Dive with the Color App
 
-If you had the opportunity to watch the AWS App Mesh General Availability (GA) launch on March 27, 2019, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App.
+If you had the opportunity to watch the AWS App Mesh General Availability (GA) launch on March 27, 2019, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App ([github.com/aws/app-mesh-examples]).
 
 ![appmesh-color-app](appmesh-color-app.svg)
 
@@ -20,6 +20,8 @@ Here's what this post will cover:
     - [Create compute resources](#create-compute-resources)
     - [Review](#review)
   - [Deploy the application](#deploy-the-application)
+    - [Overview](#overview)
+    - [Digging deeper](#digging-deeper)
     - [Configure App Mesh resources](#configure-app-mesh-resources)
     - [Deploy services to ECS](#deploy-services-to-ecs)
   - [Shape traffic](#shape-traffic)
@@ -36,14 +38,15 @@ Here's what this post will cover:
 [AWS CloudFormation] provides a common language for you to describe and provision all the
 infrastructure resources in your cloud environment.
 
-[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. App Mesh consists of the following core resources: 
+[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. The App Mesh model consists of the following core resources: 
 
+* **Meshes**
 * **Virtual services**
 * **Virtual nodes**
 * **Virtual routers**
 * **Routes**
 
-The term *virtual* is used for resources that don't physically exist except as abstractions in the App Mesh model.
+The term *virtual* is used for abstract resources that directly map to an actual, physical resource.
 
 [Envoy] is a proxy that you deploy with each microservice after creating your mesh resources (virtual services, virtual nodes, virtual routers, and routes). You will normally run it in a container using the [Envoy Image], which you configure to as part of your task or pod definition for your microservice. Envoy proxies provide the foundation for the App Mesh implementation of its core resource abstractions. Service-to-service communication in the data plane flows through Envoy proxies that intercept all ingress and egress traffic for each microservice they are associated with through the mesh configuration.
 
@@ -209,6 +212,8 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ## Deploy the application
 
+### Overview
+
 The Color App consists of two microservices: **colorgateway** and **colorteller**.
 
 ![appmesh-color-app-detail](appmesh-color-app-detail.svg)
@@ -228,6 +233,8 @@ The response object might look like this the first time **colorgateway** respond
     "stats": { "blue": 1.0 } 
 }
 ```
+
+### Digging deeper
 
 While the Color App might seem a bit boring, it in fact is quite useful for demonstrating key concepts of App Mesh without a complex application obfuscating things.
 
@@ -255,13 +262,19 @@ Although it could, the source code for the **colorgateway** service doesn't hard
 
 Be that as it may, however, once a virtual service name for a backend is configured with the mesh discovery service, App Mesh will ensure that routing information is propagated throughout the mesh to every Envoy proxy sidecar coupled to a service instance that sends traffic to that backend via its virtual service name.
 
-We keep talking about traffic getting routed to the ultimate service instances. What does that mean? It means that somewhere there are compute resources that run the actual code to perform work. How this works depends on the compute environment the services are physically deployed to. For ECS, your microservice runs in a container as part of a task (group of containers) deployed to EC2 instances; similarly, for EKS, this means Kubernetes pods; and so on.
+We keep talking about traffic getting routed to the ultimate service instances. What does that mean? It means that somewhere there are compute resources that run the actual code to perform work. How this works depends on the compute environment the services are physically deployed to. For ECS, your microservice runs in a container as part of a (group of containers) deployed to EC2 instances; similarly, for EKS, this means Kubernetes pods; and so on.
 
 Using ECS as a specific example, you might configure an ECS service to maintain a specific number of running tasks (instances of a task definition) spread across a cluster of EC2 instances to sustain your workload. Normally, to ensure that traffic to your tasks gets distributed evenly, you would configure Elastic Load Balancing using an Application Load Balancer for HTTP/S traffic or a Network Load Balancer for TCP traffic.
 
 However, with App Mesh, you can skip the step of configuring Elastic Load Balancing for your tasks. Because each replicated task will launch with an Envoy sidecar, App Mesh flips the load balancing model on its head and pushes routing configuration to consuming tasks that will distribute traffic to backend tasks. This is why Envoy is used as the backbone for App Mesh; it was specifically designed to ingest configuration to handle precisely this type of job efficiently. Traffic no longer flows through an intermediary load balancer -- instead it is load-balanced (and shaped in other ways according to route rules) at the source task and flows directly to the appropriate destination task.
 
 It is worth noting at this point that while we have been keeping things simple by discussing communication as if everything was running as tasks under ECS, App Mesh can in fact route traffic to different compute environments. Since the GA launch on March 27, 2019, your service communication under App Mesh can currently span ECS, EKS, EC2, and Fargate as supported compute environments, originating from one and terminating in another. App Mesh can even ensure that traffic is routed correctly for different versions of the target service running in different environments (e.g., v1 running on EC2 and v2 running on EKS)!
+
+To simplify things from this point on, we will use the singular term *service task* to refer to any concrete type of running service instance, whether an individual service (containerized or not) on an EC2 instance, an ECS task, a Kubernetes pod, etc. We will use the plural term *service tasks* to refer to the set of task replicas resulting from scaling a task.
+
+The App Mesh control plane is an engine that is fed information from two primary sources: you (the App Mesh operator), who provides abstract configuration representing your intent for how communication should flow in your application; and from Envoy proxies (in tandem with proxy bootstrap processes) deployed as task sidecars. Each time the control plane ingests an update it computes resultant Envoy-specific configurations to push out to each proxy.
+
+These configurations aren't necessarily identical; the control plane only delivers the necessary configuration dedicated to each particular proxy for a service task governing its ingress and egress rules and routing information for communicating with upstream service tasks. So service task proxies for `A` that declared `B` as a backend will be delivered different configuration than service task proxies for `C` that declared `D` as a backend.
 
 
 
