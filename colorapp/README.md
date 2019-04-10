@@ -20,7 +20,7 @@ Here's what this post will cover:
     - [Deploy services to ECS](#deploy-services-to-ecs)
   - [Shape traffic](#shape-traffic)
     - [Apply traffic rules](#apply-traffic-rules)
-    - [Monitor with [Amazon CloudWatch] and [AWS X-Ray].](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
+    - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
 
 
 ## Terminology and Concepts
@@ -210,7 +210,8 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 ## Shape traffic
 
 ### Apply traffic rules
-### Monitor with [Amazon CloudWatch] and [AWS X-Ray].
+
+### Monitor with Amazon CloudWatch and AWS X-Ray
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [AWS CloudFormation]: https://aws.amazon.com/cloudformation/
