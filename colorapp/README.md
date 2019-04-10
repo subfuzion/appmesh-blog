@@ -213,9 +213,9 @@ The Color App consists of two microservices: **colorgateway** and **colorteller*
 
 ![appmesh-color-app-detail](appmesh-color-app-detail.svg)
 
-The **colorteller** microservices responds to GET requests at the / (root) route by returning a color string (e.g., "blue").
+The **colorteller** microservices responds to GET requests at the `/` (root) route by returning a color string (e.g., "blue").
 
-The **colorgateway** microservice responds to GET requests the the /color root return a JSON object that contains:
+The **colorgateway** microservice responds to GET requests at the `/color` route by returning a JSON object that contains:
 * the color fetched from the **colorteller** service
 * a histogram of all colors fetched so far
 
