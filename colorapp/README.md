@@ -1,6 +1,6 @@
 # AWS App Mesh Deep Dive with the Color App
 
-If you had the opportunity to watch the AWS App Mesh General Availability (GA) launch on March 27, 2019, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App ([github.com/aws/app-mesh-examples]).
+If you had the opportunity to watch the AWS App Mesh General Availability (GA) launch on March 27, 2019, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the [Color App].
 
 ![appmesh-color-app](appmesh-color-app.svg)
 
@@ -303,6 +303,7 @@ These configurations aren't necessarily identical; the control plane only delive
 [AWS X-Ray]: https://aws.amazon.com/xray/
 [Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
 [Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
+[Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
 [Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
