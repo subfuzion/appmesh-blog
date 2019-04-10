@@ -2,19 +2,28 @@
 
 If you had the opportunity to watch the AWS App Mesh launch on March 27, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the Color App. In this blog post, I'm going dig a bit deeper into App Mesh than the time for the launch demo permitted. After that, I'll walk you through setting up the Color App demo and running it on your own so you can experiment and familiarize yourself with App Mesh on your own.
 
-Here's what we're going to do:
+Here's what this post will cover:
 
-1. Define terms and concepts for this post.
-2. Provision infrastructure for the application.
-   * Create a VPC.
-   * Create a service mesh.
-   * Create compute resources.
-3. Deploy the application.
-   * Configure App Mesh resources.
-   * Deploy services to ECS.
-4. Shape traffic.
-   * Apply traffic rules
-   * Monitor with [Amazon CloudWatch] and [AWS X-Ray].
+
+<!-- TOC -->autoauto- [AWS App Mesh Deep Dive with the Color App](#aws-app-mesh-deep-dive-with-the-color-app)auto    - [Terminology and Concepts](#terminology-and-concepts)auto        - [Virtual Services, Virtual Nodes, and Virtual Routers](#virtual-services-virtual-nodes-and-virtual-routers)auto        - [Routes](#routes)auto        - [Service Discovery](#service-discovery)auto    - [Provision infrastructure for the application](#provision-infrastructure-for-the-application)auto    - [Prerequisites](#prerequisites)auto    - [Create the VPC](#create-the-vpc)auto    - [Create an App Mesh](#create-an-app-mesh)auto    - [Deploy Compute Resources](#deploy-compute-resources)auto        - [At this stage...](#at-this-stage)auto    - [Deploying the Application](#deploying-the-application)auto        - [Configure App Mesh Resources](#configure-app-mesh-resources)auto        - [Deploy Services to ECS](#deploy-services-to-ecs)autoauto<!-- /TOC -->
+
+
+
+
+- [AWS App Mesh Deep Dive with the Color App](#aws-app-mesh-deep-dive-with-the-color-app)
+  - [Terminology and Concepts](#terminology-and-concepts)
+    - [Virtual Services, Virtual Nodes, and Virtual Routers](#virtual-services-virtual-nodes-and-virtual-routers)
+    - [Routes](#routes)
+    - [Service Discovery](#service-discovery)
+  - [Provision infrastructure for the application](#provision-infrastructure-for-the-application)
+  - [Prerequisites](#prerequisites)
+  - [Create the VPC](#create-the-vpc)
+  - [Create an App Mesh](#create-an-app-mesh)
+  - [Deploy Compute Resources](#deploy-compute-resources)
+    - [At this stage...](#at-this-stage)
+  - [Deploying the Application](#deploying-the-application)
+    - [Configure App Mesh Resources](#configure-app-mesh-resources)
+    - [Deploy Services to ECS](#deploy-services-to-ecs)
 
 ## Terminology and Concepts
 
@@ -56,6 +65,7 @@ As mentioned in the previous section, virtual routers provide a layer of indirec
 
 ### Service Discovery
 
+## Provision infrastructure for the application
 ## Prerequisites
 
 1. You have the latest version of the [AWS CLI] installed.
