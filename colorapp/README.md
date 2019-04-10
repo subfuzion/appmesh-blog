@@ -247,7 +247,7 @@ Therefore, after a number of requests, the response from **colorgateway** might 
 
 If you read through the Concepts section previously, then you already have a basic understanding of how we're going to accomplish this. Let's examine in increasing detail.
 
-The **colorgateway** and **colorteller** services will be virtual services. If you recall, we configured the service domain using the `SERVICES_DOMAIN` environment variable, which we set to `demo.local`. Therefore, the virtual service names for our services will be `colorgateway.demo.local` and `colorteller.demo.local`, respectively.
+The **colorgateway** and **colorteller** services will be *virtual services*. If you recall, we configured the service domain using the `SERVICES_DOMAIN` environment variable, which we set to `demo.local`. Therefore, the virtual service names for our services will be `colorgateway.demo.local` and `colorteller.demo.local`, respectively.
 
 The **colorteller** service will be a backend for the **colorgateway** service, which means that **colorgateway** requests to `colorteller.demo.local` will have a route. This route will be pushed by the App Mesh control plane to the Envoy proxy sidecar for each actual running **colorgateway** service instance (e.g., ECS task or EKS pod).
 
@@ -255,7 +255,13 @@ Although it could, the source code for the **colorgateway** service doesn't hard
 
 Be that as it may, however, once a virtual service name for a backend is configured with the mesh discovery service, App Mesh will ensure that routing information is propagated throughout the mesh to every Envoy proxy sidecar coupled to a service instance that sends traffic to that backend via its virtual service name.
 
+We keep talking about traffic getting routed to the ultimate service instances. What does that mean? It means that somewhere there are compute resources that run the actual code to perform work. How this works depends on the compute environment the services are physically deployed to. For ECS, your microservice runs in a container as part of a task (group of containers) deployed to EC2 instances; similarly, for EKS, this means Kubernetes pods; and so on.
 
+Using ECS as a specific example, you might configure an ECS service to maintain a specific number of running instances of a task definition s part of a task (group of containers) deployed to EC2 instances; similarly, for EKS, this means Kubernetes pods; and so on.
+
+Using ECS as a specific example, you might configure an ECS service to maintain a specific number of running tasks (instances of a task definition) spread across a cluster of EC2 instances to sustain your workload. Normally, to ensure that traffic to your tasks gets distributed evenly, you would configure Elastic Load Balancing with an Application Load Balancer for your HTTP/S traffic or a Network Load Balancer for TCP traffic.
+
+However, with App Mesh, you can skip the step of configuring Elastic Load Balancing for your tasks. Because each replicated task will launch with an Envoy sidecar, App Mesh flips the load balancing model on its head and pushes routing configuration to consuming tasks that will distribute traffic to backend tasks. This is why Envoy is used as the backbone for App Mesh; it was specifically designed to ingest configuration to handle precisely this type of job efficiently.
 
 
 ### Configure App Mesh resources
@@ -283,6 +289,7 @@ Be that as it may, however, once a virtual service name for a backend is configu
 [AWS X-Ray]: https://aws.amazon.com/xray/
 [Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
 [Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
+[Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
 [github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
