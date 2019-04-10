@@ -1,3 +1,25 @@
+[A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
+[AWS CloudFormation]: https://aws.amazon.com/cloudformation/
+[Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
+[Amazon Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
+[AWS App Mesh]: https://aws.amazon.com/app-mesh/
+[AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
+[AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
+[AWS regions]: ./regions.md
+[AWS X-Ray]: https://aws.amazon.com/xray/
+[Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
+[Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
+[Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
+[Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
+[Envoy]: https://www.envoyproxy.io/ 
+[Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
+[github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
+[Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
+[NAT Gateways]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
+
+
+
+
 # AWS App Mesh Deep Dive with the Color App
 
 If you had the opportunity to watch the AWS App Mesh General Availability (GA) launch on March 27, 2019, then you saw Nick Coult, the launch Product Manager, give a nice demo using a simple application called the [Color App].
@@ -291,22 +313,3 @@ These configurations aren't necessarily identical; the control plane only delive
 ## Summary
 
 ## Resources
-
-[A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
-[AWS CloudFormation]: https://aws.amazon.com/cloudformation/
-[Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
-[Amazon Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
-[AWS App Mesh]: https://aws.amazon.com/app-mesh/
-[AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
-[AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
-[AWS regions]: ./regions.md
-[AWS X-Ray]: https://aws.amazon.com/xray/
-[Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
-[Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
-[Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
-[Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
-[Envoy]: https://www.envoyproxy.io/ 
-[Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
-[github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
-[Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
-[NAT Gateways]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
