@@ -209,7 +209,38 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ## Deploy the application
 
+The Color App consists of two microservices: **colorgateway** and **colorteller**.
+
 ![appmesh-color-app-detail](appmesh-color-app-detail.svg)
+
+The **colorteller** microservices responds to GET requests at the / (root) route by returning a color string (e.g., "blue").
+
+The **colorgateway** microservice responds to GET requests the the /color root return a JSON object that contains:
+* the color fetched from the **colorteller** service
+* a histogram of all colors fetched so far
+
+The response object might look like this the first time **colorgateway** responds:
+
+```json
+{
+    "color": "blue",
+    "stats": { "blue": 1.0 } 
+}
+```
+
+After a number of requests, the response might look like this:
+
+```json
+{
+    "color": "blue",
+    "stats": {
+        "black": 0.16,
+        "blue": 0.82,
+        "red": 0.01
+    } 
+}
+```
+
 
 ### Configure App Mesh resources
 
