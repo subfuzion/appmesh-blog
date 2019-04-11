@@ -38,7 +38,9 @@ Here's what this post will cover:
 [AWS CloudFormation] provides a common language for you to describe and provision all the
 infrastructure resources in your cloud environment.
 
-[AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. A service mesh is a logical boundary for network traffic between the services that reside in it. The App Mesh model consists of the following core resources: 
+[AWS App Mesh] is a service mesh that provides application-level networking support, making it easy to manage and monitor service-to-service communication. A service mesh is a logical boundary for network traffic between services that reside in it. App Mesh standardizes how you control and monitor your service traffic across multiple types of compute infrastructure on AWS.
+
+[AWS App Mesh] is a service mesh (a logical boundary for network traffic between services that reside in it) that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. The App Mesh model consists of the following core resources: 
 
 * **Meshes**
 * **Virtual services**
