@@ -249,6 +249,7 @@ Therefore, after a number of requests, the response from **colorgateway** might 
         "black": 0.16,
         "blue": 0.82,
         "red": 0
+    }
 }
 ```
 
