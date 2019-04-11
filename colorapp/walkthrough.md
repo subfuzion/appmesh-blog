@@ -40,15 +40,20 @@ The App Mesh deployment is also partitioned into different stages as well, but t
 * `examples/apps/colorapp/ecs/ecs-colorapp.yaml` - deploys application services and related resources for the Color App.
 * `examples/apps/colorapp/ecs/servicemesh/appmesh-colorapp.yaml` - creates mesh resources for the Color App.
 
-Each template has a corresponding shell script with a `.sh` extension that you run to create the CloudFormation stack. These scripts rely on the following environment variables values that must be exported before running. The relevant sections below show where they are needed.
+Each template has a corresponding shell script with a `.sh` extension that you run to create the CloudFormation stack. These scripts rely on the following environment variables values that must be exported before running:
 
-* `AWS_PROFILE` - your AWS CLI profile (set to `default` or a named profile)
-* `AWS_DEFAULT_REGION` - set to one of the [Currently available AWS regions for App Mesh]
-* `ENVIRONMENT_NAME` - will be applied as a prefix to deployed CloudFormation stack names
-* `MESH_NAME` - name to use to identify the mesh you create
-* `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`)
-* `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair]
+* `AWS_PROFILE` - your AWS CLI profile (set to `default` or a named profile).
+* `AWS_DEFAULT_REGION` - set to one of the [Currently available AWS regions for App Mesh].
+* `ENVIRONMENT_NAME` - will be applied as a prefix to deployed CloudFormation stack names.
+* `MESH_NAME` - name to use to identify the mesh you create.
+* `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`).
+* `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair].
 * `CLUSTER_SIZE` - (optional) the number of EC2 instances to provision for the ECS cluster (default = 5).
+* `ENVOY_IMAGE` - see [Envoy Image] for recommended Docker image (currently: `111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod`)
+* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App `colorgateway` microservice (`subfuzion/colorgatway`).
+* `COLOR_TELLER_IMAGE` - Docker image for the Color App `colorteller` microservice (`subfuzion/colorteller`).
+
+See below for more detail and to see where these environment variables are used.
 
 ## Prerequisites
 
