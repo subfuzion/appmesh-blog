@@ -6,6 +6,8 @@ If you had the opportunity to watch the AWS App Mesh General Availability (GA) l
 
 In this article, I'm going dig a bit deeper into App Mesh than the time for the launch demo permitted. After that, I'll walk you through setting up and running the Color App demo so you can get familiar with App Mesh and experiment on your own.
 
+If you just want to launch the Color App right away, you can follow this [Color App Walkthrough].
+
 Here's what this post will cover:
 
 - [AWS App Mesh Deep Dive with the Color App](#aws-app-mesh-deep-dive-with-the-color-app)
@@ -309,17 +311,18 @@ These configurations aren't necessarily identical; the control plane only delive
 
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
-[AWS CloudFormation]: https://aws.amazon.com/cloudformation/
 [Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
 [Amazon Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
 [AWS App Mesh Documentation]: https://aws.amazon.com/app-mesh/getting-started/
 [AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
+[AWS CloudFormation]: https://aws.amazon.com/cloudformation/
 [AWS X-Ray]: https://aws.amazon.com/xray/
 [Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
 [Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
 [Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
+[Color App Walkthrough]: ./walkthrough.md
 [Currently available AWS regions for App Mesh]: ./regions.md
 [Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
 [Envoy]: https://www.envoyproxy.io/ 

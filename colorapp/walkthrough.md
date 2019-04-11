@@ -29,7 +29,14 @@ Core networking and compute infrastructure doesn't need to be recreated each tim
 
 The App Mesh deployment is also partitioned into different stages as well, but this for for performance reasons since App Mesh operations are very fast. The reason for the separation is simply so you can tear down the Color App without tearing down the demo mesh in case you also have other sample apps running in it for experimentation.
 
-Each template has a corresponding shell script with a `.sh` extension that you run to create the CloudFormation stack. These scripts relay on environment variables values, described in following sections, that you must set before running.
+Each template has a corresponding shell script with a `.sh` extension that you run to create the CloudFormation stack. These scripts rely on the following environment variables values that must be exported before running. They are described in the relevant sections below.
+
+* `AWS_PROFILE`
+* `AWS_DEFAULT_REGION`
+* `ENVIRONMENT_NAME`
+* `MESH_NAME`
+* `SERVICES_DOMAIN`
+* `KEY_PAIR_NAME`
 
 **Infrastructure templates:**
 
@@ -92,7 +99,7 @@ $
 
 `examples/infrastructure/appmesh-mesh.yaml`
 
-We will use the same environment variables from the previous step, plus one additional one (`MESH_NAME`), to deploy the stack using a script (`appmesh-mesh.sh`).
+We will use the same environment variables from the previous step, plus one additional one (`MESH_NAME`), to deploy the stack.
 
 * `MESH_NAME` should be set to the name you want to use to identify the mesh. For this demo, we will call it `appmesh-mesh`.
 
