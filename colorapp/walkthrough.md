@@ -177,6 +177,21 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ![appmesh-console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
 
+You can also confirm status with the CLI:
+
+```
+$ aws cloudformation describe-stacks --stack-name DEMO-vpc --query 'Stacks[0].StackStatus'
+"CREATE_COMPLETE"
+
+$ aws cloudformation describe-stacks --stack-name DEMO-appmesh-mesh --query 'Stacks[0].StackStatus'
+"CREATE_COMPLETE"
+
+$ aws cloudformation describe-stacks --stack-name DEMO-ecs-cluster --query 'Stacks[0].StackStatus'
+"CREATE_COMPLETE"
+```
+
+Now let's configure mesh resources and deploy the application.
+
 ## Deploy the application
 
 ### Configure App Mesh resources
