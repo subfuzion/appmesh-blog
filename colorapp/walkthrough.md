@@ -29,15 +29,6 @@ Core networking and compute infrastructure doesn't need to be recreated each tim
 
 The App Mesh deployment is also partitioned into different stages as well, but this for for performance reasons since App Mesh operations are very fast. The reason for the separation is simply so you can tear down the Color App without tearing down the demo mesh in case you also have other sample apps running in it for experimentation.
 
-Each template has a corresponding shell script with a `.sh` extension that you run to create the CloudFormation stack. These scripts rely on the following environment variables values that must be exported before running. They are described in the relevant sections below.
-
-* `AWS_PROFILE`
-* `AWS_DEFAULT_REGION`
-* `ENVIRONMENT_NAME`
-* `MESH_NAME`
-* `SERVICES_DOMAIN`
-* `KEY_PAIR_NAME`
-
 **Infrastructure templates:**
 
 * `examples/infrastructure/vpc.yaml` - creates the VPC and other core networking resources needed for the application independent of the specific compute environment (e.g., ECS) provisioned for cluster.
@@ -48,6 +39,16 @@ Each template has a corresponding shell script with a `.sh` extension that you r
 
 * `examples/apps/colorapp/ecs/ecs-colorapp.yaml` - deploys application services and related resources for the Color App.
 * `examples/apps/colorapp/ecs/servicemesh/appmesh-colorapp.yaml` - creates mesh resources for the Color App.
+
+Each template has a corresponding shell script with a `.sh` extension that you run to create the CloudFormation stack. These scripts rely on the following environment variables values that must be exported before running. The relevant sections below show where they are needed.
+
+* `AWS_PROFILE` - your AWS CLI profile (set to `default` or a named profile)
+* `AWS_DEFAULT_REGION` - set to one of the [Currently available AWS regions for App Mesh]
+* `ENVIRONMENT_NAME` - will be applied as a prefix to deployed CloudFormation stack names
+* `MESH_NAME` - name to use to identify the mesh you create
+* `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`)
+* `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair]
+* `CLUSTER_SIZE` - (optional) the number of EC2 instances to provision for the ECS cluster (default = 5).
 
 ## Prerequisites
 
@@ -69,9 +70,9 @@ An [Amazon Virtual Private Cloud] (VPC) is a virtual network that provides isola
 
 Set the following environment variables:
 
-* `AWS_PROFILE` should be set to a profile that you've configured for the AWS CLI (either `default` or a named profile).
-* `AWS_DEFAULT_REGION` should be set to a region from the supported regions shown previously.
-* `ENVIRONMENT_NAME` will be used as a prefix for the CloudFormation stacks that you will deploy.
+* `AWS_PROFILE` - your AWS CLI profile (set to `default` or a named profile)
+* `AWS_DEFAULT_REGION` - set to one of the [Currently available AWS regions for App Mesh]
+* `ENVIRONMENT_NAME` - will be applied as a prefix to deployed CloudFormation stack names
 
 Run the `vpc.sh` script to create a VPC for the application in the region you specify. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. You can choose to from one of the nineteen [Currently available AWS regions for App Mesh]. The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one in each AZ) with default routes for them in the private subnets.
 
@@ -101,13 +102,17 @@ $
 
 We will use the same environment variables from the previous step, plus one additional one (`MESH_NAME`), to deploy the stack.
 
-* `MESH_NAME` should be set to the name you want to use to identify the mesh. For this demo, we will call it `appmesh-mesh`.
+* `MESH_NAME` - name to use to identify the mesh you create (we'll use `appmesh-mesh`)
 
 ***Create the mesh***
 
 `examples/infrastructure/appmesh-mesh.sh`
 
 ```
+$ export AWS_PROFILE=default
+$ export AWS_DEFAULT_REGION=us-west-2
+$ export ENVIRONMENT_NAME=DEMO
+$ export MESH_NAME=appmesh-mesh
 $ ./examples/infrastructure/appmesh-mesh.sh
 ...
 + aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-appmesh-mesh --capabilities CAPABILITY_IAM --template-file /home/ec2-user/projects/aws/aws-app-mesh-examples/examples/infrastructure/appmesh-mesh.yaml --parameter-overrides EnvironmentName=DEMO AppMeshMeshName=appmesh-mesh
@@ -133,18 +138,23 @@ Our infrastructure requires compute resources to run our services on. The follow
 
 In addition to the previous defined environment variables, you will also need to export the following:
 
-* `SERVICES_DOMAIN` - this is the domain under which services in the mesh will be discovered. For this demo, we will use `demo.local`. In this demo, the colorgateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
-* `KEY_PAIR_NAME` - this is your EC2 keypair that you can use to ssh into your EC2 instances, allowing you to test your routing without configuring a public ALB to the application frontend.
- 
+* `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`). For this demo, we will use `demo.local`. This means that the colorgateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
+* `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair] to log into your EC2 instances.
+
 You can also override the demo script's default cluster size (5) by setting `CLUSTER_SIZE`:
 
-* `CLUSTER_SIZE` - the number of EC2 instances to provision for the ECS cluster (the demo script will default to 5).
+* `CLUSTER_SIZE` - (optional) the number of EC2 instances to provision for the ECS cluster (default = 5).
 
 ***Create the ECS cluster***
 
 `examples/infrastructure/ecs-cluster.sh`
 
 ```
+$ export AWS_PROFILE=default
+$ export AWS_DEFAULT_REGION=us-west-2
+$ export ENVIRONMENT_NAME=DEMO
+$ export SERVICES_DOMAIN=demo.local
+$ export KEY_PAIR_NAME=tony_devbox2
 $ ./examples/infrastructure/ecs-cluster.sh
 ...
 + aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-ecs-cluster --capabilities CAPABILITY_IAM --template-file /home/ec2-user/projects/aws/aws-app-mesh-examples/examples/infrastructure/ecs-cluster.yaml --parameter-overrides EnvironmentName=DEMO KeyName=tony_devbox2 ECSServicesDomain=demo.local ClusterSize=5

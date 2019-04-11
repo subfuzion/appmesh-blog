@@ -312,6 +312,7 @@ These configurations aren't necessarily identical; the control plane only delive
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
+[Amazon EC2 Key Pair]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
 [Amazon Virtual Private Cloud]: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
 [AWS App Mesh Documentation]: https://aws.amazon.com/app-mesh/getting-started/
