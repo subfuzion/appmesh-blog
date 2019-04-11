@@ -177,7 +177,7 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ![appmesh-console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
 
-You can also confirm status with the CLI:
+You can also confirm status with the AWS CLI:
 
 ```
 $ aws cloudformation describe-stacks --stack-name DEMO-vpc --query 'Stacks[0].StackStatus'
