@@ -1,5 +1,9 @@
 # Walkthrough: Deploy the Color App on ECS
 
+This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch.
+
+![appmesh-color-app](appmesh-color-app.svg)
+
 - [Walkthrough: Deploy the Color App on ECS](#walkthrough-deploy-the-color-app-on-ecs)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
