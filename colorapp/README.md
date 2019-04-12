@@ -40,9 +40,7 @@ Here's what this post will cover:
 [AWS CloudFormation] provides a common language for you to describe and provision all the
 infrastructure resources in your cloud environment.
 
-[AWS App Mesh] is a service mesh that provides application-level networking support, making it easy to manage and monitor service-to-service communication. A service mesh is a logical boundary for network traffic between services that reside in it. App Mesh standardizes how you control and monitor your service traffic across multiple types of compute infrastructure on AWS.
-
-[AWS App Mesh] is a service mesh (a logical boundary for network traffic between services that reside in it) that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. The App Mesh model consists of the following core resources: 
+A service mesh a logical boundary for network traffic between services that reside in it. [AWS App Mesh] is a managed service mesh control plane. It provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. The App Mesh model consists of the following core resources: 
 
 * **Meshes**
 * **Virtual services**
@@ -52,7 +50,7 @@ infrastructure resources in your cloud environment.
 
 The term *virtual* is used for abstract resources that directly map to an actual, physical resource.
 
-[Envoy] is a proxy that you deploy with each microservice after creating your mesh resources (virtual services, virtual nodes, virtual routers, and routes). You will normally run it in a container using the [Envoy Image], which you configure to as part of your task or pod definition for your microservice. Envoy proxies provide the foundation for the App Mesh implementation of its core resource abstractions. Service-to-service communication in the data plane flows through Envoy proxies that intercept all ingress and egress traffic for each microservice they are associated with through the mesh configuration.
+[Envoy] is a proxy that you deploy with each microservice after creating your mesh resources (virtual services, virtual nodes, virtual routers, and routes). You will normally run it in a container using the AWS App Mesh provided [Envoy Image], which you configure to as part of your task or pod definition for your microservice. Envoy proxies provide the foundation for the App Mesh implementation of its core resource abstractions. Service-to-service communication in the data plane flows through Envoy proxies that intercept all ingress and egress traffic for each microservice they are associated with through the mesh configuration.
 
 ### Virtual Services, Virtual Nodes, and Virtual Routers
 
