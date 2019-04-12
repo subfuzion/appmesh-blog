@@ -196,7 +196,7 @@ Now that we've deployed our infrastructure resources for testing, let's configur
 
 ### Configure App Mesh resources
 
-We will now add our mesh resource definitions so that when we finally deploy our services, the mesh will be able to push computed configuration down to the Envoy proxy running as a sidecar in each ECS task. The following CloudFormation template will be used to create these resources for our application:
+We will now add our mesh resource definitions so that when we finally deploy our services, the mesh will be able to push computed configuration down to each Envoy proxy running as a sidecar for each ECS task. The following CloudFormation template will be used to create these resources for our application:
 
 `examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
 
@@ -206,6 +206,22 @@ In addition to the previous defined environment variables, you will also need to
 * COLOR_GATEWAY_IMAGE - Docker image for the Color App colorgateway microservice (subfuzion/colorgatway).
 * COLOR_TELLER_IMAGE - Docker image for the Color App colorteller microservice (subfuzion/colorteller).
   
+***Create the ECS cluster***
+
+`examples/apps/colorapp/servicemesh/appmesh-colorapp`
+
+```
+$ export AWS_PROFILE=default
+$ export AWS_DEFAULT_REGION=us-west-2
+$ export ENVIRONMENT_NAME=DEMO
+$ export SERVICES_DOMAIN=demo.local
+$ export KEY_PAIR_NAME=tony_devbox2
+* ENVOY_IMAGE - see [Envoy Image] for latest recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod)
+* COLOR_GATEWAY_IMAGE - Docker image for the Color App colorgateway microservice (subfuzion/colorgatway).
+* COLOR_TELLER_IMAGE - Docker image for the Color App colorteller microservice (subfuzion/colorteller).
+$ ./examples/apps/colorteller/servicemesh/appmesh-colorapp.sh
+...
+```
 
 ### Deploy services to ECS
 
