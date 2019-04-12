@@ -106,7 +106,7 @@ $
 
 ### Create an App Mesh
 
-A service mesh a logical boundary for network traffic between services that reside in it. [AWS App Mesh] is a service mesh that provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. The following CloudFormation template will be used to create an App Mesh mesh for our application:
+A service mesh a logical boundary for network traffic between services that reside in it. [AWS App Mesh] is a managed service mesh control plane. It provides application-level networking support, standardizing how you control and monitor your services across multiple types of compute infrastructure. The following CloudFormation template will be used to create an App Mesh mesh for our application:
 
 `examples/infrastructure/appmesh-mesh.yaml`
 
