@@ -1,8 +1,6 @@
 # AWS App Mesh Deep Dive with the Color App
 
-![appmesh-color-app](appmesh-color-app.svg)
-
-#### Articles
+### Articles
 
 [Walkthrough] - Deploy the Color App on ECS
 
