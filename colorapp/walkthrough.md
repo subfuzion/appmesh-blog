@@ -15,6 +15,8 @@ This is a walkthrough for deploying the [Color App] that was demonstrated at the
   - [Deploy the application](#deploy-the-application)
     - [Configure App Mesh resources](#configure-app-mesh-resources)
     - [Deploy services to ECS](#deploy-services-to-ecs)
+      - [Deploy images to ECR for your account](#deploy-images-to-ecr-for-your-account)
+      - [Deploy gateway and colorteller services](#deploy-gateway-and-colorteller-services)
   - [Shape traffic](#shape-traffic)
     - [Apply traffic rules](#apply-traffic-rules)
     - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
@@ -50,8 +52,8 @@ Each template has a corresponding shell script with a `.sh` extension that you r
 * `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair].
 * `CLUSTER_SIZE` - (optional) the number of EC2 instances to provision for the ECS cluster (default = 5).
 * `ENVOY_IMAGE` - see [Envoy Image] for latest recommended Docker image (currently: `111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod`)
-* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App `colorgateway` microservice (`subfuzion/colorgatway`).
-* `COLOR_TELLER_IMAGE` - Docker image for the Color App `colorteller` microservice (`subfuzion/colorteller`).
+* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App colorgateway microservice (`subfuzion/colorgatway`).
+* `COLOR_TELLER_IMAGE` - Docker image for the Color App colorteller microservice (`subfuzion/colorteller`).
 
 See below for more detail and to see where these environment variables are used.
 
@@ -227,15 +229,61 @@ $
 
 ### Deploy services to ECS
 
+#### Deploy images to ECR for your account
+
+Before you can deploy the services, you will need to deploy the images that ECS will use for `gateway` and `colorteller` to ECR image repositories for your account. You can build these images from source under the `examples/apps/colorteller/src` and push them using the provided deploy scripts after you create repositories for them on ECR, as shown below.
+
+Deploy the `gateway` image:
+
+```
+# from the colorapp repo root...
+$ cd examples/apps/colorapp/src/gateway
+$ aws ecr create-repository --repository-name=gateway
+$ export COLOR_GATEWAY_IMAGE=$(aws ecr describe-repositories --repository-names=gateway --query 'repositories[0].repositoryUri' --output text)
+$ ./deploy.sh
++ '[' -z 226767807331.dkr.ecr.us-west-2.amazonaws.com/gateway ']'
++ docker build -t 226767807331.dkr.ecr.us-west-2.amazonaws.com/gateway .
+Sending build context to Docker daemon      1MB
+Step 1/11 : FROM golang:1.10 AS builder
+...
++ docker push 226767807331.dkr.ecr.us-west-2.amazonaws.com/gateway
+The push refers to repository [226767807331.dkr.ecr.us-west-2.amazonaws.com/gateway]
+latest: digest: sha256:ce597511c0230af89b81763eb51c808303e9ef8e1fbe677af02109d1f73a868c size: 528
+$
+```
+
+Deploy the `colorteller` image:
+
+```
+# from the colorapp repo root....
+$ cd examples/apps/colorapp/src/colorteller
+$ aws ecr create-repository --repository-name=colorteller
+$ export COLOR_TELLER_IMAGE=$(aws ecr describe-repositories --repository-names=colorteller --query 'repositories[0].repositoryUri' --output text)
+$ ./deploy.sh
+$ ./deploy.sh
++ '[' -z 226767807331.dkr.ecr.us-west-2.amazonaws.com/colorteller:latest ']'
++ docker build -t 226767807331.dkr.ecr.us-west-2.amazonaws.com/colorteller:latest .
+Sending build context to Docker daemon  996.4kB
+Step 1/11 : FROM golang:1.10 AS builder
+...
++ docker push 226767807331.dkr.ecr.us-west-2.amazonaws.com/colorteller:latest
+The push refers to repository [226767807331.dkr.ecr.us-west-2.amazonaws.com/colorteller]
+69856c2b3fc6: Layer already exists
+latest: digest: sha256:ca16f12268907c32140586e2568e2032f04b95d70b373c00fcee7e776e2d29da size: 528
+$
+```
+
+#### Deploy gateway and colorteller services
+
 We will now deploy our services on ECS. The following CloudFormation template will be used to create these resources for our application:
 
 `examples/apps/colorapp/ecs/ecs-colorapp.yaml`
 
 In addition to the previously defined environment variables, you will also need to export the following:
 
-* ENVOY_IMAGE - see [Envoy Image] for latest recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod)
-* COLOR_GATEWAY_IMAGE - Docker image for the Color App colorgateway microservice (subfuzion/colorgatway).
-* COLOR_TELLER_IMAGE - Docker image for the Color App colorteller microservice (subfuzion/colorteller).
+* `ENVOY_IMAGE` - see [Envoy Image] for latest recommended Docker image (currently: `111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod`)
+* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App gateway microservice (see example below).
+* `COLOR_TELLER_IMAGE` - Docker image for the Color App colorteller microservice (see example below).
   
 ***Deploy services to ECS***
 
@@ -248,20 +296,16 @@ $ export ENVIRONMENT_NAME=DEMO
 $ export SERVICES_DOMAIN=demo.local
 $ export KEY_PAIR_NAME=tony_devbox2
 $ export ENVOY_IMAGE=111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod
-$ export COLOR_GATEWAY_IMAGE=subfuzion/colorgatway
-$ export COLOR_TELLER_IMAGE=subfuzion/colorteller
+$ export COLOR_GATEWAY_IMAGE=$(aws ecr describe-repositories --repository-names=gateway --query 'repositories[0].repositoryUri' --output text)
+$ export COLOR_TELLER_IMAGE=$(aws ecr describe-repositories --repository-names=colorteller --query 'repositories[0].repositoryUri' --output text)
 $ ./examples/apps/colorapp/ecs/ecs-colorapp.sh
 ...
-+ aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-appmesh-colorapp --capabilities CAPABILITY_IAM --template-file /home/ec2-user/projects/aws/aws-app-mesh-examples/examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml --parameter-overrides EnvironmentName=DEMO ServicesDomain=demo.local AppMeshMeshName=appmesh-mesh
-
 Waiting for changeset to be created..
 Waiting for stack create/update to complete
 ...
-Successfully created/updated stack - DEMO-appmesh-colorapp
+Successfully created/updated stack - DEMO-ecs-colorapp
 $
 ```
-
-
 
 ## Shape traffic
 
@@ -284,7 +328,6 @@ $
 [Envoy Image]
 
 [Envoy documentation]
-
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [Amazon CloudWatch]: https://aws.amazon.com/cloudwatch/
