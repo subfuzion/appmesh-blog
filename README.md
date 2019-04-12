@@ -7,4 +7,4 @@
 [Color App Blog Posts] 
 
 [App Mesh Guide]: https://appmesh.dev
-[Color App]: ./colorapp
+[Color App Blog Posts]: ./colorapp
