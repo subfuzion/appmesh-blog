@@ -257,7 +257,6 @@ $ cd examples/apps/colorapp/src/colorteller
 $ aws ecr create-repository --repository-name=colorteller
 $ export COLOR_TELLER_IMAGE=$(aws ecr describe-repositories --repository-names=colorteller --query 'repositories[0].repositoryUri' --output text)
 $ ./deploy.sh
-$ ./deploy.sh
 + '[' -z 226767807331.dkr.ecr.us-west-2.amazonaws.com/colorteller:latest ']'
 + docker build -t 226767807331.dkr.ecr.us-west-2.amazonaws.com/colorteller:latest .
 Sending build context to Docker daemon  996.4kB
