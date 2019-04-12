@@ -305,11 +305,18 @@ $
 
 #### Test the application
 
+**TODO** - reviewed with Brian; will push PRs to add a bastion host and ALB.
+
 ## Shape traffic
 
 ### Apply traffic rules
 
+**TODO** - demo splitting traffic by applying a route rule from:
+https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp/servicemesh/config/update_routes
+
 ### Monitor with Amazon CloudWatch and AWS X-Ray
+
+**TODO** - quick mention / show screenshots of CloudWatch and X-Ray
 
 ## Summary
 
@@ -343,7 +350,7 @@ In this walkthrough, we stepped through the process of deploying the Color App e
 [Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
 [Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
 [Currently available AWS regions for App Mesh]: ./regions.md
-[Deep Dive]: ./README.md
+[Deep Dive]: ./deepdive.md
 [Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy documentation]: https://www.envoyproxy.io/docs/envoy/latest/
@@ -352,3 +359,4 @@ In this walkthrough, we stepped through the process of deploying the Color App e
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
 [jq]: https://stedolan.github.io/jq/
 [NAT Gateways]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
+[Walkthrough]: ./walkthrough.md
