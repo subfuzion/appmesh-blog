@@ -49,7 +49,7 @@ Each template has a corresponding shell script with a `.sh` extension that you r
 * `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`).
 * `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair].
 * `CLUSTER_SIZE` - (optional) the number of EC2 instances to provision for the ECS cluster (default = 5).
-* `ENVOY_IMAGE` - see [Envoy Image] for recommended Docker image (currently: `111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod`)
+* `ENVOY_IMAGE` - see [Envoy Image] for latest recommended Docker image (currently: `111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod`)
 * `COLOR_GATEWAY_IMAGE` - Docker image for the Color App `colorgateway` microservice (`subfuzion/colorgatway`).
 * `COLOR_TELLER_IMAGE` - Docker image for the Color App `colorteller` microservice (`subfuzion/colorteller`).
 
@@ -196,9 +196,13 @@ Now that we've deployed our infrastructure resources for testing, let's configur
 
 ### Configure App Mesh resources
 
+We will now add our mesh resource definitions so that when we finally deploy our services, the mesh will be able to push computed configuration down to the Envoy proxy running as a sidecar in each ECS task. The following CloudFormation template will be used to create these resources for our application:
+
+`examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
+
 In addition to the previous defined environment variables, you will also need to export the following:
 
-* ENVOY_IMAGE - see [Envoy Image] for recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod)
+* ENVOY_IMAGE - see [Envoy Image] for latest recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod)
 * COLOR_GATEWAY_IMAGE - Docker image for the Color App colorgateway microservice (subfuzion/colorgatway).
 * COLOR_TELLER_IMAGE - Docker image for the Color App colorteller microservice (subfuzion/colorteller).
   
