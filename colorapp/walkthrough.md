@@ -315,6 +315,8 @@ $
 
 ## Summary
 
+In this walkthrough, we stepped through the process of deploying the Color App example with App Mesh. See the [Deep Dive] to examine App Mesh functionality in greater detail.
+
 ## Resources
 
 [AWS App Mesh Documentation]
@@ -343,6 +345,7 @@ $
 [Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
 [Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
 [Currently available AWS regions for App Mesh]: ./regions.md
+[Deep Dive]: ./README.md
 [Elastic Load Balancing]: https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy documentation]: https://www.envoyproxy.io/docs/envoy/latest/
