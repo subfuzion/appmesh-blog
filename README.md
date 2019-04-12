@@ -1,7 +1,10 @@
-# appmesh-blog
+# App Mesh
 
-Content for individual blog posts and App Mesh Guide (wip): https://appmesh.dev
+### Draft Content
 
-[Color App]
+[App Mesh Guide]
 
+[Color App Blog Posts] 
+
+[App Mesh Guide]: https://appmesh.dev
 [Color App]: ./colorapp
