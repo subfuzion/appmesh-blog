@@ -84,7 +84,7 @@ Set the following environment variables:
 * `AWS_DEFAULT_REGION` - set to one of the [Currently available AWS regions for App Mesh]
 * `ENVIRONMENT_NAME` - will be applied as a prefix to deployed CloudFormation stack names
 
-Run the `vpc.sh` script to create a VPC for the application in the region you specify. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. You can choose to from one of the nineteen [Currently available AWS regions for App Mesh]. The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one in each AZ) with default routes for them in the private subnets.
+Run the `vpc.sh` script to create a VPC for the application in the region you specify. It will be configured for two availability zones (AZs); each AZ will be configured with a public and a private subnet. You can choose from one of the nineteen [Currently available AWS regions for App Mesh]. The deployment will include an [Internet Gateway] and a pair of [NAT Gateways] (one in each AZ) with default routes for them in the private subnets.
 
 ***Create the VPC***
 
