@@ -53,8 +53,8 @@ Each template has a corresponding shell script with a `.sh` extension that you r
 * `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair].
 * `CLUSTER_SIZE` - (optional) the number of EC2 instances to provision for the ECS cluster (default = 5).
 * `ENVOY_IMAGE` - see [Envoy Image] for latest recommended Docker image (currently: `111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod`)
-* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App colorgateway microservice (`subfuzion/colorgatway`).
-* `COLOR_TELLER_IMAGE` - Docker image for the Color App colorteller microservice (`subfuzion/colorteller`).
+* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App gateway microservice in ECR.
+* `COLOR_TELLER_IMAGE` - Docker image for the Color App colorteller microservice in ECR.
 
 See below for more detail and to see where these environment variables are used.
 
@@ -148,7 +148,7 @@ Our infrastructure requires compute resources to run our services on. The follow
 
 In addition to the previously defined environment variables, you will also need to export the following:
 
-* `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`). For this demo, we will use `demo.local`. This means that the colorgateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
+* `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`). For this demo, we will use `demo.local`. This means that the gateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
 * `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair] to log into your EC2 instances.
 
 You can also override the demo script's default cluster size (5) by setting `CLUSTER_SIZE`:
