@@ -151,10 +151,6 @@ In addition to the previously defined environment variables, you will also need 
 * `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`). For this demo, we will use `demo.local`. This means that the gateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
 * `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair] to log into your EC2 instances.
 
-You can also override the demo script's default cluster size (5) by setting `CLUSTER_SIZE`:
-
-* `CLUSTER_SIZE` - (optional) the number of EC2 instances to provision for the ECS cluster (default = 5).
-
 ***Create the ECS cluster***
 
 `examples/infrastructure/ecs-cluster.sh`
