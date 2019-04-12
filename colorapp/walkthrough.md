@@ -17,6 +17,7 @@ This is a walkthrough for deploying the [Color App] that was demonstrated at the
     - [Deploy services to ECS](#deploy-services-to-ecs)
       - [Deploy images to ECR for your account](#deploy-images-to-ecr-for-your-account)
       - [Deploy gateway and colorteller services](#deploy-gateway-and-colorteller-services)
+      - [Test the application](#test-the-application)
   - [Shape traffic](#shape-traffic)
     - [Apply traffic rules](#apply-traffic-rules)
     - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
@@ -306,6 +307,8 @@ Waiting for stack create/update to complete
 Successfully created/updated stack - DEMO-ecs-colorapp
 $
 ```
+
+#### Test the application
 
 ## Shape traffic
 
