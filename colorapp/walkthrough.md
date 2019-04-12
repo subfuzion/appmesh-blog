@@ -283,7 +283,7 @@ We will now deploy our services on ECS. The following CloudFormation template wi
 In addition to the previously defined environment variables, you will also need to export the following:
 
 * `ENVOY_IMAGE` - see [Envoy Image] for latest recommended Docker image (currently: `111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod`)
-* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App gateway microservice (see example below).
+* `COLOR_GATEWAY_IMAGE` - Docker image for the Color App *gateway microservice (see example below).
 * `COLOR_TELLER_IMAGE` - Docker image for the Color App colorteller microservice (see example below).
   
 ***Deploy services to ECS***
