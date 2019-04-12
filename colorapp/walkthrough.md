@@ -190,9 +190,9 @@ $ aws cloudformation describe-stacks --stack-name DEMO-ecs-cluster --query 'Stac
 "CREATE_COMPLETE"
 ```
 
-Now let's configure mesh resources and deploy the application.
-
 ## Deploy the application
+
+Now that we've deployed our infrastructure resources for testing, let's configure our mesh and finally deploy the Color App.
 
 ### Configure App Mesh resources
 
