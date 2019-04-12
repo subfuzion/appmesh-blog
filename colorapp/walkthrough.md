@@ -25,7 +25,7 @@ This is a walkthrough for deploying the [Color App] that was demonstrated at the
 
 This brief guide will walk you through deploying the Color App on ECS. The process has been automated using shell scripts and [AWS CloudFormation] templates to make deployment straightforward and repeatable.
 
-Core networking and compute infrastructure doesn't need to be recreated each time the Color App is redeployed. Since this is the most time-consuming aspect of a full deployment, resource provisioning is divided among a layered set of CloudFormation stack templates.
+Core networking and compute infrastructure doesn't need to be recreated each time the Color App is redeployed. Since this can be time-consuming, resource provisioning is divided among a layered set of CloudFormation stack templates.
 
 The App Mesh deployment is also partitioned into different stages as well, but this for for performance reasons since App Mesh operations are very fast. The reason for the separation is simply so you can tear down the Color App without tearing down the demo mesh in case you also have other sample apps running in it for experimentation.
 
@@ -64,6 +64,8 @@ See below for more detail and to see where these environment variables are used.
 3. You have an [Amazon EC2 Key Pair] that you can use to log into your EC2 instances.
 
 4. You have cloned the [github.com/aws/aws-app-mesh-examples] repo and changed directory to the project root.
+
+5. You have [jq] installed.
 
 ## Deploy infrastructure for the application
 
@@ -141,7 +143,7 @@ Our infrastructure requires compute resources to run our services on. The follow
 
 `examples/infrastructure/ecs-cluster.yaml`
 
-In addition to the previous defined environment variables, you will also need to export the following:
+In addition to the previously defined environment variables, you will also need to export the following:
 
 * `SERVICES_DOMAIN` - the base namespace to use for service discovery (e.g., `cluster.local`). For this demo, we will use `demo.local`. This means that the colorgateway virtual service will send requests to the colorteller virtual service at `colorteller.demo.local`.
 * `KEY_PAIR_NAME` - your [Amazon EC2 Key Pair] to log into your EC2 instances.
@@ -200,15 +202,44 @@ We will now add our mesh resource definitions so that when we finally deploy our
 
 `examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
 
-In addition to the previous defined environment variables, you will also need to export the following:
+We will use the same exported environment variables created previously. No new environment variables are needed.
+
+***Create mesh resources***
+
+`examples/apps/colorapp/servicemesh/appmesh-colorapp.sh`
+
+```
+$ export AWS_PROFILE=default
+$ export AWS_DEFAULT_REGION=us-west-2
+$ export ENVIRONMENT_NAME=DEMO
+$ export SERVICES_DOMAIN=demo.local
+$ export MESH_NAME=appmesh-mesh
+$ ./examples/apps/colorteller/servicemesh/appmesh-colorapp.sh
+...
++ aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-appmesh-colorapp --capabilities CAPABILITY_IAM --template-file /home/ec2-user/projects/aws/aws-app-mesh-examples/examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml --parameter-overrides EnvironmentName=DEMO ServicesDomain=demo.local AppMeshMeshName=appmesh-mesh
+
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+...
+Successfully created/updated stack - DEMO-appmesh-colorapp
+$
+```
+
+### Deploy services to ECS
+
+We will now deploy our services on ECS. The following CloudFormation template will be used to create these resources for our application:
+
+`examples/apps/colorapp/ecs/ecs-colorapp.yaml`
+
+In addition to the previously defined environment variables, you will also need to export the following:
 
 * ENVOY_IMAGE - see [Envoy Image] for latest recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod)
 * COLOR_GATEWAY_IMAGE - Docker image for the Color App colorgateway microservice (subfuzion/colorgatway).
 * COLOR_TELLER_IMAGE - Docker image for the Color App colorteller microservice (subfuzion/colorteller).
   
-***Create the ECS cluster***
+***Deploy services to ECS***
 
-`examples/apps/colorapp/servicemesh/appmesh-colorapp`
+`examples/apps/colorapp/ecs/ecs-colorapp.sh`
 
 ```
 $ export AWS_PROFILE=default
@@ -216,14 +247,21 @@ $ export AWS_DEFAULT_REGION=us-west-2
 $ export ENVIRONMENT_NAME=DEMO
 $ export SERVICES_DOMAIN=demo.local
 $ export KEY_PAIR_NAME=tony_devbox2
-* ENVOY_IMAGE - see [Envoy Image] for latest recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod)
-* COLOR_GATEWAY_IMAGE - Docker image for the Color App colorgateway microservice (subfuzion/colorgatway).
-* COLOR_TELLER_IMAGE - Docker image for the Color App colorteller microservice (subfuzion/colorteller).
-$ ./examples/apps/colorteller/servicemesh/appmesh-colorapp.sh
+$ export ENVOY_IMAGE=111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod
+$ export COLOR_GATEWAY_IMAGE=subfuzion/colorgatway
+$ export COLOR_TELLER_IMAGE=subfuzion/colorteller
+$ ./examples/apps/colorapp/ecs/ecs-colorapp.sh
 ...
++ aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-appmesh-colorapp --capabilities CAPABILITY_IAM --template-file /home/ec2-user/projects/aws/aws-app-mesh-examples/examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml --parameter-overrides EnvironmentName=DEMO ServicesDomain=demo.local AppMeshMeshName=appmesh-mesh
+
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+...
+Successfully created/updated stack - DEMO-appmesh-colorapp
+$
 ```
 
-### Deploy services to ECS
+
 
 ## Shape traffic
 
@@ -268,4 +306,5 @@ $ ./examples/apps/colorteller/servicemesh/appmesh-colorapp.sh
 [Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
 [github.com/aws/aws-app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
+[jq]: https://stedolan.github.io/jq/
 [NAT Gateways]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
