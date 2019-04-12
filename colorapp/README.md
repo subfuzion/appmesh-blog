@@ -1,4 +1,4 @@
-# AWS App Mesh Deep Dive with the Color App
+# AWS App Mesh article series
 
 ### Articles
 
