@@ -196,7 +196,7 @@ Now that we've deployed our infrastructure resources for testing, let's configur
 
 ### Configure App Mesh resources
 
-* ENVOY_IMAGE - see [Envoy Image] for recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v
+* ENVOY_IMAGE - see [Envoy Image] for recommended Docker image (currently: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.9.0.0-prod)
 * COLOR_GATEWAY_IMAGE - Docker image for the Color App colorgateway microservice (subfuzion/colorgatway).
 * COLOR_TELLER_IMAGE - Docker image for the Color App colorteller microservice (subfuzion/colorteller).
 * 
