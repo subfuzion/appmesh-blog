@@ -330,6 +330,99 @@ In the following section, we'll walk through how to modify traffic according to 
 
 ### Apply traffic rules
 
+Open up `examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml` in an editor. In the definition for `ColorTellerRoute`, you will see the spec for an HttpRoute (around line 123):
+
+```
+  ColorTellerRoute:
+    Type: AWS::AppMesh::Route
+    DependsOn:
+      - ColorTellerVirtualRouter
+      - ColorTellerWhiteVirtualNode
+      - ColorTellerRedVirtualNode
+      - ColorTellerBlueVirtualNode
+    Properties:
+      MeshName: !Ref AppMeshMeshName
+      VirtualRouterName: colorteller-vr
+      RouteName: colorteller-route
+      Spec:
+        HttpRoute:
+          Action:
+            WeightedTargets:
+              - VirtualNode: colorteller-white-vn
+                Weight: 1
+              - VirtualNode: colorteller-blue-vn
+                Weight: 1
+              - VirtualNode: colorteller-red-vn
+                Weight: 1
+          Match:
+            Prefix: "/"
+```
+
+Modify the `HttpRoute` block of code to look like this:
+
+```
+        HttpRoute:
+          Action:
+            WeightedTargets:
+              - VirtualNode: colorteller-black-vn
+                Weight: 1
+          Match:
+            Prefix: "/"
+```
+
+Apply the update:
+
+```
+./examples/apps/colorapp/servicemesh/appmesh-colorapp.sh
+...
++ aws --profile default --region us-west-2 cloudformation deploy --stack-name DEMO-appmesh-colorapp
+--capabilities CAPABILITY_IAM --template-file /ho me/ec2-user/projects/aws/aws-app-mesh-examples/examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml --parameter-overrides EnvironmentName=DEMO Se
+rvicesDomain=demo.local AppMeshMeshName=appmesh-mesh
+...
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+Successfully created/updated stack - DEMO-appmesh-colorapp
+```
+
+Now, when you curl the app, you will see a responses like the following:
+
+```
+$ curl $colorapp/color
+{"color":"black", "stats": {"black":0.19,"blue":0.28,"red":0.27,"white":0.26}}
+
+...
+# repeated calls will increase the stats for black since it's the only color response now
+{"color":"black", "stats": {"black":0.21,"blue":0.28,"red":0.26,"white":0.25}}
+```
+
+The following query will clear the stats history:
+
+```
+$ curl $colorapp/color/clear
+cleared
+
+# now requery
+$ curl $colorapp/color
+{"color":"black", "stats": {"black":1}}
+```
+
+Since there are no other colors for the histogram, that's all you will see no matter how many times you repeat the query.
+
+Simulate A/B tests with a 50/50 split between red and blue:
+
+Edit `examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
+
+```
+            WeightedTargets:
+              - VirtualNode: colorteller-red-vn
+                Weight: 1
+              - VirtualNode: colorteller-blue-vn
+                Weight: 1
+```
+
+Any integer proportion will work for the weights, so you could have used `1` or `5` or `50` for each to reflect the `1:1` ratio that distributes 50% of the traffic to the two colortellers.
+
+In a similar manner, you can perform canary tests and rolling updates based on healthchecks or other criteria using weighted targets.
 
 ### Monitor with Amazon CloudWatch and AWS X-Ray
 
