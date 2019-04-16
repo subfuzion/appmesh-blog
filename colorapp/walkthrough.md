@@ -304,14 +304,32 @@ $
 
 #### Test the application
 
-**TODO** - reviewed with Brian; will push PRs to add a bastion host and ALB.
+Once we have deployed the app, we can curl the frontend service (`gateway`). To get the endpoint, run the following code:
+
+```
+$ colorapp=$(aws cloudformation describe-stacks --stack-name=$ENVIRONMENT_NAME-ecs-colorapp --query="Stacks[0
+].Outputs[?OutputKey=='ColorAppEndpoint'].OutputValue" --output=text); echo $colorapp
+http://DEMO-Publi-M7WJ5RU13M0T-553915040.us-west-2.elb.amazonaws.com
+
+$ curl $colorapp/color
+{"color":"red", "stats": {"red":1}}
+```
+
+> TIP: If you don't see a newline after curl responses, you might want to use `curl -w "\n"` or add `-w "\n"` to `$HOME/.curlrc`.
 
 ## Shape traffic
 
+Currently, the the app equally distributes traffic among blue, red, and white color teller virtual nodes through the default virtual router configuration, so if you run the curl command a few times, you might see something similar to this: 
+
+```
+$ curl $colorapp/color
+{"color":"red", "stats": {"blue":0.33,"red":0.36,"white":0.31}}
+```
+
+In the following section, we'll walk through how to modify traffic according to rules we set.
+
 ### Apply traffic rules
 
-**TODO** - demo splitting traffic by applying a route rule from:
-https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp/servicemesh/config/update_routes
 
 ### Monitor with Amazon CloudWatch and AWS X-Ray
 
