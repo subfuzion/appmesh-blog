@@ -224,6 +224,8 @@ Successfully created/updated stack - DEMO-appmesh-colorapp
 $
 ```
 
+> Note: the App Mesh resources for the Color App are created before the app itself is deployed in the final step; this is so Envoy, which is deployed as a task sidecar, is able to communicate with the Envoy Management Service. If the mesh itself isn't configured first, the sidecar will remain unhealthy and eventually the task will fail.
+
 ### Deploy services to ECS
 
 #### Deploy images to ECR for your account
@@ -444,6 +446,11 @@ export ENVOY_IMAGE=111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envo
 export KEY_PAIR_NAME=tony_devbox2
 export COLOR_GATEWAY_IMAGE=226767807331.dkr.ecr.us-west-2.amazonaws.com/gateway
 export COLOR_TELLER_IMAGE=226767807331.dkr.ecr.us-west-2.amazonaws.com/colorteller:latest
+```
+
+```
+# source environment variables into the current bash shell
+$ source .env
 ```
 
 We ran the following scripts in order to provision the resources we need for the application:
