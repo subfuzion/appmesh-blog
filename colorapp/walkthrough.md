@@ -471,11 +471,11 @@ $ curl $colorapp/color
 {"color":"red", "stats": {"red":1}}
 ```
 
-We then saw how to [Apply traffic rules] to redistrute traffic across different versions of the `colorteller` service, and finally we saw how to [Monitor with Amazon CloudWatch and AWS X-Ray].
+We then saw how to [apply traffic rules](#apply-traffic-rules) to redistrute traffic across different versions of the `colorteller` service, and finally we took a brief look at [monitoring with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray).
 
 ## Summary
 
-In this walkthrough, we stepped through the process of deploying the Color App example with App Mesh. We saw how easy it was to update routes to distribute traffic between different versions of a backend service and to access logs, metrics and distributed traces for the app in the AWS Console.
+In this walkthrough, we stepped through the process of deploying the Color App example with App Mesh. We saw how easy it was to update routes to distribute traffic between different versions of a backend service and to access logs and distributed traces for the app in the AWS Console.
 
 In this demo, our services ran on ECS. In the next post in this series, we'll update the demo and deploy some of the services across different compute environments, including EC2, and see how App Mesh lets us control and monitor our running application managed within the same mesh.
 
