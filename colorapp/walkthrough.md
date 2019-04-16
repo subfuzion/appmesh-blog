@@ -420,17 +420,19 @@ Edit `examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
                 Weight: 1
 ```
 
-Any integer proportion will work for the weights, so you could have used `1` or `5` or `50` for each to reflect the `1:1` ratio that distributes 50% of the traffic to the two colortellers.
+Any integer proportion will work for the weights, so you could have used `1` or `5` or `50` for each to reflect the `1:1` ratio that distributes traffic equally between the two colortellers.
 
-In a similar manner, you can perform canary tests and rolling updates based on healthchecks or other criteria using weighted targets.
+In a similar manner, you can perform canary tests or automate rolling updates based on healthchecks or other criteria using weighted targets to have fine-grained control over how you shape traffic for your application.
 
 ### Monitor with Amazon CloudWatch and AWS X-Ray
 
-**TODO** - quick mention / show screenshots of CloudWatch and X-Ray
+(TODO: add screenshots)
 
 ## Summary
 
-In this walkthrough, we stepped through the process of deploying the Color App example with App Mesh. See the [Deep Dive] to examine App Mesh functionality in greater detail.
+In this walkthrough, we stepped through the process of deploying the Color App example with App Mesh. We saw how easy it was to update routes to distribute traffic between different versions of a backend service and to access logs, metrics and distributed traces for the app in the AWS Console.
+
+In this demo, our services ran on ECS. In the next post in this series, we'll update the demo and deploy some of the services across different compute environments, including EC2, and see how App Mesh lets us control and monitor our running application managed within the same mesh.
 
 ## Resources
 
