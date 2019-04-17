@@ -435,7 +435,9 @@ In a similar manner, you can perform canary tests or automate rolling updates ba
 
 ## Review
 
-We exported the following environment variables needed by our deployment scripts. You can use most of the example values below for your own demo, but you will need to modify the last three using your own EC2 key pair and ECR URLs for the color images (see [Deploy gateway and colorteller services]).
+The following is the condensed version of all the steps we performed to run the Color App.
+
+1. Export the following environment variables needed by our deployment scripts. You can use most of the example values below for your own demo, but you will need to modify the last three using your own EC2 key pair and ECR URLs for the color images (see [Deploy gateway and colorteller services]).
 
 `.env`
 ```
@@ -455,7 +457,7 @@ export COLOR_TELLER_IMAGE=226767807331.dkr.ecr.us-west-2.amazonaws.com/colortell
 $ source .env
 ```
 
-We ran the following scripts in order to provision the resources we need for the application:
+2. Run the following scripts in order to provision the resources we need for the application.
 
 ```
 $ ./examples/infrastructure/vpc.sh
@@ -465,7 +467,7 @@ $ ./examples/apps/colorapp/servicemesh/appmesh-colorapp.sh
 $ ./examples/apps/colorapp/ecs/ecs-colorapp.sh
 ```
 
-Once the application was finally deployed, we obtained the Color Gateway endpoint:
+3. After the application is deployed, fetch the Color Gateway endpoint
 
 ```
 $ colorapp=$(aws cloudformation describe-stacks --stack-name=$ENVIRONMENT_NAME-ecs-colorapp --query="Stacks[0
@@ -473,14 +475,12 @@ $ colorapp=$(aws cloudformation describe-stacks --stack-name=$ENVIRONMENT_NAME-e
 http://DEMO-Publi-M7WJ5RU13M0T-553915040.us-west-2.elb.amazonaws.com
 ```
 
-And then we were finally able to query the Color App to get a color:
+4. Query the Color App to fetch a color
 
 ```
 $ curl $colorapp/color
 {"color":"red", "stats": {"red":1}}
 ```
-
-We then saw how to [apply traffic rules](#apply-traffic-rules) to redistrute traffic across different versions of the `colorteller` service, and finally we took a brief look at [monitoring with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray).
 
 ## Summary
 
