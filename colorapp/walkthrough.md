@@ -471,35 +471,34 @@ This provides us with a detailed view about how traffic flowed for the request.
 
 ![appmesh-xray-tracing-2](appmesh-xray-tracing-2.svg)
 
+If we log into the console for AWS App Mesh and drill down into "Virtual routers" for our mesh, we'll see that currently the HTTP route is configured to send 100% of traffic to the `colorteller-blue` virtual node.
 
+![appmesh-xray-colorteller-route-1](appmesh-xray-colorteller-route-1.svg)
 
+Click the "Edit" button to modify the route configuration:
 
+![appmesh-xray-colorteller-route-2](appmesh-xray-colorteller-route-2.svg)
 
+Click the "Add target" button, choose "colorteller-red-vn", and set the weight to `1`.
 
+![appmesh-xray-colorteller-route-3](appmesh-xray-colorteller-route-3.svg)
 
+After saving the updated route configuration, you should see:
 
+![appmesh-xray-colorteller-route-3](appmesh-xray-colorteller-route-4.svg)
 
+Now when you fetch a color, you should start to see "red" responses. Over time, the histogram (`stats`) field will show the distribution approaching 50% for each:
 
+```
+$ curl $colorapp/color
+{"color":"red", "stats": {"blue":0.75,"red":0.25}}
+```
 
+And if you refresh the X-Ray Service map, you should see something like this:
 
+![appmesh-xray-service-map-2](appmesh-xray-service-map-2.svg)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+AWS X-Ray is a valuable tool for providing insight into your application request traffic. See the [AWS X-Ray docs] to learn more how you can instrument your microservice applications so you can analyze the effects of traffic shaping using App Mesh.
 
 
 ## Review
@@ -581,6 +580,7 @@ In this demo, our services ran on ECS. In the next post in this series, we'll up
 [AWS CLI configuration]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 [AWS CloudFormation]: https://aws.amazon.com/cloudformation/
 [AWS X-Ray]: https://aws.amazon.com/xray/
+[AWS X-Ray docs]: https://docs.aws.amazon.com/xray/latest/devguide/xray-gettingstarted.html
 [Blue-Green deployments]: https://martinfowler.com/bliki/BlueGreenDeployment.html
 [Canary releases]: https://martinfowler.com/bliki/CanaryRelease.html
 [Color App]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
