@@ -2,7 +2,7 @@
 
 This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch.
 
-![appmesh-color-app](appmesh-color-app.svg)
+![appmesh-color-app-demo](appmesh-color-app-demo.svg)
 
 - [Walkthrough: Deploy the Color App on ECS](#walkthrough-deploy-the-color-app-on-ecs)
   - [Overview](#overview)
