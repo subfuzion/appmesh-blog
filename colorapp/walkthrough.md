@@ -423,7 +423,9 @@ Edit `examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
                 Weight: 1
 ```
 
-Any integer proportion will work for the weights, so you could have used `1` or `5` or `50` for each to reflect the `1:1` ratio that distributes traffic equally between the two colortellers.
+Any integer proportion will work for the weights (as long as the sum doesn't exceed 100), so you could have used `1` or `5` or `50` for each to reflect the `1:1` ratio that distributes traffic equally between the two colortellers. App Mesh will use the ration to compute the actual percentage of traffic to distribute along each route. You can see this in the App Mesh console when you inspect the route:
+
+![appmesh-weighted-routes](appmesh-weighted-routes.svg)
 
 In a similar manner, you can perform canary tests or automate rolling updates based on healthchecks or other criteria using weighted targets to have fine-grained control over how you shape traffic for your application.
 
