@@ -431,7 +431,76 @@ In a similar manner, you can perform canary tests or automate rolling updates ba
 
 ### Monitor with Amazon CloudWatch and AWS X-Ray
 
-(TODO: add screenshots)
+[AWS X-Ray] helps us to analyze distributed microservice applications through request tracing, providing an end-to-end view of requests traveling through the application so we can identify the root cause of errors and performance issues. We'll use X-Ray to provide a visual map of how App Mesh is distributing traffic and inspect traffic latency through our routes.
+
+When you open the AWS X-Ray console the view might appear busier than you expected due to traffic from automated healthchecks. We'll create a filter to focus on the traffic we're sending to the application frontend (color gateway) when we request a color on the `/color` route.
+
+The Color App has already been instrumented for X-Ray support and has created a [Segment] called "Default" to provide X-Ray with request context as it flows through the gateway service. Click on the "Default" button (shown in the figure below) to create a group to filter the visual map:
+
+![appmesh-xray-create-group-1](appmesh-xray-create-group-1.svg)
+
+Choose "Create group", name the group "color", and enter an expression that filters on requests to the `/color` route going through the `colorgateway-vn` node:
+
+```
+(service("appmesh-mesh/colorgateway-vn")) AND http.url ENDSWITH "/color"
+```
+
+![appmesh-xray-create-group-2](appmesh-xray-create-group-2.svg)
+
+After creating the group, make sure to select it from the dropdown to apply it as the active filter. You should see somethng similar to the following:
+
+![appmesh-xray-service-map-1](appmesh-xray-service-map-1.svg)
+
+What the map reveals is that
+
+1. Our color request first flows through an Envoy proxy for ingress to the gateway service.
+2. Envoy passes the request to the gateway service, which makes a request to a colorteller.
+3. The gateway service makes a request to a colorteller service to fetch a color. Egress traffic also flows through the Envoy proxy, which has been configured by App Mesh to route 100% of traffic for the colorteller to colorteller-blue.
+4. Traffic flows through another Envoy proxy for ingress to the colorteller-blue service.
+5. Envoy passes the request to the colorteller-blue service.
+
+Click on the `colorgateway-vn` node to display Service details:
+
+![appmesh-xray-tracing-1](appmesh-xray-tracing-1.svg)
+
+We can see an overview on latency and that 100% of the requests are "OK".
+
+Click on the "Traces" button:
+
+This provides us with a detailed view about how traffic flowed for the request.
+
+![appmesh-xray-tracing-2](appmesh-xray-tracing-2.svg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Review
 
@@ -525,4 +594,5 @@ In this demo, our services ran on ECS. In the next post in this series, we'll up
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
 [jq]: https://stedolan.github.io/jq/
 [NAT Gateways]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
+[Segment]: https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-segments
 [Walkthrough]: ./walkthrough.md

@@ -50,4 +50,5 @@ Relative links are relative to this directory (`REPO/.colorapp/`). Keep current 
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
 [jq]: https://stedolan.github.io/jq/
 [NAT Gateways]: https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
+[Segment]: https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-segments
 [Walkthrough]: ./walkthrough.md
