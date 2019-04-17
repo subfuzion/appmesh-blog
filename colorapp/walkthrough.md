@@ -498,7 +498,7 @@ And if you refresh the X-Ray Service map, you should see something like this:
 
 ![appmesh-xray-service-map-2](appmesh-xray-service-map-2.svg)
 
-AWS X-Ray is a valuable tool for providing insight into your application request traffic. See the [AWS X-Ray docs] to learn more how you can instrument your microservice applications so you can analyze the effects of traffic shaping using App Mesh.
+AWS X-Ray is a valuable tool for providing insight into your application request traffic. See the [AWS X-Ray docs] to learn more instrumenting your own microservice applications to analyze their performance and the effects of traffic shaping with App Mesh.
 
 
 ## Review
