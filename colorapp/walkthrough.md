@@ -473,19 +473,19 @@ This provides us with a detailed view about how traffic flowed for the request.
 
 If we log into the console for AWS App Mesh and drill down into "Virtual routers" for our mesh, we'll see that currently the HTTP route is configured to send 100% of traffic to the `colorteller-blue` virtual node.
 
-![appmesh-xray-colorteller-route-1](appmesh-xray-colorteller-route-1.svg)
+![appmesh-colorteller-route-1](appmesh-colorteller-route-1.svg)
 
 Click the "Edit" button to modify the route configuration:
 
-![appmesh-xray-colorteller-route-2](appmesh-xray-colorteller-route-2.svg)
+![appmesh-colorteller-route-2](appmesh-colorteller-route-2.svg)
 
 Click the "Add target" button, choose "colorteller-red-vn", and set the weight to `1`.
 
-![appmesh-xray-colorteller-route-3](appmesh-xray-colorteller-route-3.svg)
+![appmesh-colorteller-route-3](appmesh-colorteller-route-3.svg)
 
 After saving the updated route configuration, you should see:
 
-![appmesh-xray-colorteller-route-4](appmesh-xray-colorteller-route-4.svg)
+![appmesh-colorteller-route-4](appmesh-colorteller-route-4.svg)
 
 Now when you fetch a color, you should start to see "red" responses. Over time, the histogram (`stats`) field will show the distribution approaching 50% for each:
 
