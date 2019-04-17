@@ -485,7 +485,7 @@ Click the "Add target" button, choose "colorteller-red-vn", and set the weight t
 
 After saving the updated route configuration, you should see:
 
-![appmesh-xray-colorteller-route-3](appmesh-xray-colorteller-route-4.svg)
+![appmesh-xray-colorteller-route-4](appmesh-xray-colorteller-route-4.svg)
 
 Now when you fetch a color, you should start to see "red" responses. Over time, the histogram (`stats`) field will show the distribution approaching 50% for each:
 
