@@ -194,6 +194,8 @@ You have provisioned the infrastructure you need. You can confirm in the AWS Con
 
 ![appmesh-console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
 
+<p align="center"><b><i>Figure 4.</i></b> AWS Cloudformation stack deployments.</p>
+
 You can also confirm status with the AWS CLI:
 
 ```
