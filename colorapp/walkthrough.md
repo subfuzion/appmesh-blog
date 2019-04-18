@@ -565,7 +565,9 @@ $ curl $colorapp/color
 
 In this walkthrough, we stepped through the process of deploying the Color App example with App Mesh. We saw how easy it was to update routes to distribute traffic between different versions of a backend service and to access logs and distributed traces for the app in the AWS Console.
 
-In this demo, our services ran on ECS. In the next post in this series, we'll update the demo and deploy some of the services across different compute environments, including EC2, and see how App Mesh lets us control and monitor our running application managed within the same mesh.
+One of the key takeaways is that our control of traffic routing is transparent to the application. The application code for the gateway service that was deployed as an ECS task used the DNS name associated with the virtual service for the colorteller configured in App Mesh (`colorteller.demo.local`). App Mesh propagated the configuration updates throughout the mesh that ensured traffic from dependent services to their backends was routed according to the policies we specified using App Mesh configuration, not application configuration.
+
+In this demo, our services ran only on ECS. In the next post in this series, we'll update the demo and deploy some of the services across different compute environments, including EC2, and see how App Mesh lets us control and monitor our running application managed within the same mesh.
 
 ## Resources
 
