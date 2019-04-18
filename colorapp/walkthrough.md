@@ -12,11 +12,13 @@ In this post, we'll walk through creating specific abstract resources for [AWS A
 
 <p align="center"><b><i>Figure 2.</i></b> App Mesh perspective of the Color App.</p>
 
-Finally, we deploy ithe services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications. The key thing to note about this is that this means actual routing configuration is completely transparent to the actual application code. 
+Finally, we deploy ithe services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications.
 
 ![appmesh-color-app-demo-3](appmesh-color-app-demo-3.svg)
 
-<p align="center"><b><i>Figure 3.</i></b> Amazon ECS perspective of the Color App.</p>
+<p align="center"><b><i>Figure 3.</i></b> Amazon ECS perspective of the Color App.</p>.</p>
+
+The key thing to note about this is that actual routing configuration is completely transparent to the application code. The code deployed to the `gateway` containers will send requests to the DNS name `colorteller.demo.local`, which we configure as a virtual service in App Mesh. App Mesh will push updates to all the `envoy` sidecar containers to ensure traffic is sent directly to colorteller tasks running on EC2 instances according to the routing rules we specify through App Mesh configuration. There are no physical routers at runtime since App Mesh route rules are transformed to Envoy configuration and pushed directly to the `envoy` sidecars within the dependent tasks.
 
 **Contents**
 
