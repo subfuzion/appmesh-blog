@@ -16,6 +16,7 @@ Finally, we deploy ithe services that will comprise our application to ECS along
 
 ![appmesh-color-app-demo-3](appmesh-color-app-demo-3.svg)
 
+<p align="center"><b><i>Figure 3.</i></b> Amazon ECS perspective of the Color App.</p>
 
 **Contents**
 
