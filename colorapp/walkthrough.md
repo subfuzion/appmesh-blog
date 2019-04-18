@@ -8,7 +8,7 @@ In this post, we'll walk through creating specific abstract resources for [AWS A
 
 ![appmesh-color-app-demo-2](appmesh-color-app-demo-2.svg)
 
-Finally, we deploy ithe services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications. 
+Finally, we deploy ithe services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications. The key thing to note about this is that this means actual routing configuration is completely transparent to the actual application code. 
 
 ![appmesh-color-app-demo-3](appmesh-color-app-demo-3.svg)
 
