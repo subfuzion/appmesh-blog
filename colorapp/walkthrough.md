@@ -12,6 +12,8 @@ Finally, we deploy ithe services that will comprise our application to ECS along
 
 ![appmesh-color-app-demo-3](appmesh-color-app-demo-3.svg)
 
+** Contents **
+
 - [App Mesh Walkthrough: Deploy the Color App on ECS](#app-mesh-walkthrough-deploy-the-color-app-on-ecs)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
