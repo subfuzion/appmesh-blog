@@ -12,7 +12,7 @@ In this post, we'll walk through creating specific abstract resources for [AWS A
 
 <p align="center"><b><i>Figure 2.</i></b> App Mesh perspective of the Color App.</p>
 
-Finally, we deploy ithe services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications.
+Finally, we deploy he services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications.
 
 ![appmesh-color-app-demo-3](appmesh-color-app-demo-3.svg)
 
