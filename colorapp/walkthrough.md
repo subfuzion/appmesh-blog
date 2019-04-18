@@ -1,10 +1,18 @@
-# Walkthrough: Deploy the Color App on ECS
+# App Mesh Walkthrough: Deploy the Color App on ECS
 
-This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch.
+This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch. The following diagram shows a high level conceptual view of this simple application:
 
-![appmesh-color-app-demo](appmesh-color-app-demo.svg)
+![appmesh-color-app-demo-1](appmesh-color-app-demo-1.svg)
 
-- [Walkthrough: Deploy the Color App on ECS](#walkthrough-deploy-the-color-app-on-ecs)
+In this post, we'll walk through creating specific abstract resources for [AWS App Mesh] that will be used to drive a physical mapping to compute resources to stitch our application together, providing us with fine-grained control over traffic routing and end-to-end visibility of application request traffic and performance. The following diagram represents the abstract view in terms of App Mesh resources:
+
+![appmesh-color-app-demo-2](appmesh-color-app-demo-2.svg)
+
+Finally, we deploy ithe services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications. 
+
+![appmesh-color-app-demo-3](appmesh-color-app-demo-3.svg)
+
+- [App Mesh Walkthrough: Deploy the Color App on ECS](#app-mesh-walkthrough-deploy-the-color-app-on-ecs)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
   - [Deploy infrastructure for the application](#deploy-infrastructure-for-the-application)
