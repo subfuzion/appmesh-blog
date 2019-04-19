@@ -2,19 +2,19 @@
 
 This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch. The following diagram shows a high level conceptual view of this simple application:
 
-![appmesh-color-app-demo-1](appmesh-color-app-demo-1.svg)
+![appmesh-color-app-demo-1](appmesh-color-app-demo-1.png)
 
 <p align="center"><b><i>Figure 1.</i></b> Conceptual perspective of the Color App.</p>
 
 In this post, we'll walk through creating specific abstract resources for [AWS App Mesh] that will be used to drive a physical mapping to compute resources to stitch our application together, providing us with fine-grained control over traffic routing and end-to-end visibility of application request traffic and performance. The following diagram represents the abstract view in terms of App Mesh resources:
 
-![appmesh-color-app-demo-2](appmesh-color-app-demo-2.svg)
+![appmesh-color-app-demo-2](appmesh-color-app-demo-2.png)
 
 <p align="center"><b><i>Figure 2.</i></b> App Mesh perspective of the Color App.</p>
 
 Finally, we deploy he services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications.
 
-![appmesh-color-app-demo-3](appmesh-color-app-demo-3.svg)
+![appmesh-color-app-demo-3](appmesh-color-app-demo-3.png)
 
 <p align="center"><b><i>Figure 3.</i></b> Amazon ECS perspective of the Color App.</p>.</p>
 
@@ -194,7 +194,7 @@ $
 
 You have provisioned the infrastructure you need. You can confirm in the AWS Console that all of your CloudFormation stacks have been successfully deployed. You should see something like this:
 
-![appmesh-console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.svg)
+![appmesh-console-cloudformation-demo-stacks](appmesh-console-cloudformation-demo-stacks.png)
 
 <p align="center"><b><i>Figure 4.</i></b> AWS Cloudformation stack deployments.</p>
 
@@ -445,7 +445,7 @@ Edit `examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
 
 Any integer proportion will work for the weights (as long as the sum doesn't exceed 100), so you could have used `1` or `5` or `50` for each to reflect the `1:1` ratio that distributes traffic equally between the two colortellers. App Mesh will use the ratio to compute the actual percentage of traffic to distribute along each route. You can see this in the App Mesh console when you inspect the route:
 
-![appmesh-weighted-routes](appmesh-weighted-routes.svg)
+![appmesh-weighted-routes](appmesh-weighted-routes.png)
 
 In a similar manner, you can perform canary tests or automate rolling updates based on healthchecks or other criteria using weighted targets to have fine-grained control over how you shape traffic for your application.
 
@@ -477,7 +477,7 @@ When you open the AWS X-Ray console the view might appear busier than you expect
 
 The Color App has already been instrumented for X-Ray support and has created a [Segment] called "Default" to provide X-Ray with request context as it flows through the gateway service. Click on the "Default" button (shown in the figure below) to create a group to filter the visual map:
 
-![appmesh-xray-create-group-1](appmesh-xray-create-group-1.svg)
+![appmesh-xray-create-group-1](appmesh-xray-create-group-1.png)
 
 Choose "Create group", name the group "color", and enter an expression that filters on requests to the `/color` route going through the `colorgateway-vn` node:
 
@@ -485,11 +485,11 @@ Choose "Create group", name the group "color", and enter an expression that filt
 (service("appmesh-mesh/colorgateway-vn")) AND http.url ENDSWITH "/color"
 ```
 
-![appmesh-xray-create-group-2](appmesh-xray-create-group-2.svg)
+![appmesh-xray-create-group-2](appmesh-xray-create-group-2.png)
 
 After creating the group, make sure to select it from the dropdown to apply it as the active filter. You should see somethng similar to the following:
 
-![appmesh-xray-service-map-1](appmesh-xray-service-map-1.svg)
+![appmesh-xray-service-map-1](appmesh-xray-service-map-1.png)
 
 What the map reveals is that
 
@@ -501,7 +501,7 @@ What the map reveals is that
 
 Click on the `colorgateway-vn` node to display Service details:
 
-![appmesh-xray-tracing-1](appmesh-xray-tracing-1.svg)
+![appmesh-xray-tracing-1](appmesh-xray-tracing-1.png)
 
 We can see an overview on latency and that 100% of the requests are "OK".
 
@@ -509,23 +509,23 @@ Click on the "Traces" button:
 
 This provides us with a detailed view about how traffic flowed for the request.
 
-![appmesh-xray-tracing-2](appmesh-xray-tracing-2.svg)
+![appmesh-xray-tracing-2](appmesh-xray-tracing-2.png)
 
 If we log into the console for AWS App Mesh and drill down into "Virtual routers" for our mesh, we'll see that currently the HTTP route is configured to send 100% of traffic to the `colorteller-blue` virtual node.
 
-![appmesh-colorteller-route-1](appmesh-colorteller-route-1.svg)
+![appmesh-colorteller-route-1](appmesh-colorteller-route-1.png)
 
 Click the "Edit" button to modify the route configuration:
 
-![appmesh-colorteller-route-2](appmesh-colorteller-route-2.svg)
+![appmesh-colorteller-route-2](appmesh-colorteller-route-2.png)
 
 Click the "Add target" button, choose "colorteller-red-vn", and set the weight to `1`.
 
-![appmesh-colorteller-route-3](appmesh-colorteller-route-3.svg)
+![appmesh-colorteller-route-3](appmesh-colorteller-route-3.png)
 
 After saving the updated route configuration, you should see:
 
-![appmesh-colorteller-route-4](appmesh-colorteller-route-4.svg)
+![appmesh-colorteller-route-4](appmesh-colorteller-route-4.png)
 
 Now when you fetch a color, you should start to see "red" responses. Over time, the histogram (`stats`) field will show the distribution approaching 50% for each:
 
@@ -536,7 +536,7 @@ $ curl $colorapp/color
 
 And if you refresh the X-Ray Service map, you should see something like this:
 
-![appmesh-xray-service-map-2](appmesh-xray-service-map-2.svg)
+![appmesh-xray-service-map-2](appmesh-xray-service-map-2.png)
 
 AWS X-Ray is a valuable tool for providing insight into your application request traffic. See the [AWS X-Ray docs] to learn more instrumenting your own microservice applications to analyze their performance and the effects of traffic shaping with App Mesh.
 
