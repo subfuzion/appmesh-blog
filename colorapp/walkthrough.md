@@ -38,7 +38,7 @@ The key thing to note about this is that actual routing configuration is complet
       - [Test the application](#test-the-application)
   - [Shape traffic](#shape-traffic)
     - [Apply traffic rules](#apply-traffic-rules)
-    - [Monitor with Amazon CloudWatch and AWS X-Ray](#monitor-with-amazon-cloudwatch-and-aws-x-ray)
+    - [Monitor with AWS X-Ray](#monitor-with-aws-x-ray)
   - [Review](#review-1)
   - [Summary](#summary)
   - [Resources](#resources)
@@ -449,15 +449,17 @@ Any integer proportion will work for the weights (as long as the sum doesn't exc
 
 In a similar manner, you can perform canary tests or automate rolling updates based on healthchecks or other criteria using weighted targets to have fine-grained control over how you shape traffic for your application.
 
-For now, go ahead and update the HttpRoute to send all traffic to the blue colorteller:
+To prepare for the next section, go ahead and update the HttpRoute to send all traffic only to the blue colorteller.
 
+`examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml`
 ```
             WeightedTargets:
               - VirtualNode: colorteller-blue-vn
                 Weight: 1
 ```
 
-Then deploy the update and then clear the color history:
+Then deploy the update and then clear the color history for fresh histograms:
+
 ```
 $ ./examples/apps/colorapp/servicemesh/appmesh-colorapp.sh
 ...
@@ -465,11 +467,11 @@ $ curl $colorapp/color/clear
 cleared
 ```
 
-In the next section we'll experiment with updating the route using the App Mesh console and monitor the visually with AWS X-Ray.
+In the next section we'll experiment with updating the route using the App Mesh console and analyze results visually with AWS X-Ray.
 
-### Monitor with Amazon CloudWatch and AWS X-Ray
+### Monitor with AWS X-Ray
 
-[AWS X-Ray] helps us to analyze distributed microservice applications through request tracing, providing an end-to-end view of requests traveling through the application so we can identify the root cause of errors and performance issues. We'll use X-Ray to provide a visual map of how App Mesh is distributing traffic and inspect traffic latency through our routes.
+[AWS X-Ray] helps us to monitor and analyze distributed microservice applications through request tracing, providing an end-to-end view of requests traveling through the application so we can identify the root cause of errors and performance issues. We'll use X-Ray to provide a visual map of how App Mesh is distributing traffic and inspect traffic latency through our routes.
 
 When you open the AWS X-Ray console the view might appear busier than you expected due to traffic from automated healthchecks. We'll create a filter to focus on the traffic we're sending to the application frontend (color gateway) when we request a color on the `/color` route.
 
