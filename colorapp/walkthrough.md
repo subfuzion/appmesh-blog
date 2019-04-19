@@ -10,7 +10,7 @@ In this post, we'll walk through creating specific abstract resources for [AWS A
 ![appmesh-color-app-demo-2](appmesh-color-app-demo-2.png)
 <p align="center"><b><i>Figure 2.</i></b> App Mesh perspective of the Color App.</p>
 
-Finally, we deploy he services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications.
+Finally, we deploy the services that will comprise our application to ECS along with proxy sidecars for each service task; these proxies will be governed by App Mesh to ensure our application traffic behaves according to our specifications.
 
 ![appmesh-color-app-demo-3](appmesh-color-app-demo-3.png)
 <p align="center"><b><i>Figure 3.</i></b> Amazon ECS perspective of the Color App.</p>
@@ -46,7 +46,7 @@ This brief guide will walk you through deploying the Color App on ECS. The proce
 
 Core networking and compute infrastructure doesn't need to be recreated each time the Color App is redeployed. Since this can be time-consuming, resource provisioning is divided among a layered set of CloudFormation stack templates.
 
-The App Mesh deployment is also partitioned into different stages as well, but this for for performance reasons since App Mesh operations are very fast. The reason for the separation is simply so you can tear down the Color App without tearing down the demo mesh in case you also have other sample apps running in it for experimentation.
+The App Mesh deployment is also partitioned into different stages as well, but this is for for performance reasons since App Mesh operations are very fast. The reason for the separation is simply so you can tear down the Color App without tearing down the demo mesh in case you also have other sample apps running in it for experimentation.
 
 **Infrastructure templates:**
 
