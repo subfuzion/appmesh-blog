@@ -1,6 +1,6 @@
 # App Mesh Walkthrough: Deploy the Color App on ECS
 
-This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch. The following diagram shows a high level conceptual view of this simple application:
+This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch. The following diagram shows the programming model of this simple application. This is literally the programmer's perspective of the application:
 
 ![appmesh-color-app-demo-1](appmesh-color-app-demo-1.png)
 <p align="center"><b><i>Figure 1.</i></b> Conceptual perspective of the Color App.</p>
