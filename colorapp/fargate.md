@@ -35,6 +35,16 @@ Finally, there is the physical deployment of the application itself to a compute
 
 For the initial configuration, we want 100% of our traffic going to `colorteller-blue`, which represents version 1 of our colorteller service.
 
+Log into the App Mesh console and drill down into "Virtual routers" for the mesh. Configure the HTTP route to send 100% of traffic to the `colorteller-blue` virtual node.
+
+![appmesh-colorteller-route-1](appmesh-colorteller-route-1.png)
+<p align="center"><b><i>Figure 9.</i></b> Routes in the App Mesh console.</p>
+
+Test the service and confirm in X-Ray that the traffic flows through the `colorteller-blue` as expected with no errors.
+
+![appmesh-xray-tracing-2](appmesh-xray-tracing-2.png)
+<p align="center"><b><i>Figure 8.</i></b> Analyzing a request trace.</p>
+
 ### Deploy the new colorteller to Fargate
 
 For this configuration, we will deploy `colorteller-red`, which represents version 2 of our colorteller service. Initally, we will only send 30% of our traffic over to it. If our monitoring indicates that the service is healthy, we'll increase it to 60%, then finally to 100%. In the real world, you might choose more granular increases with automated rollout (and rollback if issues are indicated), but we're keeping things simple for the demo.
