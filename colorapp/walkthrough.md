@@ -511,27 +511,27 @@ Click on the "Traces" button:
 This provides us with a detailed view about how traffic flowed for the request.
 
 ![appmesh-xray-tracing-2](appmesh-xray-tracing-2.png)
-<p align="center"><b><i>Figure 8.</i></b> Analyzing a request trace.</p>
+<p align="center"><b><i>Figure 9.</i></b> Analyzing a request trace.</p>
 
 If we log into the console for AWS App Mesh and drill down into "Virtual routers" for our mesh, we'll see that currently the HTTP route is configured to send 100% of traffic to the `colorteller-blue` virtual node.
 
 ![appmesh-colorteller-route-1](appmesh-colorteller-route-1.png)
-<p align="center"><b><i>Figure 9.</i></b> Routes in the App Mesh console.</p>
+<p align="center"><b><i>Figure 10.</i></b> Routes in the App Mesh console.</p>
 
 Click the "Edit" button to modify the route configuration:
 
 ![appmesh-colorteller-route-2](appmesh-colorteller-route-2.png)
-<p align="center"><b><i>Figure 10.</i></b> Editing a route.</p>
+<p align="center"><b><i>Figure 11.</i></b> Editing a route.</p>
 
 Click the "Add target" button, choose "colorteller-red-vn", and set the weight to `1`.
 
 ![appmesh-colorteller-route-3](appmesh-colorteller-route-3.png)
-<p align="center"><b><i>Figure 11.</i></b> Adding another virtual node to a route.</p>
+<p align="center"><b><i>Figure 12.</i></b> Adding another virtual node to a route.</p>
 
 After saving the updated route configuration, you should see:
 
 ![appmesh-colorteller-route-4](appmesh-colorteller-route-4.png)
-<p align="center"><b><i>Figure 12.</i></b> The updated route for splitting traffic across two virtual nodes.</p>
+<p align="center"><b><i>Figure 13.</i></b> The updated route for splitting traffic across two virtual nodes.</p>
 
 Now when you fetch a color, you should start to see "red" responses. Over time, the histogram (`stats`) field will show the distribution approaching 50% for each:
 
@@ -543,7 +543,7 @@ $ curl $colorapp/color
 And if you refresh the X-Ray Service map, you should see something like this:
 
 ![appmesh-xray-service-map-2](appmesh-xray-service-map-2.png)
-<p align="center"><b><i>Figure 13.</i></b> The updated service map with split traffic.</p>
+<p align="center"><b><i>Figure 14.</i></b> The updated service map with split traffic.</p>
 
 AWS X-Ray is a valuable tool for providing insight into your application request traffic. See the [AWS X-Ray docs] to learn more instrumenting your own microservice applications to analyze their performance and the effects of traffic shaping with App Mesh.
 

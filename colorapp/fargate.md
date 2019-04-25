@@ -42,8 +42,8 @@ Log into the App Mesh console and drill down into "Virtual routers" for the mesh
 
 Test the service and confirm in X-Ray that the traffic flows through the `colorteller-blue` as expected with no errors.
 
-![appmesh-xray-tracing-2](appmesh-xray-tracing-2.png)
-<p align="center"><b><i>Figure 8.</i></b> Analyzing a request trace.</p>
+![appmesh-xray-tracing-1](appmesh-xray-tracing-1.png)
+<p align="center"><b><i>Figure 8.</i></b> Tracing the colorgateway virtual node.</p>
 
 ### Deploy the new colorteller to Fargate
 
