@@ -20,6 +20,7 @@ Relative links are relative to this directory (`REPO/.colorapp/`). Keep current 
 [Envoy]  
 [Envoy documentation]  
 [Envoy Image]  
+[Fargate] 
 [github.com/aws/app-mesh-examples]  
 [Internet Gateway]  
 [jq]  
@@ -46,6 +47,7 @@ Relative links are relative to this directory (`REPO/.colorapp/`). Keep current 
 [Envoy]: https://www.envoyproxy.io/ 
 [Envoy documentation]: https://www.envoyproxy.io/docs/envoy/latest/
 [Envoy Image]: https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html
+[Fargate]: https://aws.amazon.com/fargate/
 [github.com/aws/app-mesh-examples]: https://github.com/aws/aws-app-mesh-examples
 [Internet Gateway]: https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
 [jq]: https://stedolan.github.io/jq/

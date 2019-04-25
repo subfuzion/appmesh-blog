@@ -3,7 +3,7 @@
 This is a walkthrough for deploying the [Color App] that was demonstrated at the AWS App Mesh launch. The following diagram shows the programming model of this simple application. This is literally the programmer's perspective of the application:
 
 ![appmesh-color-app-demo-1](appmesh-color-app-demo-1.png)
-<p align="center"><b><i>Figure 1.</i></b> Conceptual perspective of the Color App.</p>
+<p align="center"><b><i>Figure 1.</i></b> Programmer perspective of the Color App.</p>
 
 In this post, we'll walk through creating specific abstract resources for [AWS App Mesh] that will be used to drive a physical mapping to compute resources to stitch our application together, providing us with fine-grained control over traffic routing and end-to-end visibility of application request traffic and performance. The following diagram represents the abstract view in terms of App Mesh resources:
 
