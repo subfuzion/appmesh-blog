@@ -20,7 +20,7 @@ In terms of App Mesh configuration, we will want to begin shifting traffic over 
 
 Finally, there is the physical deployment of the application itself to a compute environment. In this demo, `colorteller-blue` runs on ECS using the EC2 launch type and `colorteller-red` will run on ECS using the Fargate launch type. Our goal is to test with a portion of traffic going to `colorteller-blue`, ultimately increasing to 100% of traffic going to this version.
 
-![appmesh-color-app-demo-3-2](appmesh-color-app-demo-3-2.svg)
+![appmesh-color-app-demo-3-2](appmesh-color-app-demo-3-2.png)
 <p align="center"><b><i>Figure 3.</i></b> AWS deployment perspective of the Color App.</p>
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
