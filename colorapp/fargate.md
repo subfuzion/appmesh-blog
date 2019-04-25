@@ -23,7 +23,44 @@ Finally, there is the physical deployment of the application itself to a compute
 ![appmesh-color-app-demo-3-2](appmesh-color-app-demo-3-2.png)
 <p align="center"><b><i>Figure 3.</i></b> AWS deployment perspective of the Color App.</p>
 
+## Prerequisites
+
+1. Ensure you have set up the prerequites already documented in the previous [walkthrough prerequisites].
+
+2. You have successfully deployed the Color App as described in the walkthrough [article].
+
+## Configuration
+
+### Initial configuration
+
+For the initial configuration, we want 100% of our traffic going to `colorteller-blue`, which represents version 1 of our colorteller service.
+
+### Deploy the new colorteller to Fargate
+
+For this configuration, we will deploy `colorteller-red`, which represents version 2 of our colorteller service. Initally, we will only send 30% of our traffic over to it. If our monitoring indicates that the service is healthy, we'll increase it to 60%, then finally to 100%. In the real world, you might choose more granular increases with automated rollout (and rollback if issues are indicated), but we're keeping things simple for the demo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [article]: ./walkthrough.md
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
 [Fargate]: https://aws.amazon.com/fargate/
+[walkthrough prerequisites]: https://medium.com/containers-on-aws/aws-app-mesh-walkthrough-deploy-the-color-app-on-amazon-ecs-de3452846e9d#42cf
