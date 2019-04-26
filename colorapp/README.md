@@ -14,5 +14,5 @@
 
 
 [Deep Dive]: ./deepdive.md
-[Using AWS App Mesh with Fargate]: ./fargate.md
+[Using AWS App Mesh with Fargate]: ./fargate/README.md
 [Walkthrough]: ./walkthrough.md
