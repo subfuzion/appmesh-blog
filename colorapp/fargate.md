@@ -49,6 +49,9 @@ Test the service and confirm in X-Ray that the traffic flows through the `colort
 
 For this configuration, we will deploy `colorteller-red`, which represents version 2 of our colorteller service. Initally, we will only send 30% of our traffic over to it. If our monitoring indicates that the service is healthy, we'll increase it to 60%, then finally to 100%. In the real world, you might choose more granular increases with automated rollout (and rollback if issues are indicated), but we're keeping things simple for the demo.
 
+As part of the original [walkthrough] we pushed the `gateway` and `colorteller` images to ECR (see [Deploy Images]). We are going to create a Fargate task using our `colorteller` image and the `envoy` image for App Mesh. When the task is deployed, the running `envoy` container will be a sidecar for the `colorteller` container. A sidecar container will always be co-located on the same physical node (compute resource) and its lifecycle coupled to the lifecycle of the primary application container (see [Sidecar Pattern]).
+
+
 
 
 
@@ -72,5 +75,7 @@ For this configuration, we will deploy `colorteller-red`, which represents versi
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
 [article]: ./walkthrough.md
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
+[Deploy Images]: https://medium.com/p/de3452846e9d#0d56
 [Fargate]: https://aws.amazon.com/fargate/
+[Sidecar Pattern]: https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/ch02.html
 [walkthrough prerequisites]: https://medium.com/containers-on-aws/aws-app-mesh-walkthrough-deploy-the-color-app-on-amazon-ecs-de3452846e9d#42cf
