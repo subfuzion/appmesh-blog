@@ -4,30 +4,28 @@
 
 In the previous [article], I gave a walkthrough on how to deploy the Color App to ECS and configure [AWS App Mesh] to provide traffic management and observability. In this article, we are going to start to explore what it means when we say that App Mesh is a service mesh that lets you control and monitor services spanning different AWS compute environments. We'll start with using Fargate as an ECS launch type to deploy a specific version of our `colorteller` service before we move on and explore distributing traffic across other environments, such as EC2 and EKS.
 
-This is deliberately intended to be a simple example, but in the real world there are many use cases where creating a service mesh that can bridge different compute environments becomes very useful. This contrived example demonstrates a scenario in which you already have a containerized application running on ECS, but want to shift your workloads to use [Fargate] so that you don't have to manage infrastructure directly. Fargate helps you containerized tasks using the same ECS primitives as the rest of your application without the need to directly configure EC2 instances.
+This is deliberately intended to be a simple example, but in the real world there are many use cases where creating a service mesh that can bridge different compute environments becomes very useful. This contrived example demonstrates a scenario in which you already have a containerized application running on ECS, but want to shift your workloads to use [Fargate] so that you don't have to manage infrastructure directly. Fargate helps you run containerized tasks using the same ECS primitives as the rest of your application without the need to directly configure EC2 instances.
 
-Our strategy will be to deploy a new version of our `colorteller` service with Fargate and begin shifting traffic to it. If all goes well, then we will shift 100% of our traffic to the new version. For this demo, we'll use "blue" to represent the original version and "red" to represent the new version.
+Our strategy will be to deploy a new version of our `colorteller` service with Fargate and begin shifting traffic to it. If all goes well, then we will shift 100% of our traffic to the new version. For this demo, we'll use "blue" to represent the original version and "green" to represent the new version.
 
 As a refresher, this is what the programming model for the Color App looks like:
 
 ![](appmesh-color-app-demo-1.png)
 <p align="center"><b><i>Figure 1.</i></b> Programmer perspective of the Color App.</p>
 
-In terms of App Mesh configuration, we will want to begin shifting traffic over from version 1 (represented by `colorteller-blue`) over to version 2 (represented by `colorteller-red`). Remember, in App Mesh, every version of a service is backed by actual running code somewhere (in this case ECS/Fargate tasks), so each service will have it's own *virtual node* represenation in the mesh:
+In terms of App Mesh configuration, we will want to begin shifting traffic over from version 1 (represented by `colorteller-blue` in the following diagram) over to version 2 (represented by `colorteller-green`). Remember, in App Mesh, every version of a service is backed by actual running code somewhere (in this case ECS/Fargate tasks), so each service will have it's own *virtual node* represenation in the mesh:
 
 ![](appmesh-color-app-demo-2-2.png)
 <p align="center"><b><i>Figure 2.</i></b> App Mesh configuration of the Color App.</p>
 
-Finally, there is the physical deployment of the application itself to a compute environment. In this demo, `colorteller-blue` runs on ECS using the EC2 launch type and `colorteller-red` will run on ECS using the Fargate launch type. Our goal is to test with a portion of traffic going to `colorteller-blue`, ultimately increasing to 100% of traffic going to this version.
+Finally, there is the physical deployment of the application itself to a compute environment. In this demo, `colorteller-blue` runs on ECS using the EC2 launch type and `colorteller-green` will run on ECS using the Fargate launch type. Our goal is to test with a portion of traffic going to `colorteller-blue`, ultimately increasing to 100% of traffic going to this version.
 
 ![](appmesh-color-app-demo-3-2.png)
 <p align="center"><b><i>Figure 3.</i></b> AWS deployment perspective of the Color App.</p>
 
 ## Prerequisites
 
-1. Ensure you have set up the prerequites already documented in the previous [walkthrough prerequisites].
-
-2. You have successfully deployed the Color App as described in the walkthrough [article].
+1. You have successfully set up the prerequisites and deployed the Color App as described in the previous [walkthrough].
 
 ## Configuration
 
@@ -47,7 +45,7 @@ Test the service and confirm in X-Ray that the traffic flows through the `colort
 
 ### Deploy the new colorteller to Fargate
 
-For this configuration, we will deploy `colorteller-red`, which represents version 2 of our colorteller service. Initally, we will only send 30% of our traffic over to it. If our monitoring indicates that the service is healthy, we'll increase it to 60%, then finally to 100%. In the real world, you might choose more granular increases with automated rollout (and rollback if issues are indicated), but we're keeping things simple for the demo.
+For this configuration, we will deploy `colorteller-green`, which represents version 2 of our colorteller service. Initally, we will only send 30% of our traffic over to it. If our monitoring indicates that the service is healthy, we'll increase it to 60%, then finally to 100%. In the real world, you might choose more granular increases with automated rollout (and rollback if issues are indicated), but we're keeping things simple for the demo.
 
 As part of the original [walkthrough] we pushed the `gateway` and `colorteller` images to ECR (see [Deploy Images]). We are going to create a Fargate task using our `colorteller` image and the `envoy` image for App Mesh. When the task is deployed, the running `envoy` container will be a sidecar for the `colorteller` container. A sidecar container will always be co-located on the same physical node (compute resource) and its lifecycle coupled to the lifecycle of the primary application container (see [Sidecar Pattern]).
 
@@ -73,9 +71,9 @@ As part of the original [walkthrough] we pushed the `gateway` and `colorteller` 
 
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
-[article]: ./walkthrough.md
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
 [Deploy Images]: https://medium.com/p/de3452846e9d#0d56
 [Fargate]: https://aws.amazon.com/fargate/
 [Sidecar Pattern]: https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/ch02.html
+[walkthrough]: ../walkthrough.md
 [walkthrough prerequisites]: https://medium.com/containers-on-aws/aws-app-mesh-walkthrough-deploy-the-color-app-on-amazon-ecs-de3452846e9d#42cf
