@@ -2,7 +2,7 @@
 
 ## Overview
 
-In my previous post, I gave a [walkthrough] on how to deploy the Color App to ECS and configure [AWS App Mesh] to provide traffic management and observability. In this article, we are going to start to explore what it means when we say that App Mesh is a service mesh that lets you control and monitor services spanning different AWS compute environments. We'll start with using Fargate as an ECS launch type to deploy a specific version of our `colorteller` service before we move on and explore distributing traffic across other environments, such as EC2 and EKS.
+I gave a walkthrough in my [previous article] on how to deploy the Color App to ECS and configure [AWS App Mesh] to provide traffic management and observability. In this article, we are going to start to explore what it means when we say that App Mesh is a service mesh that lets you control and monitor services spanning different AWS compute environments. We'll start with using Fargate as an ECS launch type to deploy a specific version of our `colorteller` service before we move on and explore distributing traffic across other environments, such as EC2 and EKS.
 
 This is deliberately intended to be a simple example, but in the real world there are many use cases where creating a service mesh that can bridge different compute environments becomes very useful. This contrived example demonstrates a scenario in which you already have a containerized application running on ECS, but want to shift your workloads to use [Fargate] so that you don't have to manage infrastructure directly. Fargate helps you run containerized tasks using the same ECS primitives as the rest of your application without the need to directly configure EC2 instances.
 
@@ -71,6 +71,7 @@ As part of the original [walkthrough] we pushed the `gateway` and `colorteller` 
 
 
 [A/B testing]: https://en.wikipedia.org/wiki/A/B_testing
+[previous article]: ../walkthrough.md
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
 [Deploy Images]: https://medium.com/p/de3452846e9d#0d56
 [Fargate]: https://aws.amazon.com/fargate/
