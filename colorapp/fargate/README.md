@@ -38,12 +38,12 @@ For the initial configuration, we want 100% of our traffic going to `colorteller
 Log into the App Mesh console and drill down into "Virtual routers" for the mesh. Configure the HTTP route to send 100% of traffic to the `colorteller-blue` virtual node.
 
 ![](../appmesh-colorteller-route-1.png)
-<p align="center"><b><i>Figure 9.</i></b> Routes in the App Mesh console.</p>
+<p align="center"><b><i>Figure 4.</i></b> Routes in the App Mesh console.</p>
 
 Test the service and confirm in X-Ray that the traffic flows through the `colorteller-blue` as expected with no errors.
 
 ![](../appmesh-xray-tracing-1.png)
-<p align="center"><b><i>Figure 8.</i></b> Tracing the colorgateway virtual node.</p>
+<p align="center"><b><i>Figure 5.</i></b> Tracing the colorgateway virtual node.</p>
 
 ### Deploy the new colorteller to Fargate
 
