@@ -10,7 +10,7 @@ Our strategy will be to deploy a new version of our `colorteller` service with F
 
 As a refresher, this is what the programming model for the Color App looks like:
 
-![](appmesh-color-app-demo-1.png)
+![](../appmesh-color-app-demo-1.png)
 <p align="center"><b><i>Figure 1.</i></b> Programmer perspective of the Color App.</p>
 
 In terms of App Mesh configuration, we will want to begin shifting traffic over from version 1 (represented by `colorteller-blue` in the following diagram) over to version 2 (represented by `colorteller-green`). Remember, in App Mesh, every version of a service is backed by actual running code somewhere (in this case ECS/Fargate tasks), so each service will have it's own *virtual node* represenation in the mesh:
