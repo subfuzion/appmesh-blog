@@ -6,8 +6,19 @@ SVG := $(shell ls ~/Downloads/appmesh-*.svg 2>/dev/null)
 .DEFAULT_GOAL := published
 
 .PHONY: getassets
-getassets: $(SVG)
-	@mv $(SVG) colorapp/ 2>/dev/null || true
+getassets: $(FGSVG)
+	@for f in $$(ls ~/Downloads/appmesh-fargate-*.svg 2>/dev/null); do \
+		f=$$(basename $$f); \
+		echo $$f; \
+		mv ~/Downloads/$$f colorapp/fargate; \
+		(cd colorapp/fargate && convert-svg-to-png --width 1600 $$f); \
+	done
+	@for f in $$(ls ~/Downloads/appmesh-*.svg 2>/dev/null); do \
+		f=$$(basename $$f); \
+		echo $$f; \
+		mv ~/Downloads/$$f colorapp; \
+		(cd colorapp/fargate && convert-svg-to-png --width 1600 $$f); \
+	done
 
 published: $(ASSETS)
 	@git add . && git commit -am "Update colorapp" && git push -u origin master
@@ -19,4 +30,3 @@ publish: getassets
 	@git add . && git commit -am "Update colorapp" && git push -u origin master
 	@echo $$(date) > published
 	@echo "published:" $$(cat published)
-

@@ -10,17 +10,17 @@ Our strategy will be to deploy a new version of our `colorteller` service with F
 
 As a refresher, this is what the programming model for the Color App looks like:
 
-![](../appmesh-color-app-demo-1.png)
+![](../appmesh-fargate-colorapp-demo-1.png)
 <p align="center"><b><i>Figure 1.</i></b> Programmer perspective of the Color App.</p>
 
 In terms of App Mesh configuration, we will want to begin shifting traffic over from version 1 (represented by `colorteller-blue` in the following diagram) over to version 2 (represented by `colorteller-green`). Remember, in App Mesh, every version of a service is backed by actual running code somewhere (in this case ECS/Fargate tasks), so each service will have it's own *virtual node* represenation in the mesh:
 
-![](appmesh-color-app-demo-2-2.png)
+![](appmesh-fargate-colorapp-demo-2.png)
 <p align="center"><b><i>Figure 2.</i></b> App Mesh configuration of the Color App.</p>
 
 Finally, there is the physical deployment of the application itself to a compute environment. In this demo, `colorteller-blue` runs on ECS using the EC2 launch type and `colorteller-green` will run on ECS using the Fargate launch type. Our goal is to test with a portion of traffic going to `colorteller-blue`, ultimately increasing to 100% of traffic going to this version.
 
-![](appmesh-color-app-demo-3-2.png)
+![](appmesh-fargate-colorapp-demo-3.png)
 <p align="center"><b><i>Figure 3.</i></b> AWS deployment perspective of the Color App.</p>
 
 ## Prerequisites
