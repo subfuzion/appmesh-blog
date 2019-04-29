@@ -2,18 +2,18 @@
 
 ## Overview
 
-I gave a walkthrough in my [previous article] on how to deploy a simple microservice application (called the Color App) to ECS and configure [AWS App Mesh] to provide traffic control and observability for it. In this article, we are going to start to explore what it means when we say that App Mesh is a service mesh that lets you control and monitor services spanning different AWS compute environments. We'll start with using Fargate as an ECS launch type to deploy a specific version of our `colorteller` service before we move on and explore distributing traffic across other environments, such as EC2 and EKS.
+I gave a walkthrough in my [previous article] on how to deploy a simple microservice application to ECS and configure [AWS App Mesh] to provide traffic control and observability for it. In this article, we are going to start to explore what it means when we say that App Mesh is a service mesh that lets you control and monitor services spanning multiple AWS compute environments. We'll start with using Fargate as an ECS launch type to deploy a specific version of our `colorteller` service before we move on and explore distributing traffic across other environments, such as EC2 and EKS.
 
-This is intentionally meant to be a simple example for clarity, but in the real world there are many use cases where creating a service mesh that can bridge different compute environments becomes very useful. This contrived example demonstrates a scenario in which you already have a containerized application running on ECS, but want to shift your workloads to use [Fargate] so that you don't have to manage infrastructure directly. Fargate helps you run containerized tasks using the same ECS primitives as the rest of your application without the need to directly configure EC2 instances.
+This is intentionally meant to be a simple example for clarity, but in the real world there are many use cases where creating a service mesh that can bridge different compute environments becomes very useful. Fargate is a compute service for AWS that helps you run containerized tasks using the primitives (tasks and services) of an ECS application without the need to directly configure and manage EC2 instances. Our contrived example in this article demonstrates a scenario in which you already have a containerized application running on ECS, but want to shift your workloads to use [Fargate] so that you can evolve your application without the need to manage compute infrastructure directly. 
 
-Our strategy will be to deploy a new version of our `colorteller` service with Fargate and begin shifting traffic to it. If all goes well, then we will shift 100% of our traffic to the new version. For this demo, we'll use "blue" to represent the original version and "green" to represent the new version.
+Our strategy will be to deploy a new version of our `colorteller` service with Fargate and begin shifting traffic to it. If all goes well, then we will continue to shift more traffic to the new version until it is serving 100% of all requests. For this demo, we'll use "blue" to represent the original version and "green" to represent the new version.
 
 As a refresher, this is what the programming model for the Color App looks like:
 
 ![](appmesh-fargate-colorapp-demo-1.png)
 <p align="center"><b><i>Figure 1.</i></b> Programmer perspective of the Color App.</p>
 
-In terms of App Mesh configuration, we will want to begin shifting traffic over from version 1 (represented by `colorteller-blue` in the following diagram) over to version 2 (represented by `colorteller-green`). Remember, in App Mesh, every version of a service is backed by actual running code somewhere (in this case ECS/Fargate tasks), so each service will have it's own *virtual node* represenation in the mesh:
+In terms of App Mesh configuration, we will want to begin shifting traffic over from version 1 (represented by `colorteller-blue` in the following diagram) over to version 2 (represented by `colorteller-green`). Remember, in App Mesh, every version of a service is ultimately backed by actual running code somewhere (in this case ECS/Fargate tasks), so each service will have it's own *virtual node* representation in the mesh that provides this conduit.
 
 ![](appmesh-fargate-colorapp-demo-2.png)
 <p align="center"><b><i>Figure 2.</i></b> App Mesh configuration of the Color App.</p>
