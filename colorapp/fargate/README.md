@@ -198,25 +198,19 @@ Again, we will want to repeat our verification process to confirm that the new v
 
 In this walkthrough, we rolled out an update from version 1 (blue) of our colorteller service to version 2 (green). We demonstrated that App Mesh supports a mesh spanning ECS services that we ran as EC2 tasks and as Fargate tasks. In our next walkthrough, we will demonstrate that App Mesh handles even uncontainerized services launched directly on EC2 instances, providing a uniform and powerful way to control and monitor our distributed microservice applications on AWS.
  
+## Resources
 
+[AWS App Mesh Documentation]
 
+[AWS CLI]
 
+[Color App]
 
+[Currently available AWS regions for App Mesh]
 
+[Envoy Image]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+[Envoy documentation]
 
 
 
@@ -225,7 +219,7 @@ In this walkthrough, we rolled out an update from version 1 (blue) of our colort
 [AWS App Mesh]: https://aws.amazon.com/app-mesh/
 [Deploy Images]: https://medium.com/p/de3452846e9d#0d56
 [Fargate]: https://aws.amazon.com/fargate/
+[repo]: https://github.com/aws/aws-app-mesh-examples
 [Sidecar Pattern]: https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/ch02.html
-[this repo]: https://github.com/subfuzion/appmesh-blog/tree/master/colorapp/fargate
 [walkthrough]: ../walkthrough.md
 [walkthrough prerequisites]: https://medium.com/containers-on-aws/aws-app-mesh-walkthrough-deploy-the-color-app-on-amazon-ecs-de3452846e9d#42cf
