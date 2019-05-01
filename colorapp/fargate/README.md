@@ -106,7 +106,8 @@ $ for ((n=0;n<200;n++)); do echo "$n: $(curl -s $colorapp/color)"; done
 2: {"color":"blue", "stats": {"blue":0.67,"green":0.33}}
 3: {"color":"green", "stats": {"blue":0.5,"green":0.5}}
 4: {"color":"blue", "stats": {"blue":0.6,"green":0.4}}
-5: {"color":"green", "stats": {"blue":0.5,"green":0.5}}
+5: {"color":"gre
+en", "stats": {"blue":0.5,"green":0.5}}
 6: {"color":"blue", "stats": {"blue":0.57,"green":0.43}}
 7: {"color":"blue", "stats": {"blue":0.63,"green":0.38}}
 8: {"color":"green", "stats": {"blue":0.56,"green":0.44}}

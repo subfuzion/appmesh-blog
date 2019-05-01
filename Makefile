@@ -10,8 +10,9 @@ getassets: $(FGSVG)
 	@for f in $$(ls ~/Downloads/appmesh-fargate-*.svg 2>/dev/null); do \
 		f=$$(basename $$f); \
 		echo $$f; \
-		mv ~/Downloads/$$f colorapp/fargate; \
-		(cd colorapp/fargate && convert-svg-to-png --width 1600 $$f); \
+		mkdir -p coloarpp/fargate/img; \
+		mv ~/Downloads/$$f colorapp/fargate/img; \
+		(cd colorapp/fargate/img && convert-svg-to-png --width 1600 $$f); \
 	done
 	@for f in $$(ls ~/Downloads/appmesh-*.svg 2>/dev/null); do \
 		f=$$(basename $$f); \
