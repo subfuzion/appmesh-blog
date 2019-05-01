@@ -17,8 +17,9 @@ getassets: $(FGSVG)
 	@for f in $$(ls ~/Downloads/appmesh-*.svg 2>/dev/null); do \
 		f=$$(basename $$f); \
 		echo $$f; \
-		mv ~/Downloads/$$f colorapp; \
-		(cd colorapp/fargate && convert-svg-to-png --width 1600 $$f); \
+		mkdir -p coloarpp/img; \
+		mv ~/Downloads/$$f colorapp/img; \
+		(cd colorapp/img && convert-svg-to-png --width 1600 $$f); \
 	done
 
 published: $(ASSETS)
