@@ -49,7 +49,9 @@ For this configuration, we will deploy `colorteller-green`, which represents ver
 
 As part of the original [walkthrough] we pushed the `gateway` and `colorteller` images to ECR (see [Deploy Images]) and then launched ECS tasks with these images. We will now launch an ECS task using the Fargate launch type with the same `colorteller` and `envoy` images. When the task is deployed, the running `envoy` container will be a sidecar for the `colorteller` container. Even with the Fargate launch type where we don't manually configure EC2 instances, a sidecar container will always be co-located on the same physical instance and its lifecycle coupled to the lifecycle of the primary application container (see [Sidecar Pattern]).
 
-1. Update the mesh configuration. Our updated CloudFormation templates are located in [this repo].
+#### 1. Update the mesh configuration
+
+Our updated CloudFormation templates are located in [this repo].
 
 This updated mesh configuration adds a new virtual node (`colorteller-green-vn`) and updates the virtual router (`colorteller-vr`) for the `colorteller` virtual service, so that traffic will be distributed between the blue and green virtual nodes at a 2:1 ratio (i.e., the green node will receive one third of the traffic).
 
@@ -63,7 +65,9 @@ Successfully created/updated stack - DEMO-appmesh-colorapp
 $
 ```
 
-2. Deploy the green task to Fargate. The `fargate-colorteller.sh` script creates parameterized template definitions before deploying the `fargate-colorteller.yaml` CloudFormation template. The change to launch a colorteller task as a Fargate task is in `fargate-colorteller-task-def.json`. 
+#### 2. Deploy the green task to Fargate
+
+The `fargate-colorteller.sh` script creates parameterized template definitions before deploying the `fargate-colorteller.yaml` CloudFormation template. The change to launch a colorteller task as a Fargate task is in `fargate-colorteller-task-def.json`. 
 
 ```
 $ ./fargate-colorteller.sh
@@ -75,7 +79,7 @@ Successfully created/updated stack - DEMO-fargate-colorteller
 $
 ```
 
-### Verifying the Fargate deployment
+### Verify the Fargate deployment
 
 The endpoint for the ColorApp is one of the CloudFormation template's outputs. You can view it in the stack output in the CloudFormation console, or fetch it with the AWS CLI:
 
