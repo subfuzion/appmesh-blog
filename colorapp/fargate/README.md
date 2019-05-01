@@ -27,7 +27,7 @@ Finally, there is the physical deployment of the application itself to a compute
 
 1. You have successfully set up the prerequisites and deployed the Color App as described in the previous [walkthrough].
 
-## Configuration
+## Deploy
 
 ### Initial configuration
 
@@ -192,7 +192,12 @@ Successfully created/updated stack - DEMO-appmesh-colorapp
 $
 ```
 
+Again, we will want to repeat our verification process to confirm that the new version of our service is running successfully.
 
+## Summary
+
+In this walkthrough, we rolled out an update from version 1 (blue) of our colorteller service to version 2 (green). We demonstrated that App Mesh supports a mesh spanning ECS services that we ran as EC2 tasks and as Fargate tasks. In our next walkthrough, we will demonstrate that App Mesh handles even uncontainerized services launched directly on EC2 instances, providing a uniform and powerful way to control and monitor our distributed microservice applications on AWS.
+ 
 
 
 
