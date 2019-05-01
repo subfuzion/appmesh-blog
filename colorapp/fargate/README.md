@@ -10,17 +10,17 @@ Our strategy will be to deploy a new version of our `colorteller` service with F
 
 As a refresher, this is what the programming model for the Color App looks like:
 
-![](appmesh-fargate-colorapp-demo-1.png)
+![](img/appmesh-fargate-colorapp-demo-1.png)
 <p align="center"><b><i>Figure 1.</i></b> Programmer perspective of the Color App.</p>
 
 In terms of App Mesh configuration, we will want to begin shifting traffic over from version 1 (represented by `colorteller-blue` in the following diagram) over to version 2 (represented by `colorteller-green`). Remember, in App Mesh, every version of a service is ultimately backed by actual running code somewhere (in this case ECS/Fargate tasks), so each service will have it's own *virtual node* representation in the mesh that provides this conduit.
 
-![](appmesh-fargate-colorapp-demo-2.png)
+![](img/appmesh-fargate-colorapp-demo-2.png)
 <p align="center"><b><i>Figure 2.</i></b> App Mesh configuration of the Color App.</p>
 
 Finally, there is the physical deployment of the application itself to a compute environment. In this demo, `colorteller-blue` runs on ECS using the EC2 launch type and `colorteller-green` will run on ECS using the Fargate launch type. Our goal is to test with a portion of traffic going to `colorteller-blue`, ultimately increasing to 100% of traffic going to this version.
 
-![](appmesh-fargate-colorapp-demo-3.png)
+![](img/appmesh-fargate-colorapp-demo-3.png)
 <p align="center"><b><i>Figure 3.</i></b> AWS deployment perspective of the Color App.</p>
 
 ## Prerequisites
@@ -31,7 +31,7 @@ Finally, there is the physical deployment of the application itself to a compute
 
 ### Initial configuration
 
-For the initial configuration, we want 100% of our traffic going to `colorteller-blue`, which represents version 1 of our colorteller service.
+Once you have deployed the Color App (see #prerequisites), configure the app so that 100% of traffic goes to `colorteller-blue` for now. The blue color will represent version 1 of our colorteller service. There are several ways you can accomplish this and I'll point them out, but then will recommend that you use the last approach.
 
 Log into the App Mesh console and drill down into "Virtual routers" for the mesh. Configure the HTTP route to send 100% of traffic to the `colorteller-blue` virtual node.
 
@@ -47,9 +47,74 @@ Test the service and confirm in X-Ray that the traffic flows through the `colort
 
 For this configuration, we will deploy `colorteller-green`, which represents version 2 of our colorteller service. Initally, we will only send 30% of our traffic over to it. If our monitoring indicates that the service is healthy, we'll increase it to 60%, then finally to 100%. In the real world, you might choose more granular increases with automated rollout (and rollback if issues are indicated), but we're keeping things simple for the demo.
 
-As part of the original [walkthrough] we pushed the `gateway` and `colorteller` images to ECR (see [Deploy Images]). We are going to create a Fargate task using our `colorteller` image and the `envoy` image for App Mesh. When the task is deployed, the running `envoy` container will be a sidecar for the `colorteller` container. A sidecar container will always be co-located on the same physical node (compute resource) and its lifecycle coupled to the lifecycle of the primary application container (see [Sidecar Pattern]).
+As part of the original [walkthrough] we pushed the `gateway` and `colorteller` images to ECR (see [Deploy Images]) and then launched ECS tasks with these images. We will now launch an ECS task using the Fargate launch type with the same `colorteller` and `envoy` images. When the task is deployed, the running `envoy` container will be a sidecar for the `colorteller` container. Even with the Fargate launch type where we don't manually configure EC2 instances, a sidecar container will always be co-located on the same physical instance and its lifecycle coupled to the lifecycle of the primary application container (see [Sidecar Pattern]).
 
+1. Update the mesh configuration. Our updated CloudFormation templates are located in [this repo].
 
+This updated mesh configuration adds a new virtual node (`colorteller-green-vn`) and updates the virtual router (`colorteller-vr`) for the `colorteller` virtual service, so that traffic will be distributed between the blue and green virtual nodes at a 2:1 ratio (i.e., the green node will receive one third of the traffic).
+
+```
+$ ./appmesh-colorapp.sh
+...
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+...
+Successfully created/updated stack - DEMO-appmesh-colorapp
+$
+```
+
+2. Deploy the green task to Fargate. The `fargate-colorteller.sh` script creates parameterized template definitions before deploying the `fargate-colorteller.yaml` CloudFormation template. The change to launch a colorteller task as a Fargate task is in `fargate-colorteller-task-def.json`. 
+
+```
+$ ./fargate-colorteller.sh
+...
+
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+Successfully created/updated stack - DEMO-fargate-colorteller
+$
+```
+
+### Verifying the Fargate deployment
+
+The endpoint for the ColorApp is one of the CloudFormation template's outputs. You can view it in the stack output in the CloudFormation console, or fetch it with the AWS CLI:
+
+```
+$ colorapp=$(aws cloudformation describe-stacks --stack-name=$ENVIRONMENT_NAME-ecs-colorapp --query="Stacks[0
+].Outputs[?OutputKey=='ColorAppEndpoint'].OutputValue" --output=text); echo $colorapp> ].Outputs[?OutputKey=='ColorAppEndpoint'].OutputValue" --output=text); echo $colorapp
+http://DEMO-Publi-YGZIJQXL5U7S-471987363.us-west-2.elb.amazonaws.com
+```
+
+We assigned the endpoint to the `colorapp` environment variable so we can use it for a few curl requests:
+
+```
+$ curl $colorapp/color
+{"color":"blue", "stats": {"blue":1}}
+$
+
+Since the weight of blue to green is 2:1, the result is not unsurprising. Let's run it a few times until we get a green result:
+
+```
+$ for ((n=0;n<200;n++)); do echo "$n: $(curl -s $colorapp/color)"; done
+0: {"color":"blue", "stats": {"blue":1}}
+1: {"color":"green", "stats": {"blue":0.5,"green":0.5}}
+2: {"color":"blue", "stats": {"blue":0.67,"green":0.33}}
+3: {"color":"green", "stats": {"blue":0.5,"green":0.5}}
+4: {"color":"blue", "stats": {"blue":0.6,"green":0.4}}
+5: {"color":"green", "stats": {"blue":0.5,"green":0.5}}
+6: {"color":"blue", "stats": {"blue":0.57,"green":0.43}}
+7: {"color":"blue", "stats": {"blue":0.63,"green":0.38}}
+8: {"color":"green", "stats": {"blue":0.56,"green":0.44}}
+...
+199: {"color":"blue", "stats": {"blue":0.66,"green":0.34}}
+```
+
+So far so good; this looks like what we expected for a 2:1 ratio.
+
+Let's take a look at our X-Ray console:
+
+![](img/appmesh-fargate-xray-blue-green.png)
+<p align="center"><b><i>Figure 5.</i></b> X-Ray console map after initial testing.</p>
 
 
 
@@ -76,5 +141,6 @@ As part of the original [walkthrough] we pushed the `gateway` and `colorteller` 
 [Deploy Images]: https://medium.com/p/de3452846e9d#0d56
 [Fargate]: https://aws.amazon.com/fargate/
 [Sidecar Pattern]: https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/ch02.html
+[this repo]: https://github.com/subfuzion/appmesh-blog/tree/master/colorapp/fargate
 [walkthrough]: ../walkthrough.md
 [walkthrough prerequisites]: https://medium.com/containers-on-aws/aws-app-mesh-walkthrough-deploy-the-color-app-on-amazon-ecs-de3452846e9d#42cf
