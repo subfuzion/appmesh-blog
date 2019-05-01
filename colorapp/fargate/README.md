@@ -128,6 +128,17 @@ Let's take a look at our X-Ray console:
 
 The results look good: 100% success, no errors.
 
+We can now increase the rollout of the new (green) version of our service running on Fargate.
+
+Since we're using CloudFormation to manage our stacks, which lets us keep our configuration under version control and simplifies the process of undeploying resources, we could update the virtual route in `appmesh-colorapp.yaml` and deploy the updated mesh configuration by running `appmesh-colorapp.sh`.
+
+For this demo, however, let's just use the App Mesh console to make the change. Navigate to "Virtual routers" for  "appmesh-mesh", and edit the "colorteller-route". Change it so that the weighted ratio looks like this:
+
+![](img/appmesh-fargate-routing-blue-green-2.png)
+<p align="center"><b><i>Figure 6.</i></b> Modifying route weights with the App Mesh console.</p>
+
+
+
 
 
 
