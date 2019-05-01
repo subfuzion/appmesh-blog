@@ -91,11 +91,16 @@ We assigned the endpoint to the `colorapp` environment variable so we can use it
 $ curl $colorapp/color
 {"color":"blue", "stats": {"blue":1}}
 $
+```
 
-Since the weight of blue to green is 2:1, the result is not unsurprising. Let's run it a few times until we get a green result:
+Since the weight of blue to green is 2:1, the result is not unsurprising. Let's clear the histogram and run it a few times until we get a green result:
 
 ```
+$ curl $colorapp/color/clear
+cleared
+
 $ for ((n=0;n<200;n++)); do echo "$n: $(curl -s $colorapp/color)"; done
+
 0: {"color":"blue", "stats": {"blue":1}}
 1: {"color":"green", "stats": {"blue":0.5,"green":0.5}}
 2: {"color":"blue", "stats": {"blue":0.67,"green":0.33}}
@@ -109,12 +114,15 @@ $ for ((n=0;n<200;n++)); do echo "$n: $(curl -s $colorapp/color)"; done
 199: {"color":"blue", "stats": {"blue":0.66,"green":0.34}}
 ```
 
-So far so good; this looks like what we expected for a 2:1 ratio.
+So far so good: this looks like what we expected for a 2:1 ratio.
 
 Let's take a look at our X-Ray console:
 
 ![](img/appmesh-fargate-xray-blue-green.png)
 <p align="center"><b><i>Figure 5.</i></b> X-Ray console map after initial testing.</p>
+
+The results look good: 100% success, no errors.
+
 
 
 
