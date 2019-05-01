@@ -137,6 +137,62 @@ For this demo, however, let's just use the App Mesh console to make the change. 
 ![](img/appmesh-fargate-routing-blue-green-2.png)
 <p align="center"><b><i>Figure 6.</i></b> Modifying route weights with the App Mesh console.</p>
 
+Let's run our simple verification test again:
+
+```
+$ curl $colorapp/color/clear
+cleared
+fargate $ for ((n=0;n<200;n++)); do echo "$n: $(curl -s $colorapp/color)"; done
+0: {"color":"green", "stats": {"green":1}}
+1: {"color":"blue", "stats": {"blue":0.5,"green":0.5}}
+2: {"color":"green", "stats": {"blue":0.33,"green":0.67}}
+3: {"color":"green", "stats": {"blue":0.25,"green":0.75}}
+4: {"color":"green", "stats": {"blue":0.2,"green":0.8}}
+5: {"color":"green", "stats": {"blue":0.17,"green":0.83}}
+6: {"color":"blue", "stats": {"blue":0.29,"green":0.71}}
+7: {"color":"green", "stats": {"blue":0.25,"green":0.75}}
+...
+199: {"color":"green", "stats": {"blue":0.32,"green":0.68}}
+$
+```
+
+The results look good and we can confirm in the X-Ray console that we see no errors.
+
+Finally, we can shift 100% of our traffic over to the new colorteller version. This time, we'll modify the mesh configuration template and redeploy it:
+
+`appmesh-colorteller.yaml`
+```
+  ColorTellerRoute:
+    Type: AWS::AppMesh::Route
+    DependsOn:
+      - ColorTellerVirtualRouter
+      - ColorTellerGreenVirtualNode
+    Properties:
+      MeshName: !Ref AppMeshMeshName
+      VirtualRouterName: colorteller-vr
+      RouteName: colorteller-route
+      Spec:
+        HttpRoute:
+          Action:
+            WeightedTargets:
+              - VirtualNode: colorteller-green-vn
+                Weight: 1
+          Match:
+            Prefix: "/"
+```
+
+
+```
+$ ./appmesh-colorapp.sh
+...
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+...
+Successfully created/updated stack - DEMO-appmesh-colorapp
+$
+```
+
+
 
 
 
