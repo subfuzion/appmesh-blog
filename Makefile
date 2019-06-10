@@ -6,7 +6,7 @@ SVG := $(shell ls ~/Downloads/appmesh-*.svg 2>/dev/null)
 .DEFAULT_GOAL := published
 
 .PHONY: getassets
-getassets: $(FGSVG)
+getassets: $(SVG)
 	@for f in $$(ls ~/Downloads/appmesh-fargate-*.svg 2>/dev/null); do \
 		f=$$(basename $$f); \
 		echo $$f; \
