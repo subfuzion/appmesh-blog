@@ -139,12 +139,10 @@ In this walkthrough, we demonstrated the flexibility of App Mesh in supporting u
 
 [Color App]
 
-[Currently available AWS regions for App Mesh]
 
-[Envoy Image]
-
-[Envoy documentation]
-
+[AWS App Mesh Documentation]: https://aws.amazon.com/app-mesh/getting-started/
+[AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
+[Color App]: https://github.com/aws/aws-app-mesh-examples
 [ECS walkthrough]: https://github.com/aws/aws-app-mesh-examples/tree/master/examples/apps/colorapp
 [Fargate walkthrough]: https://github.com/aws/aws-app-mesh-examples/tree/master/walkthroughs/fargate
 [repo]: https://github.com/aws/aws-app-mesh-examples
