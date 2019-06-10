@@ -7,6 +7,13 @@ SVG := $(shell ls ~/Downloads/appmesh-*.svg 2>/dev/null)
 
 .PHONY: getassets
 getassets: $(SVG)
+	@for f in $$(ls ~/Downloads/appmesh-ec2-*.svg 2>/dev/null); do \
+		f=$$(basename $$f); \
+		echo $$f; \
+		mkdir -p coloarpp/ec2/img; \
+		mv ~/Downloads/$$f colorapp/ec2/img; \
+		(cd colorapp/ec2/img && convert-svg-to-png --width 1600 $$f); \
+	done
 	@for f in $$(ls ~/Downloads/appmesh-fargate-*.svg 2>/dev/null); do \
 		f=$$(basename $$f); \
 		echo $$f; \

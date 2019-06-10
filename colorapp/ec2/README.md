@@ -4,6 +4,9 @@
 
 In this article, I demonstrate running a service on EC2 and configuring to run with an existing ECS application, adding a route for the service using AWS App Mesh.
 
+![](img/appmesh-ec2-colorapp-demo-2.png)
+<p align="center"><b><i>Figure 2.</i></b> App Mesh configuration of the Color App.</p>
+
 In previous articles I gave walkthroughs for running ECS and Fargate services for a demo application called the Color App using AWS App Mesh to control load balancing and routing (see [ECS walkthrough], [Fargate walkthrough]), so in this article I will just highlight the additional steps for adding the another version of this service that will run on an EC2 instance.
 
 If you haven't read the previous articles, you should at least start with the [ECS walkthrough] first and ensure you have the application up and running. Once you are able to query for colors ([initially load balanced equally between a few colors](https://github.com/aws/aws-app-mesh-examples/blob/master/examples/apps/colorapp/servicemesh/appmesh-colorapp.yaml#L127-L132), then you'll be ready to follow along with this walkthrough.
