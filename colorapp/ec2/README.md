@@ -2,10 +2,14 @@
 
 ## Overview
 
-In this article, I demonstrate running a service on EC2 and configuring to run with an existing ECS application, adding a route for the service using AWS App Mesh.
+In this article, I demonstrate (1) running an existing application in an ECS cluster and (2) configuring it to run with an additional service running on EC2, using AWS App Mesh to configure routing and load balancing:
 
 ![](img/appmesh-ec2-colorapp-demo.png)
 <p align="center"><b><i>Figure 2.</i></b> App Mesh configuration of the Color App.</p>
+
+
+
+### Background
 
 In previous articles I gave walkthroughs for running ECS and Fargate services for a demo application called the Color App using AWS App Mesh to control load balancing and routing (see [ECS walkthrough], [Fargate walkthrough]), so in this article I will just highlight the additional steps for adding the another version of this service that will run on an EC2 instance.
 
