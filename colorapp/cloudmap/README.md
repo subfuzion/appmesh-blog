@@ -81,7 +81,7 @@ The output should look something like the above distribution (approaching 50/50 
 
 Conceptually, the Color App demo is quite simple. Here’s the programming model for the app.
 
-![](img/appmesh-cloudmap-colorapp-demo-1.png
+![](img/appmesh-cloudmap-colorapp-demo-1.png)
 
 What the Color App does is accept HTTP requests to the frontend service (gateway). When a request is received for the `/color` resource, the gateway service sends a request to a backend service (colorteller); this backend service responds with a string.
 
@@ -89,9 +89,9 @@ The string response for different versions of the colorteller service is set to 
 
 When the gateway service gets the response back from the colorteller, it creates a JSON response to send back to its caller. The JSON response looks like this:
 
-```
-{"color":"green", "stats": {"blue":0.67,"green":0.33}}
-```
+
+    {"color":"green", "stats": {"blue":0.67,"green":0.33}}
+
 
 This reponse includes the string returned by the colorteller service as well as a histogram ("stats") of all the responses it has received so far.
 
