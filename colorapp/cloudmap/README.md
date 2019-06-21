@@ -21,7 +21,7 @@ To keep this post brief, we’ll introduce Cloud Map integration with a simple e
 1. You have version *1.16.178 or higher* of the AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) installed.
 2. You have cloned the github.com/aws/aws-app-mesh-examples (https://github.com/aws/aws-app-mesh-examples) repo and changed directory to the project root.
 
-### Setup Environment Variables
+### Set Environment Variables
 
 Set or export the following environment variables in your shell:
 
@@ -93,11 +93,11 @@ When the gateway service gets the response back from the colorteller, it creates
     {"color":"green", "stats": {"blue":0.67,"green":0.33}}
 
 
-This reponse includes the string returned by the colorteller service as well as a histogram ("stats") of all the responses it has received so far.
+This response includes the string returned by the colorteller service as well as a histogram ("stats") of all the responses it has received so far.
 
-This is a very simple app that is ideal for demonstrating a number of App Mesh features without the complexity of the app itself obfuscating the demo. With just these two nodes, we can demonstrate features like shifting traffic between two versions of the colorteller service. For this demo, we are simply demonstrating what the AWS App Mesh configuration for service discovery using AWS Cloud Map looks like so that the gateway service is able to communicate with its backend, the colorteller service.
+This is a very simple app ideal for demonstrating a number of App Mesh features without the complexity of the app itself obfuscating the demo. With just these two nodes, we can demonstrate features like shifting traffic between two versions of the colorteller service. For this demo, we are simply demonstrating what the AWS App Mesh configuration for service discovery using AWS Cloud Map looks like so that the gateway service is able to communicate with its backend, the colorteller service.
 
-The source for these two microservices is in the repo under examples/apps/colorapp/src/gateway and examples/apps/colorapp/src/colorteller.  These are Go programs and each directory has a script that can be used to build Docker images using the supplied Dockerfile and then push them to an ECR repository in your AWS account. The containerized toolchain builds the Go source so that you don’t have to install or configure anything else on your own computer other than Docker.
+The source for these two microservices is in the repo under examples/apps/colorapp/src/gateway and examples/apps/colorapp/src/colorteller.  These are Go programs and each directory has a script that can be used to build Docker images using the supplied Dockerfile and then pushed to an ECR repository under your AWS account. The containerized toolchain builds the Go source so that you don’t have to install or configure anything else on your own computer other than Docker.
 
 However, for this demo, you won’t need to do even that. A copy of each image was also pushed to Docker Hub, an online registry of Docker image repositories and they are publicly available as subfuzion/colorgateway (https://cloud.docker.com/u/subfuzion/repository/docker/subfuzion/colorgateway) and subfuzion/colorteller (https://cloud.docker.com/u/subfuzion/repository/docker/subfuzion/colorteller). These images are used as part of the TaskDefinition resource declarations in app.yaml to start the app containers for the colorgateway (https://github.com/aws/aws-app-mesh-examples/blob/master/walkthroughs/howto-servicediscovery-cloudmap/app.yaml#L192)  task and the blue colorteller (https://github.com/aws/aws-app-mesh-examples/blob/master/walkthroughs/howto-servicediscovery-cloudmap/app.yaml#L192) and green colorteller (https://github.com/aws/aws-app-mesh-examples/blob/master/walkthroughs/howto-servicediscovery-cloudmap/app.yaml#L358) tasks.
 
@@ -107,7 +107,7 @@ The physical deployment model for the Color App is very straightforward for this
 
 ![](img/appmesh-cloudmap-colorapp-demo-3.png)
 
-In this demo, we launch the gateway and colorteller services (two different versions of colorteller, "blue" and "green") using Fargate. We use Fargate to keep the demo simple, but App Mesh service discovery works just the same if the services are running on ECS, EKS, directly on EC2 instances, or any combinaton of these.
+In this demo, we launch the gateway and colorteller services (two different versions of colorteller, "blue" and "green") using Fargate. We use Fargate to keep the demo simple, but App Mesh service discovery works just the same if the services are running on ECS, EKS, directly on EC2 instances, or any combination of these.
 
 If you inspect the source code for the gateway service, you see that it gets the connection information for the colorteller service from the environment. It reads the colorteller endpoint from here (https://github.com/aws/aws-app-mesh-examples/blob/master/examples/apps/colorapp/src/gateway/main.go#L47).
 
@@ -120,13 +120,13 @@ But how is the value for the endpoint specified here actually computed? The envi
           Value: !Sub "colorteller.${AWS::StackName}-mesh.local:9080"
 ```
 
-For this demo, we set `RESOURCE_PREFIX` to "demo" and then deployed this stack using this as the name, so the value works out to:
+For this demo, we set `RESOURCE_PREFIX` to "demo" and then deployed the stack using this as the stackname (https://github.com/aws/aws-app-mesh-examples/blob/master/walkthroughs/howto-servicediscovery-cloudmap/deploy.sh#L29), so the value is transformed to:
 
     colorteller.demo-mesh.local:9080
 
-So this is what the running gateway service will be configured with. It will sent an HTTP request to colorteller.demo-mesh.local:9080 and use the response to return a color to the caller.
+So this is the endpoint value that the running gateway service will be configured with. The gateway service tasks will send an HTTP request to colorteller.demo-mesh.local:9080 and use the response it receives to return a color to the caller.
 
-So how does `colorteller.demo-mesh.local` actually resolve? This will resolve thanks to App Mesh configuration and integration with Cloud Map, which will be discussed next.
+How does `colorteller.demo-mesh.local` actually resolve to an IP address? It will resolve thanks to App Mesh configuration and integration with Cloud Map, which will be discussed next.
 
 ### App Mesh Configuration
 
