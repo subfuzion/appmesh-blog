@@ -25,9 +25,9 @@ To keep this post brief, we’ll introduce Cloud Map integration with a simple e
 
 Set or export the following environment variables in your shell:
 
-* AWS_PROFILE - your AWS CLI profile (set to default or a named profile).
-* AWS_DEFAULT_REGION - set to one of the Currently available AWS regions for App Mesh (https://docs.aws.amazon.com/general/latest/gr/rande.html#appmesh_region).
-* RESOURCE_PREFIX - will be applied as a prefix to the deployed CloudFormation stack name for the App Mesh resources and to the name of the mesh, and for other resources created by the CloudFormation stacks (such as the VPC, Cloud Map namespace, log groups, etc.).
+* `AWS_PROFILE` - your AWS CLI profile (set to default or a named profile).
+* `AWS_DEFAULT_REGION` - set to one of the Currently available AWS regions for App Mesh (https://docs.aws.amazon.com/general/latest/gr/rande.html#appmesh_region).
+* `RESOURCE_PREFIX` - will be applied as a prefix to the deployed CloudFormation stack name for the App Mesh resources and to the name of the mesh, and for other resources created by the CloudFormation stacks (such as the VPC, Cloud Map namespace, log groups, etc.).
 
 ### Run the demo
 
@@ -35,7 +35,7 @@ Once your environment is ready, run the demo shell script:
 
 *walkthroughs/howto-servicediscovery-cloudmap/deploy.sh*
 
-`
+```
 $ walkthroughs/howto-servicediscovery-cloudmap/deploy.sh
 deploy vpc...
 Waiting for changeset to be created..
