@@ -13,6 +13,7 @@ App Mesh is available in all of the following [AWS regions]:
 | Europe (London)            | eu-west-2      |
 | Europe (Stockholm)         | eu-north-1     |
 | Europe (Frankfurt)         | eu-central-1   |
+| Europe (Paris)             | eu-west-3      |
 | Asia Pacific (Mumbai)      | ap-south-1     |
 | Asia Pacific (Singapore)   | ap-southeast-1 |
 | Asia Pacific (Sydney)      | ap-southeast-2 |
